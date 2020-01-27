@@ -1,15 +1,15 @@
 import { isArrayLike, isBufferLike, isCollectionLike } from "is-like";
 
+const EmptyPrimitives: any[] = [0, NaN, false, null, void 0, ""];
+
+if (typeof BigInt === "function")
+    EmptyPrimitives.push(BigInt("0"));
+
 /**
  * Checks if the target resolves to an empty object or a falsy value.
  */
 export default function isEmpty(target: any): boolean {
-    let emptyPrimitives: any[] = [0, NaN, false, null, void 0, ""];
-
-    if (typeof BigInt === "function")
-        emptyPrimitives.push(BigInt("0"));
-
-    if (emptyPrimitives.includes(target))
+    if (EmptyPrimitives.includes(target))
         return true;
 
     if (typeof target === "object") {
