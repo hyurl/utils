@@ -14,7 +14,7 @@ included in the future. Each function is stored in a separated file.
 - `isSubClassOf`[.ts](./src/isSubClassOf.ts)
 - `isVoid`[.ts](./src/isVoid.ts)
 - `sleep`[.ts](./src/sleep.ts)
-- `split`[.ts](https./src//github.com/hyurl/split-any/blob/master/index.ts)
+- `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
 - `timestamp`[.ts](./src/timestamp.ts)
 - `until`[.ts](./src/until.ts)
 
