@@ -1,0 +1,6 @@
+.vscode/
+test/
+src/
+.gitignore
+tsconfig.json
+*.tgz
