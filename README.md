@@ -13,6 +13,7 @@ included in the future. Each function is stored in a separated file.
 - `isOwnMethod`[.ts](./src/isOwnMethod.ts)
 - `isSubClassOf`[.ts](./src/isSubClassOf.ts)
 - `isVoid`[.ts](./src/isVoid.ts)
+- `keysOf`[.ts](./src/keysOf.ts)
 - `sleep`[.ts](./src/sleep.ts)
 - `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
 - `timestamp`[.ts](./src/timestamp.ts)
