@@ -7,6 +7,7 @@ import isOwnMethod from "./isOwnMethod";
 import isSubClassOf from "./isSubClassOf";
 import isVoid from "./isVoid";
 import keysOf from "./keysOf";
+import pick from "./pick";
 import sleep from "./sleep";
 import spilt from "./spilt";
 import timestamp from "./timestamp";
@@ -22,6 +23,7 @@ export {
     isSubClassOf,
     isVoid,
     keysOf,
+    pick,
     sleep,
     spilt,
     timestamp,
