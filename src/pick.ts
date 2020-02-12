@@ -9,6 +9,6 @@ export default function pick(obj: any, props: (string | number | symbol)[]) {
         return props.reduce((result: any, prop: string) => {
             prop in obj && (result[prop] = obj[prop]);
             return result;
-        }, Object.create(Object.getPrototypeOf(obj)));
+        }, {});
     }
 }

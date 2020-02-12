@@ -7,10 +7,8 @@ describe("pick", () => {
         let err = new Error("Something went wrong");
         let foo = Symbol("foo");
         err[foo] = "Hello, World!";
-        let result = pick(err, ["name", "message", foo]);
 
-        assert(result instanceof Error);
-        assert.deepStrictEqual({ ...result }, {
+        assert.deepStrictEqual(pick(err, ["name", "message", foo]), {
             name: err.name,
             message: err.message,
             [foo]: err[foo]
