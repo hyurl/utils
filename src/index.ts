@@ -1,5 +1,7 @@
+export * from "./types";
 import count from "./count";
 import ensureType from "./ensureType";
+import getGlobal from "./getGlobal";
 import isBetween from "./isBetween";
 import isEmpty from "./isEmpty";
 import isOwnKey from "./isOwnKey";
@@ -17,6 +19,7 @@ import until from "./until";
 export {
     count,
     ensureType,
+    getGlobal,
     isBetween,
     isEmpty,
     isOwnKey,

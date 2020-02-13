@@ -7,6 +7,7 @@ included in the future. Each function is stored in a separated file.
 
 - `count`[.ts](./src/count.ts)
 - `ensureType`[.ts](./src/ensureType.ts)
+- `getGlobal`[.ts](./src/getGlobal.ts)
 - `isBetween`[.ts](./src/isBetween.ts)
 - `isEmpty`[.ts](./src/isEmpty.ts)
 - `isOwnKey`[.ts](./src/isOwnKey.ts)
@@ -46,3 +47,11 @@ This method will only load needed functions, which is recommended.
 import count from "@hyurl/utils/count";
 import ensureType from "@hyurl/utils/ensureType";
 ```
+
+## Utilities Types
+
+Other than utility functions, this package also provides some utility types for
+TypeScript, they are located in the following file and exposed to the global
+namespace.
+
+- [types.ts](./src/types.ts)
