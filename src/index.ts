@@ -14,6 +14,7 @@ import pick from "./pick";
 import sleep from "./sleep";
 import spilt from "./spilt";
 import timestamp from "./timestamp";
+import typeOf from "./typeOf";
 import until from "./until";
 
 export {
@@ -32,5 +33,6 @@ export {
     sleep,
     spilt,
     timestamp,
+    typeOf,
     until
 };
