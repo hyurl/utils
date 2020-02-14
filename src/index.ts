@@ -13,6 +13,7 @@ import omit from "./omit";
 import pick from "./pick";
 import sleep from "./sleep";
 import spilt from "./spilt";
+import throttle from "./throttle";
 import timestamp from "./timestamp";
 import typeOf from "./typeOf";
 import until from "./until";
@@ -32,6 +33,7 @@ export {
     pick,
     sleep,
     spilt,
+    throttle,
     timestamp,
     typeOf,
     until
