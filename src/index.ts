@@ -10,6 +10,7 @@ import isSubClassOf from "./isSubClassOf";
 import isVoid from "./isVoid";
 import keysOf from "./keysOf";
 import omit from "./omit";
+import omitVoid from "./omitVoid";
 import pick from "./pick";
 import sleep from "./sleep";
 import spilt from "./spilt";
@@ -30,6 +31,7 @@ export {
     isVoid,
     keysOf,
     omit,
+    omitVoid,
     pick,
     sleep,
     spilt,
