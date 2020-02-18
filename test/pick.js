@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const pick = require("../pick").default;
+const { pick } = require("..");
 
 describe("pick", () => {
     it("should pick properties from the object", () => {

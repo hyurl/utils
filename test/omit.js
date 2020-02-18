@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const omit = require("../omit").default;
+const { omit } = require("..");
 
 describe("omit", () => {
     it("should omit properties from the object", () => {

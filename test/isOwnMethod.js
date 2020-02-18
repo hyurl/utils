@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isOwnMethod = require("../isOwnMethod").default;
+const { isOwnMethod } = require("..");
 
 class Test {
     constructor() {

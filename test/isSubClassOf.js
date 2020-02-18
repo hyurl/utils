@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isSubClassOf = require("../isSubClassOf").default;
+const { isSubClassOf } = require("..");
 
 class A { }
 class B extends A { }

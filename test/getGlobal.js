@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const { default: getGlobal } = require("../getGlobal");
+const { getGlobal } = require("..");
 
 describe("getGlobal", () => {
     it("should get the global object", () => {

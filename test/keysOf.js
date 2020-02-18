@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const keysOf = require("../keysOf").default;
+const { keysOf } = require("..");
 
 describe("keysOf", () => {
     it("should return the own properties of the object", () => {

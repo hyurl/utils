@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isOwnKey = require("../isOwnKey").default;
+const { isOwnKey } = require("..");
 
 describe("isOwnKey", () => {
     it("should pass for string property", () => {

@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isEmpty = require("../isEmpty").default;
+const { isEmpty } = require("..");
 
 describe("isEmpty", () => {
     describe("check primitives", () => {

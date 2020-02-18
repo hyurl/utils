@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isBetween = require("../isBetween").default;
+const { isBetween } = require("..");
 
 describe("isBetween", () => {
     it("should pass if a number equals to the minimal edge", () => {

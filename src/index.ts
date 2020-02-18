@@ -4,6 +4,9 @@ import ensureType from "./ensureType";
 import getGlobal from "./getGlobal";
 import isBetween from "./isBetween";
 import isEmpty from "./isEmpty";
+import isFloat from "./isFloat";
+import isInteger from "./isInteger";
+import isNumeric from "./isNumeric";
 import isOwnKey from "./isOwnKey";
 import isOwnMethod from "./isOwnMethod";
 import isSubClassOf from "./isSubClassOf";
@@ -24,6 +27,9 @@ export {
     ensureType,
     getGlobal,
     isBetween,
+    isFloat,
+    isInteger,
+    isNumeric,
     isEmpty,
     isOwnKey,
     isOwnMethod,

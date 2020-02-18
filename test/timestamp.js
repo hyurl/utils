@@ -1,7 +1,7 @@
 /* global describe, it */
 const assert = require("assert");
-const timestamp = require("../timestamp").default;
 const moment = require("moment");
+const { timestamp } = require("..");
 
 describe("timestamp", () => {
     describe("in seconds", () => {

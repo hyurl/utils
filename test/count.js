@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const { default: count } = require("../count");
+const { count } = require("..");
 
 describe("count", () => {
     describe("count string length", () => {

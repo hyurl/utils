@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const until = require("../until").default;
+const { until } = require("..");
 
 describe("util", () => {
     it("should hang the execution context util the condition fits", async () => {

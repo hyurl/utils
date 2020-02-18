@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const isVoid = require("../isVoid").default;
+const { isVoid } = require("..");
 
 describe("isVoid", () => {
     it("should pass for null", () => {

@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const omitVoid = require("../omitVoid").default;
+const { omitVoid } = require("..");
 
 describe("omitVoid", () => {
     it("should omit properties of void values from the object", () => {

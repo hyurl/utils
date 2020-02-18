@@ -1,7 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const sleep = require("../sleep").default;
-const timestamp = require("../timestamp").default;
+const { sleep, timestamp } = require("..");
 
 describe("sleep", () => {
     it("should delay for a while before assert", async () => {

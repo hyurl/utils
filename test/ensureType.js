@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const ensureType = require("../ensureType").default;
+const { ensureType } = require("..");
 
 describe("ensureType", () => {
     describe("ensure booleans", () => {

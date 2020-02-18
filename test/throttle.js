@@ -1,7 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const throttle = require("../throttle").default;
-const sleep = require("../sleep").default;
+const { throttle, sleep } = require("..");
 
 describe("throttle", () => {
     it("should create a throttled function and runs the handle function only once", () => {

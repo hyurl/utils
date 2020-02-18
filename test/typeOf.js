@@ -1,6 +1,6 @@
 /* global describe, it */
 const assert = require("assert");
-const typeOf = require("../typeOf").default;
+const { typeOf } = require("..");
 
 describe("typeOf", () => {
     it("should return 'string' for a string", () => {
