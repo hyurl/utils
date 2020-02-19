@@ -16,6 +16,7 @@ import omit from "./omit";
 import omitVoid from "./omitVoid";
 import pick from "./pick";
 import sleep from "./sleep";
+import sort from "./sort";
 import spilt from "./spilt";
 import throttle from "./throttle";
 import timestamp from "./timestamp";
@@ -40,6 +41,7 @@ export {
     omitVoid,
     pick,
     sleep,
+    sort,
     spilt,
     throttle,
     timestamp,

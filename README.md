@@ -22,6 +22,7 @@ included in the future. Each function is stored in a separated file.
 - `omitVoid`[.ts](./src/omitVoid.ts)
 - `pick`[.ts](./src/pick.ts)
 - `sleep`[.ts](./src/sleep.ts)
+- `sort`[.ts](./src/sort.ts)
 - `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
 - `throttle`[.ts](./src/throttle.ts)
 - `timestamp`[.ts](./src/timestamp.ts)
