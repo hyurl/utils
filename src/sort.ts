@@ -31,6 +31,7 @@ export default function sort(
         }
 
         // Emulate stable sort.
+        // Reference: http://blog.vjeux.com/2010/javascript/javascript-sorting-table.html
         return target
             .map((value, index) => ({ value, index }))
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
