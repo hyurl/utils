@@ -66,7 +66,8 @@ function onlyNumbers(arr: any[], type: "number" | "bigint" = "number") {
 
 function shouldUseNativeSort(arr: any[]) {
     if (typeof process?.versions === "object") {
-        return parseFloat(process.versions.v8 || "0") >= 7.0;
+        return arr.length <= 10
+            || parseFloat(process.versions.v8 || "0") >= 7.0;
     } else if (typeof navigator?.userAgent === "string") {
         let match = navigator.userAgent.match(
             /(Chrome|Firefox|Safari|Edge|OPR)\/(\d+)/
