@@ -1,7 +1,7 @@
 /**
  * Creates a new array with sorted elements of the original array, the sorted
  * array is in ascending order by default, unless providing a `compare` function
- * to determine how should the elements are ordered.
+ * to determine how should the elements be ordered.
  * Unlike `Array.prototype.sort()`, this function always guarantees a stable
  * sort; and if all elements are numbers, they're sorted by their values instead
  * of converting to strings for sorting.
@@ -21,7 +21,7 @@ export default function sort(
         let compare = <(a: any, b: any) => number>method;
 
         // If the compare function is omitted and all the elements are numbers
-        // (or of type bigint), sort them by their values.
+        // (or of bigint), sort them by their values.
         if (!compare && (onlyNumbers(target) || onlyNumbers(target, "bigint"))) {
             compare = (a: number, b: number) => a - b;
         }
@@ -30,6 +30,7 @@ export default function sort(
             return [...target].sort(compare);
         }
 
+        // Emulate stable sort.
         return target
             .map((value, index) => ({ value, index }))
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
@@ -37,7 +38,7 @@ export default function sort(
     } else if (target !== null && typeof target === "object") {
         let deep = Boolean(method);
         let keys = [
-            ...sort(Object.getOwnPropertyNames(target)),
+            ...sort(Object.getOwnPropertyNames(target)), // sort the keys
             ...Object.getOwnPropertySymbols(target)
         ];
 
