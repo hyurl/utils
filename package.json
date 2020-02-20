@@ -1,6 +1,6 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Utility functions of HyURL collection.",
   "main": "libs/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "mocha": "^6.2.2"
   },
   "dependencies": {
-    "is-like": "^0.1.3",
+    "is-like": "^0.1.4",
     "moment": "^2.24.0",
     "split-any": "^1.0.1",
     "tslib": "^1.10.0",

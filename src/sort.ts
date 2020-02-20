@@ -1,3 +1,7 @@
+import { isArrayLike } from 'is-like';
+import { ensureArray } from "./ensureType";
+import isRealObject from "./isRealObject";
+
 /**
  * Creates a new array with sorted elements of the original array, the sorted
  * array is in ascending order by default, unless providing a `compare` function
@@ -6,7 +10,7 @@
  * sort; and if all elements are numbers, they're sorted by their values instead
  * of converting to strings for sorting.
  */
-export default function sort<T>(arr: T[], compare?: (a: T, b: T) => number): T[];
+export default function sort<T>(arr: ArrayLike<T>, compare?: (a: T, b: T) => number): T[];
 /**
  * Creates a new object with sorted keys (in ascending order) of the original
  * object, if `deep` is set, the children nodes will be sorted as well.
@@ -17,26 +21,27 @@ export default function sort(
     target: any | any[],
     method: ((a: any, b: any) => number) | boolean = void 0
 ) {
-    if (Array.isArray(target)) {
+    if (isArrayLike(target, true)) {
+        let arr = ensureArray(target);
         let compare = <(a: any, b: any) => number>method;
 
         // If the compare function is omitted and all the elements are numbers
         // (or of bigint), sort them by their values.
-        if (!compare && (onlyNumbers(target) || onlyNumbers(target, "bigint"))) {
+        if (!compare && (onlyNumbers(arr) || onlyNumbers(arr, "bigint"))) {
             compare = (a: number, b: number) => a - b;
         }
 
-        if (shouldUseNativeSort(target)) {
-            return [...target].sort(compare);
+        if (shouldUseNativeSort(arr)) {
+            return arr.sort(compare);
         }
 
         // Emulate stable sort.
         // Reference: http://blog.vjeux.com/2010/javascript/javascript-sorting-table.html
-        return target
+        return arr
             .map((value, index) => ({ value, index }))
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
             .map(({ value }) => value);
-    } else if (target !== null && typeof target === "object") {
+    } else if (isRealObject(target)) {
         let deep = Boolean(method);
         let keys = [
             ...sort(Object.getOwnPropertyNames(target)), // sort the keys
@@ -46,10 +51,12 @@ export default function sort(
         return keys.reduce((result, key) => {
             let value = target[key];
 
-            if (deep && typeof value === "object" && value !== null) {
-                if (Array.isArray(value)) {
-                    value = value.map(item => sort(item, deep));
-                } else {
+            if (deep) {
+                if (isArrayLike(value, true)) {
+                    value = ensureArray(value).map(item => {
+                        return isRealObject(item) ? sort(item, deep) : item;
+                    });
+                } else if (isRealObject(value)) {
                     value = sort(value, deep);
                 }
             }
@@ -57,6 +64,16 @@ export default function sort(
             result[key] = value;
             return result;
         }, {} as any);
+    } else {
+        if (typeof method === "function") {
+            throw new TypeError("The target to sort is not an array");
+        } else if (typeof method === "boolean") {
+            throw new TypeError("The target to sort is not a pure object");
+        } else {
+            throw new TypeError(
+                "The target to sort is not an array or a pure object"
+            );
+        }
     }
 }
 

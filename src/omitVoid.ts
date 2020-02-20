@@ -1,6 +1,7 @@
 import isVoid from "./isVoid";
 import isEmpty from "./isEmpty";
 import keysOf from "./keysOf";
+import { isArrayLike } from 'is-like';
 
 /**
  * Creates an object composed with only the non-void properties.
@@ -24,13 +25,15 @@ export function doOmit<T extends any>(
     if (target === null || typeof target !== "object") {
         return target;
     } else if (omitEmptyObjects && isEmpty(target)) {
-        return depth > 0 ? void 0 : (Array.isArray(target) ? [] : {}) as any;
+        return depth > 0 ? void 0 : (isArrayLike(target, true) ? [] : {}) as any;
     }
 
-    if (Array.isArray(target)) {
+    if (isArrayLike(target, true)) {
         let arr: any[] = [];
 
-        (<any[]>target).forEach(value => {
+        for (let i = 0, len = (<ArrayLike<any>>target).length; i < len; ++i) {
+            let value = target[i];
+
             if (!isVoid(value)) {
                 if (deep) {
                     value = doOmit(value, deep, omitEmptyObjects, depth + 1);
@@ -39,7 +42,7 @@ export function doOmit<T extends any>(
                     arr.push(value);
                 }
             }
-        });
+        }
 
         if (depth > 0 && omitEmptyObjects && isEmpty(arr)) {
             return void 0;

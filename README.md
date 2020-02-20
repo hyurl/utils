@@ -7,6 +7,7 @@ included in the future. Each function is stored in a separated file.
 
 - `count`[.ts](./src/count.ts)
 - `ensureType`[.ts](./src/ensureType.ts)
+- `flatObject`[.ts](./src/flatObject.ts)
 - `getGlobal`[.ts](./src/getGlobal.ts)
 - `isBetween`[.ts](./src/isBetween.ts)
 - `isEmpty`[.ts](./src/isEmpty.ts)
@@ -15,6 +16,7 @@ included in the future. Each function is stored in a separated file.
 - `isNumeric`[.ts](./src/isNumeric.ts)
 - `isOwnKey`[.ts](./src/isOwnKey.ts)
 - `isOwnMethod`[.ts](./src/isOwnMethod.ts)
+- `isRealObject`[.ts](./src/isRealObject.ts)
 - `isSubClassOf`[.ts](./src/isSubClassOf.ts)
 - `isVoid`[.ts](./src/isVoid.ts)
 - `keysOf`[.ts](./src/keysOf.ts)

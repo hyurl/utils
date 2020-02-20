@@ -2,8 +2,8 @@
 const assert = require("assert");
 const { until } = require("..");
 
-describe("util", () => {
-    it("should hang the execution context util the condition fits", async () => {
+describe("until", () => {
+    it("should hang the execution context until the condition fits", async () => {
         let result = 0;
         let expected = 10;
 

@@ -174,4 +174,18 @@ describe("sort", () => {
             ["p", "q", "r"]
         );
     });
+
+    it("should deeply sort an object's properties but leave alone array contents", () => {
+        let result = sort({
+            foo: "Hello",
+            bar: "World",
+            arr: [1, 3, 2, 4, 7, 6, 5]
+        }, true);
+        assert.deepStrictEqual(result, {
+            arr: [1, 3, 2, 4, 7, 6, 5],
+            bar: "World",
+            foo: "Hello",
+        });
+        assert.deepStrictEqual(keysOf(result), ["arr", "bar", "foo"]);
+    })
 });

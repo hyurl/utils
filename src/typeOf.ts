@@ -1,12 +1,22 @@
 import isVoid from './isVoid';
 
+type TypeNames = "string"
+    | "number"
+    | "bigint"
+    | "boolean"
+    | "symbol"
+    | "function"
+    | "class"
+    | "arguments"
+    | "void";
+
 /**
  * Returns a string representation or the constructor of the value's type.
  * NOTE: this function also returns `'void'` when testing `NaN`.
  */
 export default function typeOf<T extends any>(
     target: T
-): "string" | "number" | "bigint" | "boolean" | "symbol" | "function" | "class" | "void" | (new (...args: any[]) => T) {
+): TypeNames | (new (...args: any[]) => T) {
     if (arguments.length === 0)
         throw new TypeError("1 argument is required, 0 given");
     else if (isVoid(target))
@@ -21,7 +31,11 @@ export default function typeOf<T extends any>(
             return "function";
         }
     } else if (type === "object") {
-        return target.constructor || Object;
+        if (Object.prototype.toString.call(target) === "[object Arguments]") {
+            return "arguments";
+        } else {
+            return target.constructor || Object;
+        }
     } else {
         return <any>type;
     }

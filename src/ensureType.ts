@@ -1,5 +1,7 @@
+import { isArrayLike } from 'is-like';
 import isBetween from './isBetween';
-import isOwnKey from './isOwnKey';
+import isRealObject from './isRealObject';
+import keysOf from './keysOf';
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;
@@ -46,19 +48,23 @@ export default function ensureType(target: any): any {
         case "object": {
             if (target === null) {
                 return null;
-            } else if (Array.isArray(target)) {
-                return target.map(ensureType);
+            } else if (isArrayLike(target, true)) {
+                return ensureArray(target).map(ensureType);
+            } else if (isRealObject(target)) {
+                return keysOf(target).reduce((result, key) => {
+                    result[key] = ensureType(target[key]);
+                    return result;
+                }, <Record<string, any>>{});
             } else {
-                return Object.keys(target)
-                    .filter(key => isOwnKey(target, key))
-                    .reduce((result, key) => {
-                        result[key] = ensureType(target[key]);
-                        return result;
-                    }, <Record<string, any>>{});
+                return target;
             }
         }
 
         default:
             return target;
     }
+}
+
+export function ensureArray<T>(value: ArrayLike<T>): T[] {
+    return Array.isArray(value) ? value : Array.from(value);
 }
