@@ -32,19 +32,21 @@ function useThrottle(resource: any, interval: number) {
         }, gcInterval);
     }
 
-    useThrottle.jobs.set(resource, {
-        interval,
-        lastActive: 0,
-        cache: void 0,
-        queue: new Set()
-    });
-
     return async <T, A extends any[]>(
         handle: (...args: A) => T | Promise<T>,
         ...args: A
     ): Promise<T> => {
         let throttle = useThrottle.jobs.get(resource);
         let now = Date.now();
+
+        if (!throttle) {
+            useThrottle.jobs.set(resource, throttle = {
+                interval,
+                lastActive: 0,
+                cache: void 0,
+                queue: new Set()
+            });
+        }
 
         if ((now - throttle.lastActive) >= interval) {
             // Clear cache and update the invoke time before dispatching the new
