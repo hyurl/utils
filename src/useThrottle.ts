@@ -11,6 +11,10 @@ export default useThrottle;
  * Uses throttle strategy on the given resource and returns a throttle function,
  * if a subsequent call happens within the `interval` time, the previous result
  * will be returned and the current `handle` function will not be invoked.
+ * 
+ * NOTE: this function only creates the throttle function once and uses
+ * `interval` only once, any later calls on the same `resource` will return the
+ * initial throttle function.
  */
 function useThrottle(resource: any, interval: number) {
     if (interval < 1) {
@@ -18,7 +22,7 @@ function useThrottle(resource: any, interval: number) {
             "The 'interval' time for throttle must not be smaller than 1"
         );
     } else if (!useThrottle.gcTimer) {
-        let { gcInterval, jobs } = useThrottle;
+        let { gcInterval, tasks: jobs } = useThrottle;
 
         process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
         useThrottle.gcTimer = setInterval(() => {
@@ -32,46 +36,72 @@ function useThrottle(resource: any, interval: number) {
         }, gcInterval);
     }
 
-    return async <T, A extends any[]>(
+    let task = useThrottle.tasks.get(resource);
+
+    if (!task) {
+        useThrottle.tasks.set(resource, task = createThrottleTask(interval));
+    }
+
+    return task.func;
+}
+
+namespace useThrottle {
+    export var gcInterval = 30000;
+    export let gcTimer: NodeJS.Timer = null;
+    export const tasks = new Map<any, ThrottleTask>();
+}
+
+type ThrottleTask = {
+    interval: number;
+    lastActive: number;
+    cache: { value: any, error: any };
+    queue: Set<{ resolve: (value: any) => void, reject: (err: any) => void; }>;
+    func: <T, A extends any[]>(
         handle: (...args: A) => T | Promise<T>,
         ...args: A
-    ): Promise<T> => {
-        let throttle = useThrottle.jobs.get(resource);
+    ) => Promise<T>;
+};
+
+function createThrottleTask(interval: number): ThrottleTask {
+    let task: ThrottleTask = {
+        interval,
+        lastActive: 0,
+        cache: void 0,
+        queue: new Set(),
+        func: void 0
+    };
+
+    async function throttle<T, A extends any[]>(
+        this: ThrottleTask,
+        handle: (...args: A) => T | Promise<T>,
+        ...args: A
+    ): Promise<T> {
         let now = Date.now();
 
-        if (!throttle) {
-            useThrottle.jobs.set(resource, throttle = {
-                interval,
-                lastActive: 0,
-                cache: void 0,
-                queue: new Set()
-            });
-        }
-
-        if ((now - throttle.lastActive) >= interval) {
-            // Clear cache and update the invoke time before dispatching the new
-            // job.
-            throttle.cache = void 0;
-            throttle.lastActive = now;
+        if ((now - this.lastActive) >= interval) {
+            // Clear cache and update the invoke time before dispatching the
+            // new job.
+            this.cache = void 0;
+            this.lastActive = now;
 
             let result: T;
             let error: any;
 
             try {
                 result = await handle(...args);
-                throttle.cache = { value: result, error: null };
+                this.cache = { value: result, error: null };
             } catch (err) {
-                throttle.cache = { value: void 0, error: error = err };
+                this.cache = { value: void 0, error: error = err };
             }
 
             // Resolve or reject subsequent jobs once the result is ready,
             // and make the procedure asynchronous so that they will be
             // performed after the current job.
             setImmediate(() => {
-                if (!isEmpty(throttle.queue)) {
-                    throttle.queue.forEach((job) => {
+                if (!isEmpty(this.queue)) {
+                    this.queue.forEach((job) => {
                         error ? job.reject(error) : job.resolve(result);
-                        throttle.queue.delete(job);
+                        this.queue.delete(job);
                     });
                 }
             });
@@ -80,26 +110,18 @@ function useThrottle(resource: any, interval: number) {
                 throw error;
             else
                 return result;
-        } else if (throttle.cache) {
-            if (throttle.cache.error)
-                throw throttle.cache.error;
+        } else if (this.cache) {
+            if (this.cache.error)
+                throw this.cache.error;
             else
-                return throttle.cache.value as T;
+                return this.cache.value as T;
         } else {
             return new Promise<T>((resolve, reject) => {
-                throttle.queue.add({ resolve, reject });
+                this.queue.add({ resolve, reject });
             });
         }
-    };
-}
+    }
 
-namespace useThrottle {
-    export var gcInterval = 30000;
-    export let gcTimer: NodeJS.Timer = null;
-    export const jobs = new Map<any, {
-        interval: number;
-        lastActive: number;
-        cache: { value: any, error: any };
-        queue: Set<{ resolve: (value: any) => void, reject: (err: any) => void; }>
-    }>();
+    task.func = throttle.bind(task);
+    return task;
 }
