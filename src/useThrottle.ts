@@ -40,7 +40,7 @@ function useThrottle(resource: any, interval: number) {
     });
 
     return async <T, A extends any[]>(
-        handle: (...args: A) => Promise<T>,
+        handle: (...args: A) => T | Promise<T>,
         ...args: A
     ): Promise<T> => {
         let throttle = useThrottle.jobs.get(resource);

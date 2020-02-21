@@ -11,7 +11,7 @@ describe("useThrottle", () => {
         let count = 0;
         let getFullName = useThrottle("getFullName", 100);
         let result = await Promise.all(
-            new Array(10).fill(void 0).map(_ => getFullName(async (firstName, lastName) => {
+            new Array(10).fill(void 0).map(_ => getFullName((firstName, lastName) => {
                 count++;
                 return firstName + " " + lastName;
             }, "Ayon", "Lee"))
