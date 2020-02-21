@@ -59,6 +59,7 @@ function useThrottle(resource: any, interval: number) {
 
             try {
                 result = await handle(...args);
+                throttle.cache = { value: result, error: null };
             } catch (err) {
                 throttle.cache = { value: void 0, error: error = err };
             }
