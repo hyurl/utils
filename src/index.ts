@@ -20,10 +20,10 @@ import pick from "./pick";
 import sleep from "./sleep";
 import sort from "./sort";
 import spilt from "./spilt";
-import throttle from "./throttle";
 import timestamp from "./timestamp";
 import typeOf from "./typeOf";
 import until from "./until";
+import useThrottle from "./useThrottle";
 
 export {
     count,
@@ -47,8 +47,8 @@ export {
     sleep,
     sort,
     spilt,
-    throttle,
     timestamp,
     typeOf,
-    until
+    until,
+    useThrottle
 };
