@@ -54,4 +54,22 @@ describe("omitVoid", () => {
         });
         assert.deepStrictEqual(omitVoid(arr, true, true), []);
     });
+
+    it("should omit properties of empty strings deeply from the object", () => {
+        let obj = {
+            name: "Ayon Lee",
+            nil: void 0,
+            child: {
+                nil: null,
+                str: ""
+            },
+            child2: [NaN]
+        };
+        let arr = [void 0, [null, [NaN, ""]]];
+
+        assert.deepStrictEqual(omitVoid(obj, true, true, true), {
+            name: "Ayon Lee"
+        });
+        assert.deepStrictEqual(omitVoid(arr, true, true, true), []);
+    });
 });
