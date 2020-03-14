@@ -1,5 +1,3 @@
-import * as moment from "moment";
-
 export default timestamp;
 
 /** Returns the current UNIX timestamp. */
@@ -22,7 +20,7 @@ function timestamp(input: any, ms = false) {
     } else if (typeof input === "number") {
         return ms ? input : Math.floor(input / 1000);
     } else {
-        let time = moment(<string>input);
-        return ms ? time.valueOf() : time.unix();
+        let date = new Date(<string>input);
+        return ms ? date.valueOf() : Math.floor(date.valueOf() / 1000);
     }
 }
