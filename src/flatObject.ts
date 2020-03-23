@@ -1,4 +1,5 @@
 import keysOf from './keysOf';
+import isVoid from './isVoid';
 import isRealObject from './isRealObject';
 import { isArrayLike, isBufferLike } from 'is-like';
 
@@ -27,7 +28,7 @@ export default function flatObject<T extends object>(
     depth = 1,
     flatArray = false
 ): OmitChildrenNodes<T> & Record<string | symbol, any> {
-    return flatDeep({}, obj, "", 0, depth, flatArray);
+    return flatDeep({}, obj, void 0, 0, depth, flatArray);
 }
 
 function flatDeep(
@@ -40,6 +41,7 @@ function flatDeep(
 ) {
     let isArr: boolean;
     let isObj: boolean;
+    let isContent = !isVoid(field);
 
     if (depth === maxDepth || (
         !(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&
@@ -58,8 +60,8 @@ function flatDeep(
                 flatDeep(
                     carrier,
                     value,
-                    field ? `${field}.${key}` : key,
-                    field ? depth + 1 : depth,
+                    isContent ? `${field}.${key}` : key,
+                    isContent ? depth + 1 : depth,
                     maxDepth,
                     flatArray
                 );
@@ -71,8 +73,8 @@ function flatDeep(
                 flatDeep(
                     carrier,
                     (<any[]>source)[i],
-                    field ? `${field}.${i}` : String(i),
-                    field ? depth - 1 : depth,
+                    isContent ? `${field}.${i}` : String(i),
+                    isContent ? depth + 1 : depth,
                     maxDepth,
                     flatArray
                 );
