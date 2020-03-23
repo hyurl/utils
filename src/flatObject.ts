@@ -24,9 +24,10 @@ type OmitChildrenNodes<T> = Pick<T, {
  */
 export default function flatObject<T extends object>(
     obj: T,
-    depth = 1
+    depth = 1,
+    flatArray = false
 ): OmitChildrenNodes<T> & Record<string | symbol, any> {
-    return flatDeep({}, obj, "", 0, depth);
+    return flatDeep({}, obj, "", 0, depth, flatArray);
 }
 
 function flatDeep(
@@ -34,7 +35,8 @@ function flatDeep(
     source: any,
     field: string,
     depth: number,
-    maxDepth: number
+    maxDepth: number,
+    flatArray: boolean
 ) {
     let isArr: boolean;
     let isObj: boolean;
@@ -57,20 +59,26 @@ function flatDeep(
                     carrier,
                     value,
                     field ? `${field}.${key}` : key,
-                    depth,
-                    maxDepth
+                    field ? depth + 1 : depth,
+                    maxDepth,
+                    flatArray
                 );
             }
         });
     } else if (isArr) {
-        for (let i = 0, len = (<any[]>source).length; i < len; ++i) {
-            flatDeep(
-                carrier,
-                (<any[]>source)[i],
-                field ? `${field}.${i}` : String(i),
-                depth + 1,
-                maxDepth
-            );
+        if (flatArray) {
+            for (let i = 0, len = (<any[]>source).length; i < len; ++i) {
+                flatDeep(
+                    carrier,
+                    (<any[]>source)[i],
+                    field ? `${field}.${i}` : String(i),
+                    field ? depth - 1 : depth,
+                    maxDepth,
+                    flatArray
+                );
+            }
+        } else if (depth > 0) {
+            carrier[field] = source;
         }
     }
 
