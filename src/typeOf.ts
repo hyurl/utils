@@ -10,6 +10,12 @@ type TypeNames = "string"
     | "arguments"
     | "void";
 
+function isClass(type: Function) {
+    let str = type.toString();
+    return str.slice(0, 6) === "class " ||
+        (/^function [A-Z]/.test(str) && str.includes("[native code]"));
+}
+
 /**
  * Returns a string representation or the constructor of the value's type.
  * NOTE: this function also returns `'void'` when testing `NaN`.
@@ -25,7 +31,7 @@ export default function typeOf<T extends any>(
     let type = typeof target;
 
     if (type === "function") {
-        if (String(target).slice(0, 5) === "class") {
+        if (isClass(<any>target)) {
             return "class";
         } else {
             return "function";
