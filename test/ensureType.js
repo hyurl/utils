@@ -85,6 +85,7 @@ describe("ensureType", () => {
                 bool2: "false",
                 nil: "null",
                 num: "12345",
+                re: "/[a-z]/i",
                 child: {
                     bool3: "yes",
                     bool4: "no",
@@ -96,6 +97,7 @@ describe("ensureType", () => {
                 bool2: false,
                 nil: null,
                 num: 12345,
+                re: /[a-z]/i,
                 child: {
                     bool3: true,
                     bool4: false,

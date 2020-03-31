@@ -4,6 +4,11 @@ import { isArrayLike } from 'is-like';
 import typeOf from './typeOf';
 import ensureType from './ensureType';
 
+if (typeof BigInt === "undefined") {
+    // HACK, prevent throwing error when the runtime doesn't support BigInt.
+    var BigInt: BigIntConstructor = new Function() as any;
+}
+
 // let a = ensure({}, { name: String });
 // let b = ensure([], { name: String });
 // let c = ensure([], [{ name: String }]);
@@ -41,7 +46,7 @@ export default function ensure<T>(obj: any, schema: T = null) {
 
 function isMapEntries(value: any) {
     return Array.isArray(value)
-        && value.every(e => Array.isArray(e) && e.length === 2);
+        && value.every(e => Array.isArray(e));
 }
 
 function couldBeBufferInput(value: any) {
@@ -77,6 +82,7 @@ function cast(value: any, type: any) {
         case Symbol: {
             if (exists) {
                 let _type = typeof value;
+
                 if (_type === "symbol") {
                     return value;
                 } else if (_type === "string" || _type === "number") {
@@ -95,7 +101,7 @@ function cast(value: any, type: any) {
                 : [];
 
         case Object:
-            return exists ? Object(value) : {};
+            return exists ? Object.assign({}, Object(value)) : {};
 
         case Date: {
             if (exists) {
@@ -109,6 +115,27 @@ function cast(value: any, type: any) {
             }
         }
 
+        case RegExp: {
+            if (exists) {
+                if (value instanceof RegExp) {
+                    return value;
+                } else if (typeof value === "string") {
+                    value = value.trim();
+                    let i: number;
+
+                    if (value[0] === "/" && 0 !== (i = value.lastIndexOf("/"))) {
+                        let pattern = value.slice(0, i);
+                        let flags = value.slice(i + 1);
+
+                        return new RegExp(pattern, flags);
+                    } else {
+                        return new RegExp(value);
+                    }
+                }
+            }
+
+            return null;
+        }
 
         case Map: {
             if (exists) {

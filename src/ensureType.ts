@@ -8,6 +8,7 @@ const falsePattern = /^\s*(false|no|off)\s*$/i;
 const nullPattern = /^\s*(null|nil|none|void|undefined)\s*$/i;
 const nanPattern = /^\s*NaN\s*$/;
 const infinityPattern = /^\s*-?Infinity\s*/;
+const regexPattern = /^\s*\/(.+)\/([gimuys]*)\s*$/;
 const numberInterval: [number, number] = [
     Number.MIN_SAFE_INTEGER,
     Number.MAX_SAFE_INTEGER
@@ -21,6 +22,8 @@ const numberInterval: [number, number] = [
 export default function ensureType(target: any): any {
     switch (typeof target) {
         case "string": {
+            let re: RegExpMatchArray;
+
             if (truePattern.test(target)) {
                 return true;
             } else if (falsePattern.test(target)) {
@@ -31,6 +34,8 @@ export default function ensureType(target: any): any {
                 return NaN;
             } else if (infinityPattern.test(target)) {
                 return Number(target);
+            } else if (re = target.match(regexPattern)) {
+                return new RegExp(re[1], re[2]);
             } else {
                 let num = Number(target);
 
