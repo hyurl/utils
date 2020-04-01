@@ -1,5 +1,6 @@
 export * from "./types";
 import count from "./count";
+import ensure from "./ensure";
 import ensureType from "./ensureType";
 import flatObject from "./flatObject";
 import getGlobal from "./getGlobal";
@@ -27,6 +28,7 @@ import useThrottle from "./useThrottle";
 
 export {
     count,
+    ensure,
     ensureType,
     flatObject,
     getGlobal,

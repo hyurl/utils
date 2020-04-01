@@ -1,6 +1,6 @@
+import { isArrayLike } from 'is-like';
 import { Typed } from "./match";
 import isVoid from './isVoid';
-import { isArrayLike } from 'is-like';
 import typeOf from './typeOf';
 import ensureType from './ensureType';
 
@@ -8,11 +8,6 @@ if (typeof BigInt === "undefined") {
     // HACK, prevent throwing error when the runtime doesn't support BigInt.
     var BigInt: BigIntConstructor = new Function() as any;
 }
-
-// let a = ensure({}, { name: String });
-// let b = ensure([], { name: String });
-// let c = ensure([], [{ name: String }]);
-// let [d, e] = ensure([], [{ name: String }, { age: Number }]);
 
 export default function ensure<T>(obj: any): T;
 export default function ensure<T>(arr: object[], schema: [T]): Typed<T>[];
