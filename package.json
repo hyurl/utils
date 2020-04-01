@@ -27,6 +27,7 @@
     "moment": "^2.24.0"
   },
   "dependencies": {
+    "check-iterable": "^1.0.2",
     "is-like": "^0.1.4",
     "split-any": "^1.0.1",
     "tslib": "^1.11.1",

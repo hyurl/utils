@@ -1,4 +1,4 @@
-import { isArrayLike } from 'is-like';
+import { isIterable } from "check-iterable";
 import { Typed } from "./match";
 import isVoid from './isVoid';
 import typeOf from './typeOf';
@@ -48,10 +48,17 @@ function couldBeBufferInput(value: any) {
     return typeof value === "string"
         || value instanceof Uint8Array
         || value instanceof ArrayBuffer
-        || value instanceof SharedArrayBuffer
+        || (typeof SharedArrayBuffer === "function" &&
+            value instanceof SharedArrayBuffer)
         || (Array.isArray(value) && value.every(
             e => typeof e === "number" && e >= 0 && e <= 255
         ));
+}
+
+function isTypedArrayCtor(type: any): type is Pick<Uint8ArrayConstructor, "from"> {
+    return typeof type === "function"
+        && typeof type.from === "function"
+        && /(Big)?(Ui|I)nt(8|16|32|64)(Clamped)?Array$/.test(type.name);
 }
 
 function cast(value: any, type: any) {
@@ -92,8 +99,7 @@ function cast(value: any, type: any) {
             return exists
                 ? (Array.isArray(value)
                     ? value
-                    : (isArrayLike(value) ? Array.from(value) : []))
-                : [];
+                    : (isIterable(value) ? Array.from(value) : [])) : [];
 
         case Object:
             return exists ? Object.assign({}, Object(value)) : {};
@@ -119,7 +125,7 @@ function cast(value: any, type: any) {
                     let i: number;
 
                     if (value[0] === "/" && 0 !== (i = value.lastIndexOf("/"))) {
-                        let pattern = value.slice(0, i);
+                        let pattern = value.slice(1, i);
                         let flags = value.slice(i + 1);
 
                         return new RegExp(pattern, flags);
@@ -172,7 +178,17 @@ function cast(value: any, type: any) {
             let _type = typeOf(type);
 
             if (_type === "class") {
-                return exists && value instanceof type ? value : null;
+                if (exists && value instanceof type) {
+                    return value;
+                } else if (isTypedArrayCtor(type)) {
+                    try {
+                        return type.from(Array.isArray(value) ? value : []);
+                    } catch (e) {
+                        return type.from([]);
+                    }
+                }
+
+                return null;
             } else if (_type === Object // sub-schema
                 && (typeOf(value) === Object) || (Array.isArray(value))
             ) {
