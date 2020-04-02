@@ -12,8 +12,11 @@ type TypeNames = "string"
 
 function isClass(type: Function) {
     let str = type.toString();
-    return str.slice(0, 6) === "class " ||
-        (/^function [A-Z]/.test(str) && str.includes("[native code]"));
+    return str.slice(0, 6) === "class " // ES6 class
+        || (/^function [A-Z]/.test(str)
+            && str.includes("[native code]") // native class
+            && !["BigInt", "Symbol"].includes(type.name)
+        );
 }
 
 /**
