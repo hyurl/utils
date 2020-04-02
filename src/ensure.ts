@@ -69,7 +69,7 @@ function cast(value: any, type: any) {
             return exists ? String(value) : "";
 
         case Number:
-            return exists ? Number(value) : 0;
+            return exists ? parseFloat(value) : 0;
 
         case BigInt:
             return exists
@@ -78,8 +78,25 @@ function cast(value: any, type: any) {
                     : BigInt(Number(value) || 0))
                 : BigInt(0);
 
-        case Boolean:
-            return exists ? Boolean(value) : false;
+        case Boolean: {
+            if (exists) {
+                if (typeof value === "boolean") {
+                    return value;
+                } else if (typeof value === "string") {
+                    value = value.trim();
+
+                    if (["true", "yes", "on"].includes(value)) {
+                        return true;
+                    } else if (["false", "no", "off"].includes(value)) {
+                        return false;
+                    }
+                }
+
+                return Boolean(value);
+            } else {
+                return false;
+            }
+        }
 
         case Symbol: {
             if (exists) {
