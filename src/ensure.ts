@@ -3,17 +3,12 @@ import { Typed } from "./types";
 import isVoid from './isVoid';
 import typeOf from './typeOf';
 import ensureType from './ensureType';
+import getGlobal from './getGlobal';
 
-if (typeof BigInt === "undefined") {
-    // HACK, prevent throwing error when the runtime doesn't support BigInt.
-    function BigInt() { };
-    BigInt();
-}
-
-// if (typeof Buffer === "undefined") {
-//     // HACK, prevent throwing error when the runtime doesn't support Buffer.
-//     var Buffer: typeof global.Buffer = new Function() as any;
-// }
+// HACK, prevent throwing error when the runtime doesn't support BigInt and
+// Buffer.
+var BigInt: BigIntConstructor = getGlobal("BigInt") || new Function() as any;
+var Buffer: typeof global.Buffer = getGlobal("Buffer") || new Function() as any;
 
 export default function ensure<T>(obj: any): T;
 export default function ensure<T>(arr: object[], schema: [T]): Typed<T>[];
@@ -76,6 +71,13 @@ function cast(value: any, type: any) {
 
         case Number:
             return exists ? parseFloat(value) : 0;
+
+        case BigInt:
+            return exists
+                ? (typeof value === "bigint"
+                    ? value
+                    : BigInt(Number(value) || 0))
+                : BigInt(0);
 
         case Boolean: {
             if (exists) {
@@ -178,27 +180,19 @@ function cast(value: any, type: any) {
             return new Map();
         }
 
-        default: {
-            // The existence of BigInt and Buffer depends on the runtime, so
-            // we need to treat them specially,
-            if (typeof BigInt === "function" && type === BigInt) {
-                return exists
-                    ? (typeof value === "bigint"
-                        ? value
-                        : BigInt(Number(value) || 0))
-                    : BigInt(0);
-            } else if (typeof Buffer === "function" && type === Buffer) {
-                if (exists) {
-                    if (Buffer.isBuffer(value)) {
-                        return value;
-                    } else if (couldBeBufferInput(value)) {
-                        return Buffer.from(value);
-                    }
+        case Buffer: {
+            if (exists) {
+                if (Buffer.isBuffer(value)) {
+                    return value;
+                } else if (couldBeBufferInput(value)) {
+                    return Buffer.from(value);
                 }
-
-                return Buffer.from([]);
             }
 
+            return Buffer.from([]);
+        }
+
+        default: {
             let _type = typeOf(type);
 
             if (_type === "class") {
