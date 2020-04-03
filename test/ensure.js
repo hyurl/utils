@@ -3,7 +3,7 @@ const assert = require("assert");
 const { ensure } = require("..");
 
 describe("ensure", () => {
-    it("ensure default values with types", () => {
+    it("should ensure default values with types", () => {
         assert.deepStrictEqual(ensure({}, {
             name: String,
             age: Number,
@@ -11,7 +11,7 @@ describe("ensure", () => {
         }), { name: "", age: 0, tall: false });
     });
 
-    it("ensure default values with set value", () => {
+    it("should ensure default values with set value", () => {
         assert.deepStrictEqual(ensure({}, {
             name: "Luna",
             age: 36,
@@ -19,7 +19,7 @@ describe("ensure", () => {
         }), { name: "Luna", age: 36, isWomen: true });
     });
 
-    it("ensure force casting types of the values", () => {
+    it("should ensure force casting types of the values", () => {
         assert.deepStrictEqual(ensure({
             name: "Luna",
             age: "36",
@@ -31,7 +31,7 @@ describe("ensure", () => {
         }), { name: "Luna", age: 36, isWomen: true });
     });
 
-    it("should force casting compound types from string values", function () {
+    it("should force casting compound types from string values", () => {
         let date = new Date();
         let re1 = /[a-z]/i;
         let re2 = new RegExp("\s+:\d+");

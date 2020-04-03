@@ -1,43 +1,94 @@
 import { isIterable } from "check-iterable";
-import { Typed } from "./types";
+import { Constructed } from "./types";
 import isVoid from './isVoid';
 import typeOf from './typeOf';
 import ensureType from './ensureType';
 import getGlobal from './getGlobal';
+import isSubClassOf from './isSubClassOf';
+import isEmpty from './isEmpty';
 
-// HACK, prevent throwing error when the runtime doesn't support BigInt and
-// Buffer.
+type BasicTypes = "string"
+    | "number"
+    | "bigint"
+    | "boolean"
+    | "symbol"
+    | "undefined"
+    | "object"
+    | "function";
+
+// HACK, prevent throwing error when the runtime doesn't support these types.
 var BigInt: BigIntConstructor = getGlobal("BigInt") || new Function() as any;
+var URL: typeof globalThis.URL = getGlobal("URL") || new Function() as any;
 var Buffer: typeof global.Buffer = getGlobal("Buffer") || new Function() as any;
 
 export default function ensure<T>(obj: any): T;
-export default function ensure<T>(arr: object[], schema: [T]): Typed<T>[];
-export default function ensure<T extends any[]>(arr: object[], schema: T): Typed<T>;
-export default function ensure<T>(arr: object[], schema: T): Typed<T>[];
-export default function ensure<T>(obj: object, schema: T): Typed<T>;
-export default function ensure<T>(obj: any, schema: T = null) {
-    if (typeof obj !== "object") {
+export default function ensure<T>(arr: object[], schema: [T], omitUntyped?: boolean): Constructed<T>[];
+export default function ensure<T extends any[]>(arr: object[], schema: T, omitUntyped?: boolean): Constructed<T>;
+export default function ensure<T>(arr: object[], schema: T, omitUntyped?: boolean): Constructed<T>[];
+export default function ensure<T>(obj: object, schema: T, omitUntyped?: boolean): Constructed<T>;
+export default function ensure<T>(obj: any, schema: T = null, omitUntyped = false) {
+    return makeSure("", obj, schema, omitUntyped);
+}
+
+function makeSure<T>(
+    field: string,
+    value: any,
+    schema: T,
+    omitUntyped: boolean
+): any {
+    if (value === null || typeof value !== "object") {
         return null;
     } else if (isVoid(schema)) {
-        return ensureType(obj);
-    } else if (Array.isArray(obj)) {
+        return ensureType(value);
+    } else if (Array.isArray(value)) {
         if (Array.isArray(schema)) {
             if (schema.length === 0) {
-                return obj;
+                return value;
             } else if (schema.length === 1) {
-                return obj.map(e => ensure(e, schema[0]));
+                return value.map((o, i) => makeSure(
+                    field ? `${field}.${i}` : String(i),
+                    o,
+                    schema[0],
+                    omitUntyped
+                ));
             } else {
-                return schema.map((s, i) => obj[i] ?? ensure(obj[i], s));
+                return schema.map((s, i) => isVoid(value[i]) ? null : makeSure(
+                    field ? field + `${field}.${i}` : String(i),
+                    value[i],
+                    s,
+                    omitUntyped
+                ));
             }
         } else {
-            return obj.map(e => ensure(e, schema));
+            return value.map((o, i) => makeSure(
+                field ? `${field}.${i}` : String(i),
+                o,
+                schema,
+                omitUntyped
+            ));
         }
     }
 
-    return Reflect.ownKeys(<any>schema).reduce((result: any, prop: string) => {
-        result[prop] = cast(obj[prop], (<any>schema)[prop]);
+    let result = Reflect.ownKeys(<any>schema).reduce((result, prop) => {
+        result[prop] = cast(
+            field ? `${field}.${String(prop)}` : String(prop),
+            value[prop], // value
+            (<any>schema)[prop], // constructor or default value
+            omitUntyped
+        );
+
         return result;
-    }, {});
+    }, <any>{});
+
+    if (!omitUntyped) {
+        Reflect.ownKeys(value).forEach(prop => {
+            if (!(prop in result)) {
+                result[prop] = value[prop];
+            }
+        });
+    }
+
+    return result;
 }
 
 function isMapEntries(value: any) {
@@ -56,164 +107,236 @@ function couldBeBufferInput(value: any) {
         ));
 }
 
-function isTypedArrayCtor(type: any): type is Pick<Uint8ArrayConstructor, "from"> {
+function isTypedArrayCtor(type: any): type is Uint8ArrayConstructor {
     return typeof type === "function"
         && typeof type.from === "function"
         && /(Big)?(Ui|I)nt(8|16|32|64)(Clamped)?Array$/.test(type.name);
 }
 
-function cast(value: any, type: any) {
-    let exists = !isVoid(value);
+function isErrorCtor(type: any): type is new (msg: string) => Error {
+    return typeof type === "function"
+        && type === Error || isSubClassOf(type, Error);
+}
 
-    switch (type) {
-        case String:
-            return exists ? String(value) : "";
+function throwTypeError(
+    field: string,
+    type: string
+) {
+    let title = (/^AEIOU/i.test(type) ? "an" : "a") + " " + type;
 
-        case Number:
-            return exists ? parseFloat(value) : 0;
+    throw new TypeError(
+        `The value of ${field} is not ${title} and cannot be casted into one`
+    );
+}
 
-        case BigInt:
-            return exists
-                ? (typeof value === "bigint"
-                    ? value
-                    : BigInt(Number(value) || 0))
-                : BigInt(0);
+function getHandles(
+    ctor: any,
+    value: any
+): [(type: BasicTypes) => any, any, string?] {
+    switch (ctor) {
+        case String: return [() => String(value), ""];
 
-        case Boolean: {
-            if (exists) {
-                if (typeof value === "boolean") {
-                    return value;
-                } else if (typeof value === "string") {
-                    value = value.trim();
+        case Number: return [type => {
+            let num: number;
 
-                    if (["true", "yes", "on"].includes(value)) {
-                        return true;
-                    } else if (["false", "no", "off"].includes(value)) {
-                        return false;
-                    }
-                }
-
-                return Boolean(value);
-            } else {
-                return false;
+            if (type === "number") {
+                return value;
+            } else if (type === "string" && !isNaN(num = Number(value))) {
+                return num;
             }
-        }
+        }, 0, "number"];
 
-        case Symbol: {
-            if (exists) {
+        case BigInt: return [type => {
+            let num: number;
+
+            if (type === "bigint") {
+                return value;
+            } else if (type === "number") {
+                return BigInt(value);
+            } else if (type === "string" && !isNaN(num = Number(value))) {
+                return BigInt(num);
+            }
+        }, BigInt(0), "bigint"];
+
+        case Boolean: return [type => {
+            if (type === "boolean") {
+                return value;
+            } else if (type === "number" || type === "bigint") {
+                return Number(value) === 0 ? false : true;
+            } else if (type === "string") {
+                value = value.trim();
+
+                if (["true", "yes", "on", "1"].includes(value)) {
+                    return true;
+                } else if (["false", "no", "off", "0"].includes(value)) {
+                    return false;
+                }
+            }
+        }, false, "boolean"];
+
+        case Symbol: return [type => {
+            if (type === "symbol") {
+                return value;
+            } else if (type === "string"
+                || type === "number"
+                || type === "bigint"
+            ) {
+                return Symbol.for(String(value));
+            }
+        }, null, "symbol"];
+
+        case Array: return [() => {
+            if (Array.isArray(value)) {
+                return value;
+            } else if (isIterable(value)) {
+                return Array.from(value);
+            }
+        }, () => <any[]>[]];
+
+        case Object: return [() => {
+            try {
+                return { ...Object(value) };
+            } catch (e) { }
+        }, () => ({})];
+
+        case Date: return [type => {
+            if (value instanceof Date) {
+                return value;
+            } else if (type === "string" || type === "number") {
+                return new Date(value);
+            }
+        }, () => new Date()];
+
+        case URL: return [type => {
+            if (value instanceof URL) {
+                return value;
+            } else if (type === "string") {
+                return new URL(value);
+            }
+        }, null];
+
+        case RegExp: return [type => {
+            if (value instanceof RegExp) {
+                return value;
+            } else if (type === "string") {
+                value = value.trim();
+                let i: number;
+
+                if (value[0] === "/" && 0 !== (i = value.lastIndexOf("/"))) {
+                    let pattern = value.slice(1, i);
+                    let flags = value.slice(i + 1);
+
+                    return new RegExp(pattern, flags);
+                } else {
+                    return new RegExp(value);
+                }
+            }
+        }, null];
+
+        case Map: return [() => {
+            if (value instanceof Map) {
+                return value;
+            } else if (isMapEntries(value)) {
+                return new Map(value);
+            }
+        }, () => new Map()];
+
+        case Set: return [() => {
+            if (value instanceof Set) {
+                return value;
+            } else if (Array.isArray(value)) {
+                return new Set(value);
+            }
+        }, () => new Set()];
+
+        case Buffer: return [() => {
+            if (Buffer.isBuffer(value)) {
+                return value;
+            } else if (couldBeBufferInput(value)) {
+                return Buffer.from(value);
+            }
+        }, () => Buffer.from([])];
+    }
+}
+
+function cast(
+    field: string,
+    value: any,
+    ctor: any,
+    omitUntyped: boolean,
+) {
+    let exists = !isVoid(value);
+    let handles = getHandles(ctor, value);
+
+    if (!isEmpty(handles)) {
+        let [handle, defaultValue, label] = handles;
+
+        if (exists) {
+            let result = handle(typeof value);
+
+            if (result === void 0) {
+                throwTypeError(field, label || (<Function>ctor).name);
+            } else {
+                return result;
+            }
+        } else {
+            return defaultValue;
+        }
+    } else {
+        let type = typeOf(ctor);
+
+        if (type === "class") {
+            if (exists && value instanceof ctor) {
+                return value;
+            } else if (isTypedArrayCtor(ctor)) {
+                if (exists) {
+                    if (isIterable(value)) {
+                        try {
+                            return ctor.from(value);
+                        } catch (e) { }
+                    }
+
+                    throwTypeError(field, ctor.name);
+                } else {
+                    return ctor.from([]);
+                }
+            } else if (exists && isErrorCtor(ctor)) {
                 let _type = typeof value;
 
-                if (_type === "symbol") {
-                    return value;
-                } else if (_type === "string" || _type === "number") {
-                    return Symbol.for(String(value));
-                }
-            }
+                if (_type === "string") {
+                    return new ctor(value);
+                } else if (_type === "object"
+                    && typeof value["name"] === "string"
+                    && typeof value["message"] === "string"
+                ) {
+                    ctor = getGlobal(value["name"]) || ctor;
+                    let err = Object.create(ctor.prototype);
 
-            return void 0;
-        }
-
-        case Array:
-            return exists
-                ? (Array.isArray(value)
-                    ? value
-                    : (isIterable(value) ? Array.from(value) : [])) : [];
-
-        case Object:
-            return exists ? Object.assign({}, Object(value)) : {};
-
-        case Date: {
-            if (exists) {
-                if (value instanceof Date) {
-                    return value;
-                } else {
-                    return new Date(value);
-                }
-            } else {
-                return new Date();
-            }
-        }
-
-        case RegExp: {
-            if (exists) {
-                if (value instanceof RegExp) {
-                    return value;
-                } else if (typeof value === "string") {
-                    value = value.trim();
-                    let i: number;
-
-                    if (value[0] === "/" && 0 !== (i = value.lastIndexOf("/"))) {
-                        let pattern = value.slice(1, i);
-                        let flags = value.slice(i + 1);
-
-                        return new RegExp(pattern, flags);
-                    } else {
-                        return new RegExp(value);
+                    if (err.name !== value["name"]) {
+                        Object.defineProperty(err, "name", {
+                            value: value["name"]
+                        });
                     }
+
+                    if (typeof value["stack"] === "string") {
+                        Object.defineProperty(err, "stack", {
+                            value: value["stack"]
+                        });
+                    }
+
+                    return err;
                 }
+
+                throwTypeError(field, ctor.name);
             }
 
             return null;
-        }
-
-        case Map: {
-            if (exists) {
-                if (value instanceof Map) {
-                    return value;
-                } else if (isMapEntries(value)) {
-                    return new Map(value);
-                }
-            }
-
-            return new Map();
-        }
-
-        case Set: {
-            if (exists) {
-                if (value instanceof Set) {
-                    return value;
-                } else if (Array.isArray(value)) {
-                    return new Set(value);
-                }
-            }
-
-            return new Map();
-        }
-
-        case Buffer: {
-            if (exists) {
-                if (Buffer.isBuffer(value)) {
-                    return value;
-                } else if (couldBeBufferInput(value)) {
-                    return Buffer.from(value);
-                }
-            }
-
-            return Buffer.from([]);
-        }
-
-        default: {
-            let _type = typeOf(type);
-
-            if (_type === "class") {
-                if (exists && value instanceof type) {
-                    return value;
-                } else if (isTypedArrayCtor(type)) {
-                    try {
-                        return type.from(Array.isArray(value) ? value : []);
-                    } catch (e) {
-                        return type.from([]);
-                    }
-                }
-
-                return null;
-            } else if (_type === Object // sub-schema
-                && (typeOf(value) === Object) || (Array.isArray(value))
-            ) {
-                return ensure(value, type);
-            } else {
-                return type;
-            }
+        } else if (type === Object // sub-schema
+            && (typeOf(value) === Object) || (Array.isArray(value))
+        ) {
+            return makeSure(field, value, ctor, omitUntyped);
+        } else {
+            return ctor;
         }
     }
 }

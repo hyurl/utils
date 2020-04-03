@@ -15,7 +15,7 @@ declare global {
         "v8debug">>;
 }
 
-export type Typed<T> = {
+export type Constructed<T> = {
     [P in keyof T]: (
         T[P] extends typeof String ? string :
         T[P] extends typeof Number ? number :
@@ -23,9 +23,9 @@ export type Typed<T> = {
         T[P] extends typeof Boolean ? boolean :
         T[P] extends typeof Symbol ? symbol :
         T[P] extends typeof Buffer ? Buffer :
-        T[P] extends (...args: any[]) => any ? T[P] :
         T[P] extends new (...args: any[]) => infer R ? R :
-        T[P] extends object ? Typed<T[P]> :
+        T[P] extends Function ? T[P] :
+        T[P] extends object ? Constructed<T[P]> :
         T[P]
     )
 };
