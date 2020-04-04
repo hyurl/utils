@@ -3,6 +3,8 @@ declare global {
 
     type Ensured<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>;
 
+    type Constructor<T> = Function & { new(...args: any[]): T; prototype: T; };
+
     type Global = Ensured<Partial<NodeJS.Global & Window & typeof globalThis>, keyof Omit<NodeJS.Global,
         "Buffer" |
         "clearImmediate" |
@@ -23,7 +25,7 @@ export type Constructed<T> = {
         T[P] extends typeof Boolean ? boolean :
         T[P] extends typeof Symbol ? symbol :
         T[P] extends typeof Buffer ? Buffer :
-        T[P] extends new (...args: any[]) => infer R ? R :
+        T[P] extends Constructor<infer R> ? R :
         T[P] extends Function ? T[P] :
         T[P] extends object ? Constructed<T[P]> :
         T[P]

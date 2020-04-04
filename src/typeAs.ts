@@ -3,6 +3,6 @@
  * @example
  *  let foo = typeAs(bar, SomeType)?.doSomething();
  */
-export default function typeAs<T>(obj: any, type: new (...args: any[]) => T) {
+export default function typeAs<T>(obj: any, type: Constructor<T>) {
     return obj instanceof type ? obj : null;
 }

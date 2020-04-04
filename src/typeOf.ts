@@ -1,6 +1,7 @@
 import isVoid from './isVoid';
+import isClass from "could-be-class";
 
-type TypeNames = "string"
+export type TypeNames = "string"
     | "number"
     | "bigint"
     | "boolean"
@@ -10,22 +11,13 @@ type TypeNames = "string"
     | "arguments"
     | "void";
 
-function isClass(type: Function) {
-    let str = type.toString();
-    return str.slice(0, 6) === "class " // ES6 class
-        || (/^function [A-Z]/.test(str)
-            && str.includes("[native code]") // native class
-            && !["BigInt", "Symbol"].includes(type.name)
-        );
-}
-
 /**
  * Returns a string representation or the constructor of the value's type.
  * NOTE: this function also returns `'void'` when testing `NaN`.
  */
 export default function typeOf<T extends any>(
     target: T
-): TypeNames | (new (...args: any[]) => T) {
+): TypeNames | Constructor<T> {
     if (arguments.length === 0)
         throw new TypeError("1 argument is required, 0 given");
     else if (isVoid(target))

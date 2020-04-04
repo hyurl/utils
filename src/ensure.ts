@@ -1,20 +1,11 @@
 import { isIterable } from "check-iterable";
 import { Constructed } from "./types";
 import isVoid from './isVoid';
-import typeOf from './typeOf';
+import typeOf, { TypeNames } from './typeOf';
 import ensureType from './ensureType';
 import getGlobal from './getGlobal';
 import isSubClassOf from './isSubClassOf';
 import isEmpty from './isEmpty';
-
-type BasicTypes = "string"
-    | "number"
-    | "bigint"
-    | "boolean"
-    | "symbol"
-    | "undefined"
-    | "object"
-    | "function";
 
 // HACK, prevent throwing error when the runtime doesn't support these types.
 var BigInt: BigIntConstructor = getGlobal("BigInt") || new Function() as any;
@@ -22,10 +13,8 @@ var URL: typeof globalThis.URL = getGlobal("URL") || new Function() as any;
 var Buffer: typeof global.Buffer = getGlobal("Buffer") || new Function() as any;
 
 export default function ensure<T>(obj: any): T;
-export default function ensure<T>(arr: object[], schema: [T], omitUntyped?: boolean): Constructed<T>[];
-export default function ensure<T extends any[]>(arr: object[], schema: T, omitUntyped?: boolean): Constructed<T>;
-export default function ensure<T>(arr: object[], schema: T, omitUntyped?: boolean): Constructed<T>[];
-export default function ensure<T>(obj: object, schema: T, omitUntyped?: boolean): Constructed<T>;
+export default function ensure<T>(arr: any[], schema: [T], omitUntyped?: boolean): Constructed<T>[];
+export default function ensure<T>(obj: any, schema: T, omitUntyped?: boolean): Constructed<T>;
 export default function ensure<T>(obj: any, schema: T = null, omitUntyped = false) {
     return makeSure("", obj, schema, omitUntyped);
 }
@@ -36,15 +25,13 @@ function makeSure<T>(
     schema: T,
     omitUntyped: boolean
 ): any {
-    if (value === null || typeof value !== "object") {
+    if (value === null) {
         return null;
     } else if (isVoid(schema)) {
         return ensureType(value);
-    } else if (Array.isArray(value)) {
-        if (Array.isArray(schema)) {
-            if (schema.length === 0) {
-                return value;
-            } else if (schema.length === 1) {
+    } else if (Array.isArray(schema)) {
+        if (schema.length === 1) {
+            if (Array.isArray(value)) {
                 return value.map((o, i) => makeSure(
                     field ? `${field}.${i}` : String(i),
                     o,
@@ -52,21 +39,19 @@ function makeSure<T>(
                     omitUntyped
                 ));
             } else {
-                return schema.map((s, i) => isVoid(value[i]) ? null : makeSure(
-                    field ? field + `${field}.${i}` : String(i),
-                    value[i],
-                    s,
-                    omitUntyped
-                ));
+                throwTypeError(field, "Array");
             }
+        } else if (!isEmpty(field)) {
+            throw new TypeError(
+                `The array schema of ${field} should only contain one element`
+            );
         } else {
-            return value.map((o, i) => makeSure(
-                field ? `${field}.${i}` : String(i),
-                o,
-                schema,
-                omitUntyped
-            ));
+            throw new TypeError(
+                "An array schema should only contain one element"
+            );
         }
+    } else if (typeof value !== "object" || Array.isArray(value)) {
+        throwTypeError(field, "Object");
     }
 
     let result = Reflect.ownKeys(<any>schema).reduce((result, prop) => {
@@ -108,13 +93,13 @@ function couldBeBufferInput(value: any) {
 }
 
 function isTypedArrayCtor(type: any): type is Uint8ArrayConstructor {
-    return typeof type === "function"
-        && typeof type.from === "function"
+    return typeOf(type) === "class"
+        && typeOf(type.from) === "function"
         && /(Big)?(Ui|I)nt(8|16|32|64)(Clamped)?Array$/.test(type.name);
 }
 
-function isErrorCtor(type: any): type is new (msg: string) => Error {
-    return typeof type === "function"
+function isErrorCtor(type: any): type is Constructor<Error> {
+    return typeOf(type) === "class"
         && type === Error || isSubClassOf(type, Error);
 }
 
@@ -123,16 +108,17 @@ function throwTypeError(
     type: string
 ) {
     let title = (/^AEIOU/i.test(type) ? "an" : "a") + " " + type;
+    let msg = isEmpty(field)
+        ? `The value must be ${title}`
+        : `The value of ${field} is not ${title} and cannot be casted into one`;
 
-    throw new TypeError(
-        `The value of ${field} is not ${title} and cannot be casted into one`
-    );
+    throw new TypeError(msg);
 }
 
 function getHandles(
     ctor: any,
     value: any
-): [(type: BasicTypes) => any, any, string?] {
+): [(type: TypeNames) => any, any, string?] {
     switch (ctor) {
         case String: return [() => String(value), ""];
 
@@ -262,20 +248,20 @@ function getHandles(
 function cast(
     field: string,
     value: any,
-    ctor: any,
+    base: any,
     omitUntyped: boolean,
 ) {
     let exists = !isVoid(value);
-    let handles = getHandles(ctor, value);
+    let handles = getHandles(base, value);
 
     if (!isEmpty(handles)) {
         let [handle, defaultValue, label] = handles;
 
         if (exists) {
-            let result = handle(typeof value);
+            let result = handle(typeOf(value) as TypeNames);
 
             if (result === void 0) {
-                throwTypeError(field, label || (<Function>ctor).name);
+                throwTypeError(field, label || (<Function>base).name);
             } else {
                 return result;
             }
@@ -283,34 +269,34 @@ function cast(
             return defaultValue;
         }
     } else {
-        let type = typeOf(ctor);
+        let type = typeOf(base);
 
         if (type === "class") {
-            if (exists && value instanceof ctor) {
+            if (exists && value instanceof base) {
                 return value;
-            } else if (isTypedArrayCtor(ctor)) {
+            } else if (isTypedArrayCtor(base)) {
                 if (exists) {
                     if (isIterable(value)) {
                         try {
-                            return ctor.from(value);
+                            return base.from(value);
                         } catch (e) { }
                     }
 
-                    throwTypeError(field, ctor.name);
+                    throwTypeError(field, base.name);
                 } else {
-                    return ctor.from([]);
+                    return base.from([]);
                 }
-            } else if (exists && isErrorCtor(ctor)) {
+            } else if (exists && isErrorCtor(base)) {
                 let _type = typeof value;
 
                 if (_type === "string") {
-                    return new ctor(value);
+                    return new base(value);
                 } else if (_type === "object"
                     && typeof value["name"] === "string"
                     && typeof value["message"] === "string"
                 ) {
-                    ctor = getGlobal(value["name"]) || ctor;
-                    let err = Object.create(ctor.prototype);
+                    base = getGlobal(value["name"]) || base;
+                    let err = Object.create(base.prototype);
 
                     if (err.name !== value["name"]) {
                         Object.defineProperty(err, "name", {
@@ -327,16 +313,14 @@ function cast(
                     return err;
                 }
 
-                throwTypeError(field, ctor.name);
+                throwTypeError(field, base.name);
             }
 
             return null;
-        } else if (type === Object // sub-schema
-            && (typeOf(value) === Object) || (Array.isArray(value))
-        ) {
-            return makeSure(field, value, ctor, omitUntyped);
+        } else if (type === Object || Array.isArray(base)) { // sub-schema
+            return makeSure(field, value, base, omitUntyped);
         } else {
-            return ctor;
+            return exists ? value : base;
         }
     }
 }

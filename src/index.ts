@@ -1,4 +1,4 @@
-export * from "./types";
+import "./types";
 import count from "./count";
 import ensure from "./ensure";
 import ensureType from "./ensureType";

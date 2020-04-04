@@ -28,9 +28,13 @@
   },
   "dependencies": {
     "check-iterable": "^1.0.2",
+    "could-be-class": "^0.2.0",
     "is-like": "^0.1.4",
     "split-any": "^1.0.1",
     "tslib": "^1.11.1",
     "utf8-length": "0.0.1"
+  },
+  "engines": {
+    "node": ">=6.0"
   }
 }
