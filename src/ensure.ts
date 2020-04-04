@@ -256,16 +256,21 @@ function cast(
 
     if (!isEmpty(handles)) {
         let [handle, defaultValue, label] = handles;
+        let _type: TypeNames;
 
         if (exists) {
             let result = handle(typeOf(value) as TypeNames);
 
             if (result === void 0) {
-                throwTypeError(field, label || (<Function>base).name);
+                throwTypeError(field, label || (<Constructor<any>>base).name);
             } else {
                 return result;
             }
-        } else {
+        } else if ((_type = <TypeNames>typeOf(defaultValue)) === "function") {
+            return defaultValue();
+        } else if (_type === "class") {
+            return new defaultValue();
+        } {
             return defaultValue;
         }
     } else {

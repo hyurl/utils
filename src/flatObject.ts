@@ -6,11 +6,19 @@ import { isArrayLike, isBufferLike } from 'is-like';
 type OmitChildrenNodes<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray
     ? K
-    : T[K] extends (any[] | ArrayLike<any>)
-    ? never
-    : T[K] extends (Function | Map<any, any> | Set<any> | Promise<any>)
+    : T[K] extends (any[] | ArrayLike<any> | Function | Constructor<any> | Map<any, any> | Set<any> | Promise<any> | TypedArray)
     ? K
     : T[K] extends object
+    ? never
+    : K;
+}[keyof T]>;
+
+type OmitChildrenElements<T> = Pick<T, {
+    [K in keyof T]: T[K] extends TypedArray
+    ? K
+    : T[K] extends (Function | Constructor<any> | Map<any, any> | Set<any> | Promise<any> | TypedArray)
+    ? K
+    : T[K] extends (object | any[] | ArrayLike<any>)
     ? never
     : K;
 }[keyof T]>;
@@ -25,9 +33,14 @@ type OmitChildrenNodes<T> = Pick<T, {
  */
 export default function flatObject<T extends object>(
     obj: T,
-    depth = 1,
-    flatArray = false
-): OmitChildrenNodes<T> & Record<string | symbol, any> {
+    depth?: number
+): OmitChildrenNodes<T> & Record<string | symbol, any>;
+export default function flatObject<T extends object>(
+    obj: T,
+    depth: number,
+    flatArray: true
+): OmitChildrenElements<T> & Record<string | symbol, any>;
+export default function flatObject(obj: any, depth = 1, flatArray = false) {
     return flatDeep({}, obj, void 0, 0, depth, flatArray);
 }
 
