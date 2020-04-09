@@ -24,6 +24,7 @@ export type Constructed<T> = {
         T[P] extends typeof BigInt ? bigint :
         T[P] extends typeof Boolean ? boolean :
         T[P] extends typeof Symbol ? symbol :
+        T[P] extends typeof Object ? object :
         T[P] extends typeof Buffer ? Buffer :
         T[P] extends Constructor<infer R> ? R :
         T[P] extends Function ? T[P] :

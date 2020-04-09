@@ -183,7 +183,7 @@ function getHandles(
             try {
                 return { ...Object(value) };
             } catch (e) { }
-        }, () => ({})];
+        }, () => <any>null];
 
         case Date: return [type => {
             if (value instanceof Date) {
@@ -250,7 +250,7 @@ function cast(
     value: any,
     base: any,
     omitUntyped: boolean,
-) {
+): any {
     let exists = !isVoid(value);
     let handles = getHandles(base, value);
 
@@ -322,8 +322,17 @@ function cast(
             }
 
             return null;
-        } else if (type === Object || Array.isArray(base)) { // sub-schema
-            return makeSure(field, value, base, omitUntyped);
+        } else if (type === Object || Array.isArray(base)) {
+            if (isEmpty(base)) { // short-hand of Object (`{}`) and Array (`[]`)
+                return cast(
+                    field,
+                    value,
+                    type === Object ? Object : Array,
+                    omitUntyped
+                );
+            } else {  // sub-schema
+                return makeSure(field, value, base, omitUntyped);
+            }
         } else {
             return exists ? value : base;
         }
