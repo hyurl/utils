@@ -129,8 +129,10 @@ function getHandles(
 
     switch (type) {
         case "string":
-        case String: return [() => {
-            if (typeof value === "object") {
+        case String: return [(type) => {
+            if (value instanceof Date) {
+                return value.toISOString();
+            } else if (type === Object || Array.isArray(value)) {
                 return JSON.stringify(value);
             } else {
                 return String(value);
@@ -145,6 +147,8 @@ function getHandles(
                 return value;
             } else if (type === "string" && !isNaN(num = Number(value))) {
                 return num;
+            } else if (value instanceof Date) {
+                return value.valueOf();
             } else if (value === true) {
                 return 1;
             } else if (value === false) {
@@ -162,6 +166,8 @@ function getHandles(
                 return BigInt(value);
             } else if (type === "string" && !isNaN(num = Number(value))) {
                 return BigInt(num);
+            } else if (value instanceof Date) {
+                return BigInt(value.valueOf());
             } else if (value === true) {
                 return BigInt(1);
             } else if (value === false) {
@@ -178,9 +184,9 @@ function getHandles(
             } else if (type === "string") {
                 value = value.trim();
 
-                if (["true", "yes", "on", "1"].includes(value)) {
+                if (/^([Tt]rue|[Yy]es|[Oo]n|1)$/.test(value)) {
                     return true;
-                } else if (["false", "no", "off", "0"].includes(value)) {
+                } else if (/^([Ff]alse|[Nn]o|[Oo]ff|0)$/.test(value)) {
                     return false;
                 }
             }
@@ -190,10 +196,7 @@ function getHandles(
         case Symbol: return [type => {
             if (type === "symbol") {
                 return value;
-            } else if (type === "string"
-                || type === "number"
-                || type === "bigint"
-            ) {
+            } else if (["string", "number", "bigint"].includes(<any>type)) {
                 return Symbol.for(String(value));
             }
         }, base || null, "symbol"];
@@ -203,9 +206,7 @@ function getHandles(
                 value[0] === "[" &&
                 value[value.length - 1] === "]"
             ) {
-                try {
-                    return JSON.parse(value);
-                } catch (e) { }
+                return JSON.parse(value);
             } else if (Array.isArray(value)) {
                 return value;
             } else if (isIterable(value)) {
@@ -214,23 +215,25 @@ function getHandles(
         }, () => <any[]>[]];
 
         case Object: return [type => {
-            try {
-                if (type === "string" &&
-                    value[0] === "{" &&
-                    value[value.length - 1] === "}"
-                ) {
-                    return JSON.parse(value);
-                } else {
-                    return { ...Object(value) };
-                }
-            } catch (e) { }
+            if (type === "string" &&
+                value[0] === "{" &&
+                value[value.length - 1] === "}"
+            ) {
+                return JSON.parse(value);
+            } else {
+                return { ...Object(value) };
+            }
         }, () => <any>{}];
 
         case Date: return [type => {
             if (value instanceof Date) {
                 return value;
             } else if (type === "string" || type === "number") {
-                return new Date(value);
+                let date = new Date(value);
+
+                if (String(date) !== "Invalid Date") {
+                    return date;
+                }
             }
         }, base || (() => new Date())];
 
@@ -301,7 +304,11 @@ function cast(
         let _type: TypeNames | Constructor<any>;
 
         if (exists) {
-            let result = handle(typeOf(value));
+            let result: any;
+
+            try {
+                result = handle(typeOf(value));
+            } catch (e) { }
 
             if (result === void 0) {
                 throwTypeError(field, label || (<Constructor<any>>base).name);
