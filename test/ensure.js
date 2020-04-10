@@ -1,85 +1,240 @@
-/* global describe, it */
+/* global describe, it, BigInt */
 const assert = require("assert");
 const { ensure } = require("..");
 
 describe("ensure", () => {
-    it("should ensure default values with types", () => {
-        assert.deepStrictEqual(ensure({}, {
-            name: String,
-            age: Number,
-            tall: Boolean
-        }), { name: "", age: 0, tall: false });
-    });
+    describe("String", () => {
+        it("should ensure the default value", () => {
+            assert.deepStrictEqual(ensure({}, { foo: String }), { foo: "" });
+            assert.deepStrictEqual(ensure({}, { foo: "" }), { foo: "" });
+            assert.deepStrictEqual(
+                ensure({}, { foo: "Hello, World!" }),
+                { foo: "Hello, World!" }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: null }, { foo: String }),
+                { foo: "" }
+            );
+        });
 
-    it("should ensure default values with set value", () => {
-        assert.deepStrictEqual(ensure({}, {
-            name: "Luna",
-            age: 36,
-            isWomen: true
-        }), { name: "Luna", age: 36, isWomen: true });
-    });
+        it("should ensure the default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: {} }, { foo: { bar: String } }),
+                { foo: { bar: "" } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: String } }),
+                { foo: { bar: "" } }
+            );
+        });
 
-    it("should ensure force casting types of the values", () => {
-        assert.deepStrictEqual(ensure({
-            name: "Luna",
-            age: "36",
-            isWomen: 1
-        }, {
-            name: String,
-            age: Number,
-            isWomen: Boolean
-        }), { name: "Luna", age: 36, isWomen: true });
-    });
+        it("should cast the existing value to string", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: 123 }, { foo: String }),
+                { foo: "123" }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: true }, { foo: String }),
+                { foo: "true" }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: false }, { foo: "" }),
+                { foo: "false" }
+            );
+            assert.deepStrictEqual(
+                ensure(
+                    { foo: { hello: "world" }, bar: [1, 2, 3], fn: () => { } },
+                    { foo: String, bar: String, fn: String }
+                ),
+                {
+                    foo: JSON.stringify({ hello: "world" }),
+                    bar: JSON.stringify([1, 2, 3]),
+                    fn: "() => { }"
+                }
+            );
+        });
 
-    it("should force casting compound types from string values", () => {
-        let date = new Date();
-        let re1 = /[a-z]/i;
-        let re2 = new RegExp("\s+:\d+");
-
-        assert.deepStrictEqual(ensure({
-            re1: "/[a-z]/i",
-            re2: "\s+:\d+",
-            date: date.toISOString(),
-            sym: "example",
-            args: arguments,
-            arr1: new Map([["foo", "Hello"], ["bar", "World"]]),
-            arr2: new Set(["Hello", "World"]),
-            obj: ["a", "b"],
-            obj2: void 0,
-            map: [["foo", "Hello"], ["bar", "World"]],
-            set: ["Hello", "World"],
-            buf1: "Hello, World!",
-            buf2: [1, 2, 3, 4, 5],
-        }, {
-            re1: RegExp,
-            re2: RegExp,
-            date: Date,
-            sym: Symbol,
-            args: Array,
-            arr1: Array,
-            arr2: [],
-            obj: Object,
-            obj2: {},
-            map: Map,
-            set: Set,
-            buf1: Buffer,
-            buf2: Buffer,
-            buf3: Uint8Array
-        }), {
-            re1,
-            re2,
-            date,
-            sym: Symbol.for("example"),
-            args: [...arguments],
-            arr1: [["foo", "Hello"], ["bar", "World"]],
-            arr2: ["Hello", "World"],
-            obj: { 0: "a", 1: "b" },
-            obj2: null,
-            map: new Map([["foo", "Hello"], ["bar", "World"]]),
-            set: new Set(["Hello", "World"]),
-            buf1: Buffer.from("Hello, World!"),
-            buf2: Buffer.from([1, 2, 3, 4, 5]),
-            buf3: Uint8Array.from([])
+        it("should cast existing value in sub-nodes to string", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: 123 } }, { foo: { bar: String } }),
+                { foo: { bar: "123" } }
+            );
         });
     });
+
+    describe("Number", () => {
+        it("should ensure the default value", () => {
+            assert.deepStrictEqual(ensure({}, { foo: Number }), { foo: 0 });
+            assert.deepStrictEqual(ensure({}, { foo: 0 }), { foo: 0 });
+            assert.deepStrictEqual(ensure({}, { foo: 123 }), { foo: 123 });
+            assert.deepStrictEqual(
+                ensure({ foo: null, bar: NaN }, { foo: 1, bar: 2 }),
+                { foo: 1, bar: 2 }
+            );
+        });
+
+        it("should ensure the default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: {} }, { foo: { bar: Number } }),
+                { foo: { bar: 0 } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: Number } }),
+                { foo: { bar: 0 } }
+            );
+        });
+
+        it("should cast the existing value to number", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: "123" }, { foo: Number }),
+                { foo: 123 }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: "123" }, { foo: 100 }),
+                { foo: 123 }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: true }, { foo: Number }),
+                { foo: 1 }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: false }, { foo: Number }),
+                { foo: 0 }
+            );
+        });
+
+        it("should cast existing value in sub-nodes to number", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: "123" } }, { foo: { bar: Number } }),
+                { foo: { bar: 123 } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: "abc" }, { foo: Number });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a number and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: "abc" } }, { foo: { bar: Number } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a number and cannot be casted into one"
+            );
+        });
+    });
+
+    if (typeof BigInt === "function") {
+        describe("BigInt", () => {
+            it("should ensure the default value", () => {
+                assert.deepStrictEqual(
+                    ensure({}, { foo: BigInt }),
+                    { foo: BigInt(0) }
+                );
+                assert.deepStrictEqual(
+                    ensure({}, { foo: BigInt(0) }),
+                    { foo: BigInt(0) }
+                );
+                assert.deepStrictEqual(
+                    ensure({}, { foo: BigInt(123) }),
+                    { foo: BigInt(123) }
+                );
+                assert.deepStrictEqual(
+                    ensure(
+                        { foo: null, bar: NaN },
+                        { foo: BigInt(1), bar: BigInt(2) }
+                    ),
+                    { foo: BigInt(1), bar: BigInt(2) }
+                );
+            });
+
+            it("should ensure the default value in sub-nodes", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: {} }, { foo: { bar: BigInt } }),
+                    { foo: { bar: BigInt(0) } }
+                );
+                assert.deepStrictEqual(
+                    ensure({}, { foo: { bar: BigInt } }),
+                    { foo: { bar: BigInt(0) } }
+                );
+            });
+
+            it("should cast the existing value to bigint", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: 123 }, { foo: BigInt }),
+                    { foo: BigInt(123) }
+                );
+                assert.deepStrictEqual(
+                    ensure({ foo: "123" }, { foo: BigInt }),
+                    { foo: BigInt(123) }
+                );
+                assert.deepStrictEqual(
+                    ensure({ foo: 123 }, { foo: BigInt(100) }),
+                    { foo: BigInt(123) }
+                );
+                assert.deepStrictEqual(
+                    ensure({ foo: true }, { foo: BigInt }),
+                    { foo: BigInt(1) }
+                );
+                assert.deepStrictEqual(
+                    ensure({ foo: false }, { foo: BigInt }),
+                    { foo: BigInt(0) }
+                );
+            });
+
+            it("should cast existing value in sub-nodes to number", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: { bar: 123 } }, { foo: { bar: BigInt } }),
+                    { foo: { bar: BigInt(123) } }
+                );
+            });
+
+            it("should throw proper error if casting failed", () => {
+                let err;
+
+                try {
+                    ensure({ foo: "abc" }, { foo: BigInt });
+                } catch (e) {
+                    err = e;
+                }
+
+                assert.deepStrictEqual(
+                    String(err),
+                    "TypeError: The value of 'foo' is not a bigint and cannot be casted into one"
+                );
+            });
+
+            it("should throw proper error if casting failed in sub-nodes", () => {
+                let err;
+
+                try {
+                    ensure({ foo: { bar: "abc" } }, { foo: { bar: BigInt } });
+                } catch (e) {
+                    err = e;
+                }
+
+                assert.deepStrictEqual(
+                    String(err),
+                    "TypeError: The value of 'foo.bar' is not a bigint and cannot be casted into one"
+                );
+            });
+        });
+    }
 });
