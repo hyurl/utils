@@ -107,7 +107,7 @@ function throwTypeError(
     field: string,
     type: string
 ) {
-    let title = (/^AEIOU/i.test(type) ? "an" : "a") + " " + type;
+    let title = (/^[AEIOU]/i.test(type) ? "an" : "a") + " " + type;
     let msg = isEmpty(field)
         ? `The value must be ${title}`
         : `The value of '${field}' is not ${title} and cannot be casted into one`;
@@ -202,28 +202,30 @@ function getHandles(
         }, base || null, "symbol"];
 
         case Array: return [(type) => {
-            if (type === "string" &&
+            if (Array.isArray(value)) {
+                return value;
+            } else if (type === "string" &&
                 value[0] === "[" &&
                 value[value.length - 1] === "]"
             ) {
                 return JSON.parse(value);
-            } else if (Array.isArray(value)) {
-                return value;
             } else if (isIterable(value)) {
                 return Array.from(value);
             }
-        }, () => <any[]>[]];
+        }, () => <any[]>[], "Array"];
 
         case Object: return [type => {
-            if (type === "string" &&
+            if (type === Object) {
+                return value;
+            } else if (typeof value === "object") {
+                return { ...value };
+            } else if (type === "string" &&
                 value[0] === "{" &&
                 value[value.length - 1] === "}"
             ) {
                 return JSON.parse(value);
-            } else {
-                return { ...Object(value) };
             }
-        }, () => <any>{}];
+        }, () => <any>{}, "Object"];
 
         case Date: return [type => {
             if (value instanceof Date) {
