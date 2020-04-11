@@ -129,7 +129,7 @@ function getHandles(
 
     switch (type) {
         case "string":
-        case String: return [(type) => {
+        case String: return [type => {
             if (value instanceof Date) {
                 return value.toISOString();
             } else if (type === Object || Array.isArray(value)) {
@@ -201,19 +201,6 @@ function getHandles(
             }
         }, base || null, "symbol"];
 
-        case Array: return [(type) => {
-            if (Array.isArray(value)) {
-                return value;
-            } else if (type === "string" &&
-                value[0] === "[" &&
-                value[value.length - 1] === "]"
-            ) {
-                return JSON.parse(value);
-            } else if (isIterable(value)) {
-                return Array.from(value);
-            }
-        }, () => <any[]>[], "Array"];
-
         case Object: return [type => {
             if (type === Object) {
                 return value;
@@ -226,6 +213,19 @@ function getHandles(
                 return JSON.parse(value);
             }
         }, () => <any>{}, "Object"];
+
+        case Array: return [type => {
+            if (Array.isArray(value)) {
+                return value;
+            } else if (type === "string" &&
+                value[0] === "[" &&
+                value[value.length - 1] === "]"
+            ) {
+                return JSON.parse(value);
+            } else if (isIterable(value)) {
+                return Array.from(value);
+            }
+        }, () => <any[]>[], "Array"];
 
         case Date: return [type => {
             if (value instanceof Date) {
