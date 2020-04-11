@@ -1,6 +1,7 @@
 import { Constructed } from './types';
 import getGlobal from './getGlobal';
 import typeOf from './typeOf';
+import { isVoid, isEmpty } from '.';
 
 // HACK, prevent throwing error when the runtime doesn't support these types.
 var BigInt: BigIntConstructor = getGlobal("BigInt") || new Function() as any;
@@ -47,7 +48,7 @@ export default function match<T extends object>(
     }
 
     for (let prop of Reflect.ownKeys(schema)) {
-        if (!(prop in obj) || !isOf(obj[prop], (<any>schema)[prop])) {
+        if (isVoid(obj[prop]) || !isOf(obj[prop], (<any>schema)[prop])) {
             return false;
         }
     }
@@ -55,7 +56,7 @@ export default function match<T extends object>(
     return true;
 }
 
-function isOf(value: any, base: any) {
+function isOf(value: any, base: any): boolean {
     switch (base) {
         case String: return typeof value === "string";
 
@@ -67,19 +68,23 @@ function isOf(value: any, base: any) {
 
         case Symbol: return typeof value === "string";
 
+        case Object: return typeOf(value) === Object;
+
         case Array: return Array.isArray(value);
 
         case Buffer: return Buffer.isBuffer(value);
-
-        case Object: return typeOf(value) === Object;
 
         default: {
             let type = typeOf(base);
 
             if (type === "class") {
                 return value instanceof base;
-            } else if (type === Object || Array.isArray(base)) { // sub-schema
-                return match(value, base);
+            } else if (type === Object || Array.isArray(base)) {
+                if (isEmpty(base)) { // short-hand of Object `{}` and Array `[]`
+                    return isOf(value, type);
+                } else { // sub-schema
+                    return match(value, base);
+                }
             } else {
                 return value === base;
             }
