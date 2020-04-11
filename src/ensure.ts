@@ -12,8 +12,29 @@ var BigInt: BigIntConstructor = getGlobal("BigInt") || new Function() as any;
 var URL: typeof globalThis.URL = getGlobal("URL") || new Function() as any;
 var Buffer: typeof global.Buffer = getGlobal("Buffer") || new Function() as any;
 
+/**
+ * Casts the target object or its contents to the closest types automatically,
+ * which is very useful when reading config from a file or fetching data from
+ * the web.
+ */
 export default function ensure<T>(obj: any): T;
+/**
+ * Make sure the input array of objects is restraint with the types defined in
+ * the schema and automatically fills any properties that is missing.
+ * @param schema For array of objects, the schema must be defined as an array
+ *  with one element which sets the types for all objects in the input array.
+ * @param omitUntyped If set, those properties that are not specified in schema
+ *  will be removed.
+ */
 export default function ensure<T>(arr: any[], schema: [T], omitUntyped?: boolean): Constructed<T>[];
+/**
+ * Make sure the input object is restraint with the types defied in the schema
+ * and automatically fills any properties that is missing.
+ * @param obj 
+ * @param schema 
+ * @param omitUntyped If set, those properties that are not specified in schema
+ *  will be removed.
+ */
 export default function ensure<T>(obj: any, schema: T, omitUntyped?: boolean): Constructed<T>;
 export default function ensure<T>(obj: any, schema: T = null, omitUntyped = false) {
     return makeSure("", obj, schema, omitUntyped);
