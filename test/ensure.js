@@ -637,4 +637,428 @@ describe("ensure", () => {
             );
         });
     });
+
+    describe("Date", () => {
+        it("should ensure default value", () => {
+            assert(ensure({}, { foo: Date }).foo instanceof Date);
+            assert.deepStrictEqual(ensure({}, { foo: date }), { foo: date });
+        });
+
+        it("should ensure default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: {} }, { foo: { bar: date } }),
+                { foo: { bar: date } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: date } }),
+                { foo: { bar: date } }
+            );
+        });
+
+        it("should cast existing value to Date", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: date.toISOString() }, { foo: Date }),
+                { foo: date }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: date.valueOf() }, { foo: Date }),
+                { foo: date }
+            );
+        });
+
+        it("should cast existing value to Date", () => {
+            assert.deepStrictEqual(
+                ensure(
+                    { foo: { bar: date.toISOString() } },
+                    { foo: { bar: Date } }
+                ),
+                { foo: { bar: date } }
+            );
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: date.valueOf() } }, { foo: { bar: Date } }),
+                { foo: { bar: date } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: "not a date" }, { foo: Date });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a Date and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: "not a date" } }, { foo: { bar: Date } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a Date and cannot be casted into one"
+            );
+        });
+    });
+
+    if (typeof URL === "function") {
+        describe("URL", () => {
+            const url = "https://github.com/hyurl/utils";
+            const urlObj = new URL(url);
+
+            it("should ensure default value", () => {
+                assert.deepStrictEqual(ensure({}, { foo: URL }), { foo: null });
+                assert.deepStrictEqual(ensure({}, { foo: urlObj }), { foo: urlObj });
+            });
+
+            it("should ensure default value in sub-nodes", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: {} }, { foo: { bar: URL } }),
+                    { foo: { bar: null } }
+                );
+                assert.deepStrictEqual(
+                    ensure({}, { foo: { bar: urlObj } }),
+                    { foo: { bar: urlObj } }
+                );
+            });
+
+            it("should cast existing value to URL", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: url }, { foo: URL }),
+                    { foo: urlObj }
+                );
+            });
+
+            it("should cast existing value in sub-nodes to URL", () => {
+                assert.deepStrictEqual(
+                    ensure({ foo: { bar: url } }, { foo: { bar: URL } }),
+                    { foo: { bar: urlObj } }
+                );
+            });
+
+            it("should throw proper error if casting failed", () => {
+                let err;
+
+                try {
+                    ensure({ foo: "not a URL" }, { foo: URL });
+                } catch (e) {
+                    err = e;
+                }
+
+                assert.deepStrictEqual(
+                    String(err),
+                    "TypeError: The value of 'foo' is not a(n) URL and cannot be casted into one"
+                );
+            });
+
+            it("should throw proper error if casting failed in sub-nodes", () => {
+                let err;
+
+                try {
+                    ensure({ foo: { bar: "not a URL" } }, { foo: { bar: URL } });
+                } catch (e) {
+                    err = e;
+                }
+
+                assert.deepStrictEqual(
+                    String(err),
+                    "TypeError: The value of 'foo.bar' is not a(n) URL and cannot be casted into one"
+                );
+            });
+        });
+    }
+
+    describe("RegExp", () => {
+        const pattern = "/[0-9a-f]{40}/i";
+        const regex = /[0-9a-f]{40}/i;
+
+        it("should ensure default value", () => {
+            assert.deepStrictEqual(ensure({}, { foo: RegExp }), { foo: null });
+            assert.deepStrictEqual(ensure({}, { foo: regex }), { foo: regex });
+        });
+
+        it("should ensure default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: {} }, { foo: { bar: RegExp } }),
+                { foo: { bar: null } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: regex } }),
+                { foo: { bar: regex } }
+            );
+        });
+
+        it("should cast existing value to RegExp", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: pattern }, { foo: RegExp }),
+                { foo: regex }
+            );
+        });
+
+        it("should cast existing value in sub-nodes to RegExp", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: pattern } }, { foo: { bar: RegExp } }),
+                { foo: { bar: regex } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: "not a RegExp" }, { foo: RegExp });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a RegExp and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: "not a RegExp" } }, { foo: { bar: RegExp } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a RegExp and cannot be casted into one"
+            );
+        });
+    });
+
+    describe("Map", () => {
+        const entries = [["foo", "Hello"], ["bar", "World"]];
+        const map = new Map(entries);
+
+        it("should ensure default value", () => {
+            assert.deepStrictEqual(ensure({}, { foo: Map }), { foo: new Map() });
+            assert.deepStrictEqual(ensure({}, { foo: map }), { foo: map });
+        });
+
+        it("should ensure default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: Map } }),
+                { foo: { bar: new Map() } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: map } }),
+                { foo: { bar: map } }
+            );
+        });
+
+        it("should cast existing value to Map", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: entries }, { foo: Map }),
+                { foo: map }
+            );
+        });
+
+        it("should cast existing value in sub-nodes to Map", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: entries } }, { foo: { bar: Map } }),
+                { foo: { bar: map } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: "not a Map" }, { foo: Map });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a Map and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: [1, 2, 3] } }, { foo: { bar: Map } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a Map and cannot be casted into one"
+            );
+        });
+    });
+
+    describe("Set", () => {
+        const entries = ["Hello", "World"];
+        const set = new Set(entries);
+
+        it("should ensure default value", () => {
+            assert.deepStrictEqual(ensure({}, { foo: Set }), { foo: new Set() });
+            assert.deepStrictEqual(ensure({}, { foo: set }), { foo: set });
+        });
+
+        it("should ensure default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: Set } }),
+                { foo: { bar: new Set() } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: set } }),
+                { foo: { bar: set } }
+            );
+        });
+
+        it("should cast existing value to Set", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: entries }, { foo: Set }),
+                { foo: set }
+            );
+        });
+
+        it("should cast existing value in sub-nodes to Set", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: entries } }, { foo: { bar: Set } }),
+                { foo: { bar: set } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: "not a Set" }, { foo: Set });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a Set and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: 123 } }, { foo: { bar: Set } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a Set and cannot be casted into one"
+            );
+        });
+    });
+
+    describe("Buffer", () => {
+        const entries = [0, 1, 255];
+        const buf = Buffer.from(entries);
+
+        it("should ensure default value", () => {
+            assert.deepStrictEqual(
+                ensure({}, { foo: Buffer }),
+                { foo: Buffer.from([]) }
+            );
+            assert.deepStrictEqual(ensure({}, { foo: buf }), { foo: buf });
+        });
+
+        it("should ensure default value in sub-nodes", () => {
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: Buffer } }),
+                { foo: { bar: Buffer.from([]) } }
+            );
+            assert.deepStrictEqual(
+                ensure({}, { foo: { bar: buf } }),
+                { foo: { bar: buf } }
+            );
+        });
+
+        it("should cast existing value to Buffer", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: entries }, { foo: Buffer }),
+                { foo: buf }
+            );
+            assert.deepStrictEqual(
+                ensure(
+                    { foo: "Hello, World!" },
+                    { foo: Buffer }
+                ),
+                { foo: Buffer.from("Hello, World!") }
+            );
+            assert.deepStrictEqual(
+                ensure(
+                    { foo: Uint8Array.from(entries) },
+                    { foo: Buffer }
+                ),
+                { foo: Buffer.from(entries) }
+            );
+            assert.deepStrictEqual(
+                ensure(
+                    { foo: Uint8Array.from(entries).buffer },
+                    { foo: Buffer }
+                ),
+                { foo: Buffer.from(entries) }
+            );
+        });
+
+        it("should cast existing value in sub-nodes to Buffer", () => {
+            assert.deepStrictEqual(
+                ensure({ foo: { bar: entries } }, { foo: { bar: Buffer } }),
+                { foo: { bar: buf } }
+            );
+        });
+
+        it("should throw proper error if casting failed", () => {
+            let err;
+
+            try {
+                ensure({ foo: 123 }, { foo: Buffer });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo' is not a Buffer and cannot be casted into one"
+            );
+        });
+
+        it("should throw proper error if casting failed in sub-nodes", () => {
+            let err;
+
+            try {
+                ensure({ foo: { bar: 123 } }, { foo: { bar: Buffer } });
+            } catch (e) {
+                err = e;
+            }
+
+            assert.deepStrictEqual(
+                String(err),
+                "TypeError: The value of 'foo.bar' is not a Buffer and cannot be casted into one"
+            );
+        });
+    });
 });

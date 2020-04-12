@@ -99,7 +99,7 @@ function makeSure<T>(
 
 function isMapEntries(value: any) {
     return Array.isArray(value)
-        && value.every(e => Array.isArray(e));
+        && value.every(e => Array.isArray(e) && e.length === 2);
 }
 
 function couldBeBufferInput(value: any) {
@@ -128,10 +128,19 @@ function throwTypeError(
     field: string,
     type: string
 ) {
-    let title = (/^[AEIOU]/i.test(type) ? "an" : "a") + " " + type;
+    let label: string;
+
+    if (/^[AEIO]/i.test(type)) {
+        label = "an " + type;
+    } else if (/^U/.test(type)) {
+        label = "a(n) " + type;
+    } else {
+        label = "a " + type;
+    }
+
     let msg = isEmpty(field)
-        ? `The value must be ${title}`
-        : `The value of '${field}' is not ${title} and cannot be casted into one`;
+        ? `The value must be ${label}`
+        : `The value of '${field}' is not ${label} and cannot be casted into one`;
 
     throw new TypeError(msg);
 }
@@ -273,15 +282,13 @@ function getHandles(
                 return value;
             } else if (type === "string") {
                 value = value.trim();
-                let i: number;
+                let end: number;
 
-                if (value[0] === "/" && 0 !== (i = value.lastIndexOf("/"))) {
-                    let pattern = value.slice(1, i);
-                    let flags = value.slice(i + 1);
+                if (value[0] === "/" && (end = value.lastIndexOf("/")) >= 2) {
+                    let pattern: string = value.slice(1, end);
+                    let flags: string = value.slice(end + 1);
 
                     return new RegExp(pattern, flags);
-                } else {
-                    return new RegExp(value);
                 }
             }
         }, base || null];
@@ -303,7 +310,7 @@ function getHandles(
         }, base || (() => new Set())];
 
         case Buffer: return [() => {
-            if (Buffer.isBuffer(value)) {
+            if (Buffer.isBuffer(Buffer)) {
                 return value;
             } else if (couldBeBufferInput(value)) {
                 return Buffer.from(value);
