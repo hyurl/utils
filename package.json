@@ -5,7 +5,7 @@
   "main": "libs/index.js",
   "scripts": {
     "test": "mocha",
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "npm link typescript && tsc && webpack"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
   "devDependencies": {
     "@types/node": "^12.12.21",
     "mocha": "^6.2.2",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "ts-loader": "^6.2.2"
   },
   "dependencies": {
     "check-iterable": "^1.0.2",

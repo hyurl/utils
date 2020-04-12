@@ -6,6 +6,7 @@ This package currently contains the following functions, more functions may be
 included in the future. Each function is stored in a separated file.
 
 - `count`[.ts](./src/count.ts)
+- `define` [.ts](./src/define.ts)
 - `ensureType`[.ts](./src/ensureType.ts)
 - `flatObject`[.ts](./src/flatObject.ts)
 - `getGlobal`[.ts](./src/getGlobal.ts)
@@ -27,6 +28,7 @@ included in the future. Each function is stored in a separated file.
 - `sort`[.ts](./src/sort.ts)
 - `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
 - `timestamp`[.ts](./src/timestamp.ts)
+- `typeAs`[.ts](./src/typeAs.ts)
 - `typeOf`[.ts](./src/typeOf.ts)
 - `until`[.ts](./src/until.ts)
 - `useThrottle`[.ts](./src/useThrottle.ts)

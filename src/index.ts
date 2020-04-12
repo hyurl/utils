@@ -1,6 +1,6 @@
 import "./types";
 import count from "./count";
-import ensure from "./ensure";
+import define from "./define";
 import ensureType from "./ensureType";
 import flatObject from "./flatObject";
 import getGlobal from "./getGlobal";
@@ -22,13 +22,14 @@ import sleep from "./sleep";
 import sort from "./sort";
 import spilt from "./spilt";
 import timestamp from "./timestamp";
+import typeAs from "./typeAs";
 import typeOf from "./typeOf";
 import until from "./until";
 import useThrottle from "./useThrottle";
 
 export {
     count,
-    ensure,
+    define,
     ensureType,
     flatObject,
     getGlobal,
@@ -50,6 +51,7 @@ export {
     sort,
     spilt,
     timestamp,
+    typeAs,
     typeOf,
     until,
     useThrottle
