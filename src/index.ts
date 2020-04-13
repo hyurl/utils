@@ -26,6 +26,7 @@ import typeAs from "./typeAs";
 import typeOf from "./typeOf";
 import until from "./until";
 import useThrottle from "./useThrottle";
+import wrap from "./wrap";
 
 export {
     count,
@@ -54,5 +55,6 @@ export {
     typeAs,
     typeOf,
     until,
-    useThrottle
+    useThrottle,
+    wrap
 };
