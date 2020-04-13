@@ -18,6 +18,8 @@ import keysOf from "./keysOf";
 import omit from "./omit";
 import omitVoid from "./omitVoid";
 import pick from "./pick";
+import rand from "./rand";
+import randStr from "./randStr";
 import sleep from "./sleep";
 import sort from "./sort";
 import spilt from "./spilt";
@@ -48,6 +50,8 @@ export {
     omit,
     omitVoid,
     pick,
+    rand,
+    randStr,
     sleep,
     sort,
     spilt,

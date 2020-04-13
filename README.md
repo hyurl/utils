@@ -24,6 +24,8 @@ included in the future. Each function is stored in a separated file.
 - `omit`[.ts](./src/omit.ts)
 - `omitVoid`[.ts](./src/omitVoid.ts)
 - `pick`[.ts](./src/pick.ts)
+- `rand`[.ts](./src/rand.ts)
+- `randStr`[.ts](./src/randStr.ts)
 - `sleep`[.ts](./src/sleep.ts)
 - `sort`[.ts](./src/sort.ts)
 - `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
@@ -32,6 +34,7 @@ included in the future. Each function is stored in a separated file.
 - `typeOf`[.ts](./src/typeOf.ts)
 - `until`[.ts](./src/until.ts)
 - `useThrottle`[.ts](./src/useThrottle.ts)
+- `wrap`[.ts](./src/wrap.ts)
 
 ## Import
 
