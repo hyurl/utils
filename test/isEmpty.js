@@ -73,4 +73,45 @@ describe("isEmpty", () => {
             assert(!isEmpty({ foo: "Hello", bar: "World" }));
         });
     });
+
+    describe("deep check", () => {
+        it("should pass when an object contains only empty values", () => {
+            assert(isEmpty({
+                foo: null,
+                bar: {
+                    foo: void 0,
+                    bar: {
+                        foo: NaN,
+                        bar: {
+                            foo: "",
+                            bar: {}
+                        }
+                    }
+                }
+            }, true));
+
+            assert(isEmpty([null, [void 0, [NaN, ["", []]]]], true));
+        });
+
+        it("should fail when an object contains `0` and `false`", () => {
+            assert(!isEmpty({
+                foo: null,
+                bar: {
+                    foo: void 0,
+                    bar: {
+                        foo: NaN,
+                        bar: {
+                            foo: "",
+                            bar: {
+                                foo: 0,
+                                bar: false
+                            }
+                        }
+                    }
+                }
+            }, true));
+
+            assert(!isEmpty([null, [void 0, [NaN, ["", [0, false]]]]], true));
+        });
+    });
 });
