@@ -1,6 +1,7 @@
 .vscode/
 node_modules/
 *.js
+!*.config.js
 !test/*.js
 *.js.map
 *.d.ts
