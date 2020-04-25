@@ -9,7 +9,12 @@ declare global {
 
     type ResolveType<T extends Callable> = ReturnType<T> extends Promise<infer U> ? U : ReturnType<T>;
 
-    type Asynchronize<T extends Callable> = (...args: Parameters<T>) => Promise<ResolveType<T>>;
+    type Asynchronize<T extends Callable> = ReturnType<T> extends Promise<any>
+        ? T
+        : (ReturnType<T> extends (AsyncIterableIterator<infer U> | IterableIterator<infer U>)
+            ? (...args: Parameters<T>) => AsyncIterableIterator<U>
+            : (...args: Parameters<T>) => Promise<ReturnType<T>>
+        );
 
     type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 

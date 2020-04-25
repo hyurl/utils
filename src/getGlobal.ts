@@ -5,9 +5,11 @@ export default function getGlobal<P extends keyof Global>(prop: P): Global[P];
 /** Returns a property from the global object. */
 export default function getGlobal(prop: string): any;
 export default function getGlobal(prop: string = void 0): any {
-    let _global: Global & { [prop: string]: any };
+    let _global: Global & { [prop: string]: any; };
 
-    if (typeof self === "object") {
+    if (typeof globalThis === "object") {
+        _global = <any>globalThis;
+    } else if (typeof self === "object") {
         _global = self;
     } else if (typeof global === "object") {
         _global = <any>global;
