@@ -69,3 +69,7 @@ TypeScript, they are located in the following file and exposed to the global
 namespace.
 
 - [types.ts](./src/types.ts)
+
+```ts
+import "@hyurl/utils/types";
+```
