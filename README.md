@@ -24,6 +24,7 @@ included in the future. Each function is stored in a separated file.
 - `keysOf`[.ts](./src/keysOf.ts)
 - `omit`[.ts](./src/omit.ts)
 - `omitVoid`[.ts](./src/omitVoid.ts)
+- `patch`[.ts](./src/patch.ts)
 - `pick`[.ts](./src/pick.ts)
 - `rand`[.ts](./src/rand.ts)
 - `randStr`[.ts](./src/randStr.ts)

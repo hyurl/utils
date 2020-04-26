@@ -18,6 +18,7 @@ import isVoid from "./isVoid";
 import keysOf from "./keysOf";
 import omit from "./omit";
 import omitVoid from "./omitVoid";
+import patch from "./patch";
 import pick from "./pick";
 import rand from "./rand";
 import randStr from "./randStr";
@@ -51,6 +52,7 @@ export {
     keysOf,
     omit,
     omitVoid,
+    patch,
     pick,
     rand,
     randStr,
