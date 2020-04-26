@@ -17,7 +17,7 @@ describe("until", () => {
         assert.strictEqual(_sum(1, 2), sum(1, 2));
     });
 
-    it("should wrap a method pass `this`", () => {
+    it("should wrap a method and pass `this`", () => {
         class A {
             constructor(a, b) {
                 this.a = a;

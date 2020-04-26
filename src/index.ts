@@ -1,6 +1,7 @@
 import "./types";
 import count from "./count";
 import define from "./define";
+import diff from "./diff";
 import ensureType from "./ensureType";
 import flatObject from "./flatObject";
 import getGlobal from "./getGlobal";
@@ -33,6 +34,7 @@ import wrap from "./wrap";
 export {
     count,
     define,
+    diff,
     ensureType,
     flatObject,
     getGlobal,

@@ -3,6 +3,25 @@ declare global {
 
     type Ensured<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>;
 
+    type DiffKeys<T, U> = {
+        [K in keyof T]: K extends keyof U ? never : K;
+    }[keyof T];
+    type Diff<T, U> = Pick<T & U, DiffKeys<T, U> | DiffKeys<U, T>>;
+
+    type DeepPartial<T> = {
+        [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+    };
+
+    // type DeepDiff<T, U> = {
+    //     [K in (keyof T | keyof U)]: K extends keyof U ? (
+    //         K extends keyof T ? (
+    //             U[K] extends object ? (
+    //                 T[K] extends object ? DeepDiff<T[K], U[K]> : void
+    //             ) : void
+    //         ) : U[K]
+    //     ) : (K extends keyof T ? T[K] : never);
+    // };
+
     type Constructor<T> = Function & { new(...args: any[]): T; prototype: T; };
 
     type Callable<T extends any = any, A extends any[] = any[]> = (...args: A) => T;

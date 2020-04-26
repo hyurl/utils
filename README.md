@@ -6,7 +6,8 @@ This package currently contains the following functions, more functions may be
 included in the future. Each function is stored in a separated file.
 
 - `count`[.ts](./src/count.ts)
-- `define` [.ts](./src/define.ts)
+- `define`[.ts](./src/define.ts)
+- `diff`[.ts](./src/diff.ts)
 - `ensureType`[.ts](./src/ensureType.ts)
 - `flatObject`[.ts](./src/flatObject.ts)
 - `getGlobal`[.ts](./src/getGlobal.ts)
