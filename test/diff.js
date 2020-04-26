@@ -17,7 +17,7 @@ describe("diff", () => {
         );
     });
 
-    it("should create a deeply difference set of properties of two objects", () => {
+    it("should create a deep difference set of properties of two objects", () => {
         assert.deepStrictEqual(
             diff({
                 foo: "Hello",
@@ -74,6 +74,13 @@ describe("diff", () => {
                 { nil: undefined, not: NaN, nan: null, foo: false, bar: "A" }
             ),
             { foo: false, bar: "A" }
+        );
+    });
+
+    it("should differ if only the origin's property is void", () => {
+        assert.deepStrictEqual(
+            diff({ foo: null }, { foo: "Hello" }),
+            { foo: "Hello" }
         );
     });
 });
