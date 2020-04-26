@@ -1,41 +1,54 @@
-import isOwnKey from './isOwnKey';
 import isRealObject from './isRealObject';
 import isEmpty from './isEmpty';
+import isVoid from './isVoid';
+
 
 /**
- * Creates an array that contains the difference set of `arr1` and `arr2`;
+ * Creates an array that contains the difference set between `origin` and
+ * `input`;
  */
-export default function diff<T>(arr1: T[], arr2: T[]): T[];
+export default function diff<T>(origin: T[], input: T[]): T[];
 /**
- * Creates an object that contains the difference set of properties in `obj1`
- * and `obj2`;
+ * Evaluates the differences between `origin` and `input`, if a property exists
+ * in both objects and the values are not equal, the one in `input` will be
+ * taken.
  */
-export default function diff<T, U>(obj1: T, obj2: U): Diff<T, U>;
-export default function diff<T, U>(obj1: T, obj2: U, deep: true): DeepPartial<T & U>;
-export default function diff(obj1: any, obj2: any, deep = false) {
-    if (Array.isArray(obj1) && Array.isArray(obj2)) {
-        return obj1.filter(value => !obj2.includes(value));
-    } else if (isRealObject(obj1) && isRealObject(obj2)) {
-        let keys1 = Reflect.ownKeys(obj1);
-        let keys2 = Reflect.ownKeys(obj2);
+export default function diff<T, U>(origin: T, input: U): Diff<T, U>;
+export default function diff<T, U>(origin: T, input: U, deep: true): DeepPartial<T & U>;
+export default function diff(origin: any, input: any, deep = false) {
+    if (Array.isArray(origin) && Array.isArray(input)) {
+        return [
+            ...input.filter(value => !origin.includes(value)),
+            ...origin.filter(value => !input.includes(value))
+        ];
+    } else if (isRealObject(origin) && isRealObject(input)) {
+        let keys = Reflect.ownKeys(input);
+        let _keys = Reflect.ownKeys(origin);
         let result: any = {};
 
-        keys1.forEach(key => {
-            if (!isOwnKey(obj2, key)) {
-                result[key] = obj1[key];
-            } else if (deep) {
-                let _result = diff(obj1[key], obj2[key]);
+        keys.forEach(key => {
+            if (origin[key] !== input[key] &&
+                !(isVoid(origin[key]) && isVoid(input[key]))
+            ) {
+                if (deep &&
+                    typeof origin[key] === "object" && origin[key] !== null &&
+                    typeof input[key] === "object" && input[key] !== null
+                ) {
+                    let _result = diff(origin[key], input[key]);
 
-                if (!isEmpty(_result)) {
-                    result[key] = _result;
+                    if (!isEmpty(_result)) {
+                        result[key] = _result;
+                    }
+                } else {
+                    result[key] = input[key];
                 }
             }
         });
 
-        keys2.forEach(key => keys1.includes(key) || (result[key] = obj2[key]));
+        _keys.forEach(key => keys.includes(key) || (result[key] = origin[key]));
 
         return result;
     } else {
-        return null;
+        return input;
     }
 }

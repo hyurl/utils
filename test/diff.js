@@ -13,7 +13,7 @@ describe("diff", () => {
     it("should create a difference set of properties of two objects", () => {
         assert.deepStrictEqual(
             diff({ foo: "Hello", bar: "World" }, { foo: "Hi" }),
-            { bar: "World" }
+            { foo: "Hi", bar: "World" }
         );
     });
 
@@ -33,6 +33,7 @@ describe("diff", () => {
                 }
             }, true),
             {
+                foo: "Hi",
                 bar: "World",
                 child: {
                     foo: 123
@@ -60,8 +61,19 @@ describe("diff", () => {
                 arr: [1, 2, 3]
             }, true),
             {
+                foo: "Hi",
                 bar: "World"
             }
+        );
+    });
+
+    it("should treat all void values equal", () => {
+        assert.deepStrictEqual(
+            diff(
+                { nil: null, not: undefined, nan: NaN, foo: null, bar: void 0 },
+                { nil: undefined, not: NaN, nan: null, foo: false, bar: "A" }
+            ),
+            { foo: false, bar: "A" }
         );
     });
 });
