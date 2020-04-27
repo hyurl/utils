@@ -1,4 +1,4 @@
-import { typeOf } from '.';
+import typeOf from './typeOf';
 
 /**
  * Sets a property on the target object.
