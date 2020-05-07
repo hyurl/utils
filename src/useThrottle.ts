@@ -24,7 +24,6 @@ function useThrottle(resource: any, interval: number) {
     } else if (!useThrottle.gcTimer) {
         let { gcInterval, tasks: jobs } = useThrottle;
 
-        process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
         useThrottle.gcTimer = setInterval(() => {
             let now = Date.now();
 
@@ -34,6 +33,10 @@ function useThrottle(resource: any, interval: number) {
                 }
             });
         }, gcInterval);
+
+        if (typeof process === "object") {
+            process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
+        }
     }
 
     let task = useThrottle.tasks.get(resource);
