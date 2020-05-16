@@ -23,6 +23,12 @@ describe("timestamp", () => {
             let now = Date.now();
             assert(timestamp(now) === moment(now).unix());
         });
+
+        it("should support time string only", () => {
+            assert(timestamp("5:00"), moment().hours(5).minutes(0).unix());
+            assert(timestamp("05:10"), moment().hours(5).minutes(10).unix());
+            assert(timestamp("05:10:30"), moment().hours(5).minutes(10).seconds(30).unix());
+        });
     });
 
     describe("in milliseconds", () => {

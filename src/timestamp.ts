@@ -20,7 +20,23 @@ function timestamp(input: any, ms = false) {
     } else if (typeof input === "number") {
         return ms ? input : Math.floor(input / 1000);
     } else {
-        let date = new Date(<string>input);
-        return ms ? date.valueOf() : Math.floor(date.valueOf() / 1000);
+        let date: Date;
+        let dateTime = String(input).trim();
+
+        if (/^\d{1,2}:\d{2}(:\d{2})?/.test(dateTime)) {
+            date = new Date();
+            dateTime = date.getFullYear()
+                + "-" + (date.getMonth() + 1)
+                + "-" + date.getDate()
+                + " " + dateTime;
+        }
+
+        date = new Date(dateTime);
+
+        if (String(date) !== "Invalid Date") {
+            return ms ? date.valueOf() : Math.floor(date.valueOf() / 1000);
+        } else {
+            throw new Error("The input argument is not a valid date-time string");
+        }
     }
 }
