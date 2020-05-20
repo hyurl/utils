@@ -36,7 +36,7 @@ declare global {
     type Global = Partial<Window & typeof globalThis>;
 }
 
-// Because the `spilt` module has some Node.js special types that cannot be
+// Because the `split` module has some Node.js special types that cannot be
 // identified by Deno, we need to declare an individual type for it, but don't
 // worry, the original function will still work for both platforms.
 declare const _split: {
@@ -86,7 +86,7 @@ export const rand: typeof _rand = utils.rand;
 export const randStr: typeof _randStr = utils.randStr;
 export const sleep: typeof _sleep = utils.sleep;
 export const sort: typeof _sort = utils.sort;
-export const split: typeof _split = utils.spilt;
+export const split: typeof _split = utils.split;
 export const timestamp: typeof _timestamp = utils.timestamp;
 export const typeAs: typeof _typeAs = utils.typeAs;
 export const typeOf: typeof _typeOf = utils.typeOf;
