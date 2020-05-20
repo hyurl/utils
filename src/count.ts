@@ -22,7 +22,9 @@ function count(target: any, option: any = void 0) {
         if (typeof option === "string") {
             return target.split(option).length - 1;
         } else if (option === true) {
-            if (typeof Buffer?.byteLength === "function") {
+            if (typeof Buffer === "function" &&
+                typeof Buffer.byteLength === "function"
+            ) {
                 return Buffer.byteLength(target);
             } else if (encoder) {
                 return encoder.encode(target).byteLength;

@@ -5,38 +5,41 @@
 This package currently contains the following functions, more functions may be
 included in the future. Each function is stored in a separated file.
 
-- `count`[.ts](./src/count.ts)
-- `define`[.ts](./src/define.ts)
-- `diff`[.ts](./src/diff.ts)
-- `ensureType`[.ts](./src/ensureType.ts)
-- `flatObject`[.ts](./src/flatObject.ts)
-- `getGlobal`[.ts](./src/getGlobal.ts)
-- `isBetween`[.ts](./src/isBetween.ts)
-- `isEmpty`[.ts](./src/isEmpty.ts)
-- `isFloat`[.ts](./src/isFloat.ts)
-- `isInteger`[.ts](./src/isInteger.ts)
-- `isNumeric`[.ts](./src/isNumeric.ts)
-- `isOwnKey`[.ts](./src/isOwnKey.ts)
-- `isOwnMethod`[.ts](./src/isOwnMethod.ts)
-- `isRealObject`[.ts](./src/isRealObject.ts)
-- `isSubClassOf`[.ts](./src/isSubClassOf.ts)
-- `isVoid`[.ts](./src/isVoid.ts)
-- `keysOf`[.ts](./src/keysOf.ts)
-- `omit`[.ts](./src/omit.ts)
-- `omitVoid`[.ts](./src/omitVoid.ts)
-- `patch`[.ts](./src/patch.ts)
-- `pick`[.ts](./src/pick.ts)
-- `rand`[.ts](./src/rand.ts)
-- `randStr`[.ts](./src/randStr.ts)
-- `sleep`[.ts](./src/sleep.ts)
-- `sort`[.ts](./src/sort.ts)
-- `split`[.ts](https://github.com/hyurl/split-any/blob/master/index.d.ts)
-- `timestamp`[.ts](./src/timestamp.ts)
-- `typeAs`[.ts](./src/typeAs.ts)
-- `typeOf`[.ts](./src/typeOf.ts)
-- `until`[.ts](./src/until.ts)
-- `useThrottle`[.ts](./src/useThrottle.ts)
-- `wrap`[.ts](./src/wrap.ts)
+Since 0.1.50, this package now supports Node.js, Web and
+[Deno](https://deno.land).
+
+- `count`[.d.ts](./count.d.ts)
+- `define`[.d.ts](./define.d.ts)
+- `diff`[.d.ts](./diff.d.ts)
+- `ensureType`[.d.ts](./ensureType.d.ts)
+- `flatObject`[.d.ts](./flatObject.d.ts)
+- `getGlobal`[.d.ts](./getGlobal.d.ts)
+- `isBetween`[.d.ts](./isBetween.d.ts)
+- `isEmpty`[.d.ts](./isEmpty.d.ts)
+- `isFloat`[.d.ts](./isFloat.d.ts)
+- `isInteger`[.d.ts](./isInteger.d.ts)
+- `isNumeric`[.d.ts](./isNumeric.d.ts)
+- `isOwnKey`[.d.ts](./isOwnKey.d.ts)
+- `isOwnMethod`[.d.ts](./isOwnMethod.d.ts)
+- `isRealObject`[.d.ts](./isRealObject.d.ts)
+- `isSubClassOf`[.d.ts](./isSubClassOf.d.ts)
+- `isVoid`[.d.ts](./isVoid.d.ts)
+- `keysOf`[.d.ts](./keysOf.d.ts)
+- `omit`[.d.ts](./omit.d.ts)
+- `omitVoid`[.d.ts](./omitVoid.d.ts)
+- `patch`[.d.ts](./patch.d.ts)
+- `pick`[.d.ts](./pick.d.ts)
+- `rand`[.d.ts](./rand.d.ts)
+- `randStr`[.d.ts](./randStr.d.ts)
+- `sleep`[.d.ts](./sleep.d.ts)
+- `sort`[.d.ts](./sort.d.ts)
+- `split`[.d.ts](./split.d.ts)
+- `timestamp`[.d.ts](./timestamp.d.ts)
+- `typeAs`[.d.ts](./typeAs.d.ts)
+- `typeOf`[.d.ts](./typeOf.d.ts)
+- `until`[.d.ts](./until.d.ts)
+- `useThrottle`[.d.ts](./useThrottle.d.ts)
+- `wrap`[.d.ts](./wrap.d.ts)
 
 ## Import
 
@@ -74,4 +77,64 @@ namespace.
 
 ```ts
 import "@hyurl/utils/types";
+```
+
+## Web Support
+
+When using this package in the browser, either loads it as a ESModule/CommonJS
+Module as in Node.js, or loads the bundle file 
+[./bundle/index.js](./bundle/index.js) instead.
+
+```html
+<script src="./node_modules/@hyurl/utils/bundle/index.js"></script>
+<script>
+    const { count } = window["@hyurl/utils"];
+
+    console.log(count([1,2,3]));
+<script>
+```
+
+## Deno Support
+
+Yes, this package can be used directly in [Deno](https://deno.land), to use it,
+simply import the package from github repository, just like the following.
+
+```ts
+import * as utils from "https://github.com/hyurl/utils/mod.ts";
+```
+
+However, there is a trick under the hood that allows a Node.js module working
+in Deno, and it requires read permission of the disk for loading the Node.js
+modules.
+
+For example, a file named `test-deno.ts`:
+
+```ts
+import { sleep, timestamp } from "https://github.com/hyurl/utils/mod.ts";
+
+await sleep(1000);
+
+console.log(timestamp());
+```
+
+You will need to use this command to run the program:
+
+```sh
+deno run --unstable --allow-read test-deno.ts
+```
+
+## Unit Test
+
+### In Node.js
+
+```sh
+npm test
+```
+
+### In Deno
+
+```sh
+npm run test-deno
+# or
+deno test --unstable --allow-read test/deno/example.ts
 ```

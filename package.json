@@ -1,11 +1,13 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.1.45",
+  "version": "0.1.50",
   "description": "Utility functions of HyURL collection.",
-  "main": "libs/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "prepublishOnly": "npm link typescript && tsc && webpack"
+    "test-deno": "deno test --unstable --allow-read test/deno/example.ts",
+    "compile": "npm link typescript && tsc && webpack",
+    "prepublishOnly": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -30,8 +32,7 @@
   "dependencies": {
     "check-iterable": "^1.0.2",
     "could-be-class": "^0.2.0",
-    "is-like": "^0.1.4",
-    "split-any": "^1.0.1",
+    "is-like": "^0.1.5",
     "tslib": "^1.11.1",
     "utf8-length": "0.0.1"
   },

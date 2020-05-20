@@ -14,7 +14,7 @@
         "removeComments": false,
         "sourceMap": true,
         "noImplicitThis": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "declaration": true
     },
     "include": [

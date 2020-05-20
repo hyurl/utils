@@ -1,4 +1,5 @@
 import isEmpty from './isEmpty';
+import getGlobal from './getGlobal';
 
 if (typeof setImmediate === "undefined") {
     // compatible with browsers
@@ -34,7 +35,7 @@ function useThrottle(resource: any, interval: number) {
             });
         }, gcInterval);
 
-        if (typeof process === "object") {
+        if (typeof process === "object" && getGlobal("Deno") === void 0) {
             process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
         }
     }
@@ -50,7 +51,7 @@ function useThrottle(resource: any, interval: number) {
 
 namespace useThrottle {
     export var gcInterval = 30000;
-    export let gcTimer: NodeJS.Timer = null;
+    export let gcTimer: any = void 0;
     export const tasks = new Map<any, ThrottleTask>();
 }
 

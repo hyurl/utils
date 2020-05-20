@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import "./types";
 import count from "./count";
 import define from "./define";
@@ -31,51 +32,7 @@ import typeOf from "./typeOf";
 import until from "./until";
 import useThrottle from "./useThrottle";
 import wrap from "./wrap";
-
 declare global {
-    type Global = Ensured<Partial<NodeJS.Global & Window & typeof globalThis>, keyof Omit<NodeJS.Global,
-        "Buffer" |
-        "clearImmediate" |
-        "gc" |
-        "GLOBAL" |
-        "global" |
-        "process" |
-        "root" |
-        "setImmediate" |
-        "v8debug">>;
+    type Global = Ensured<Partial<NodeJS.Global & Window & typeof globalThis>, keyof Omit<NodeJS.Global, "Buffer" | "clearImmediate" | "gc" | "GLOBAL" | "global" | "process" | "root" | "setImmediate" | "v8debug">>;
 }
-
-export {
-    count,
-    define,
-    diff,
-    ensureType,
-    flatObject,
-    getGlobal,
-    isBetween,
-    isFloat,
-    isInteger,
-    isNumeric,
-    isEmpty,
-    isOwnKey,
-    isOwnMethod,
-    isRealObject,
-    isSubClassOf,
-    isVoid,
-    keysOf,
-    omit,
-    omitVoid,
-    patch,
-    pick,
-    rand,
-    randStr,
-    sleep,
-    sort,
-    split,
-    timestamp,
-    typeAs,
-    typeOf,
-    until,
-    useThrottle,
-    wrap
-};
+export { count, define, diff, ensureType, flatObject, getGlobal, isBetween, isFloat, isInteger, isNumeric, isEmpty, isOwnKey, isOwnMethod, isRealObject, isSubClassOf, isVoid, keysOf, omit, omitVoid, patch, pick, rand, randStr, sleep, sort, split, timestamp, typeAs, typeOf, until, useThrottle, wrap };

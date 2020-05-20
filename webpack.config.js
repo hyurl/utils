@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: __dirname + "/bundle",
-        filename: "hyurl-utils.min.js",
+        filename: "index.js",
         library: "@hyurl/utils",
         libraryTarget: "umd",
         globalObject: "this",

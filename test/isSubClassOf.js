@@ -12,7 +12,6 @@ describe("isSubClassOf", () => {
     });
 
     it("should pass when the base class is Object", () => {
-        class A { }
         assert(isSubClassOf(A, Object));
     });
 
