@@ -113,7 +113,7 @@ import * as utils from "./vendors/hyurl/utils/mod.ts";
 
 However, there is a trick under the hood that allows a Node.js module working
 in Deno, and it requires read permission of the disk for loading the Node.js
-modules.
+module.
 
 For example, a file named `test-deno.ts`:
 
