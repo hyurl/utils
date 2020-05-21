@@ -1,8 +1,9 @@
 .vscode/
 node_modules/
 *.js
+*.js.map
+!bundle/*.js*
 !*.config.js
 !test/*.js
-*.js.map
 # *.d.ts
 *.tgz

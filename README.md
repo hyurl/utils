@@ -97,10 +97,18 @@ Module as in Node.js, or loads the bundle file
 ## Deno Support
 
 Yes, this package can be used directly in [Deno](https://deno.land), to use it,
-simply import the package from github repository, just like the following.
+just add this repository as a submodule to your project, and then import it
+locally,
+
+```sh
+git submodule add https://github.com/hyurl/utils vendors/hyurl/utils
+```
+
+(It is recommended that you should store all your third party packages in a
+common directory, for example, `vendors` as used here.)
 
 ```ts
-import * as utils from "https://github.com/hyurl/utils/mod.ts";
+import * as utils from "./vendors/hyurl/utils/mod.ts";
 ```
 
 However, there is a trick under the hood that allows a Node.js module working
@@ -110,7 +118,7 @@ modules.
 For example, a file named `test-deno.ts`:
 
 ```ts
-import { sleep, timestamp } from "https://github.com/hyurl/utils/mod.ts";
+import { sleep, timestamp } from "./vendors/hyurl/utils/mod.ts";
 
 await sleep(1000);
 
@@ -137,4 +145,10 @@ npm test
 npm run test-deno
 # or
 deno test --unstable --allow-read test/deno/example.ts
+```
+
+#### Test as Submodule
+
+```sh
+deno test --unstable --allow-read vendors/hyurl/utils/test/deno/example.ts
 ```

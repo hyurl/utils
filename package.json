@@ -7,7 +7,8 @@
     "test": "mocha",
     "test-deno": "deno test --unstable --allow-read test/deno/example.ts",
     "compile": "npm link typescript && tsc && webpack",
-    "prepublishOnly": "npm run compile"
+    "prepublishOnly": "npm run compile",
+    "postpublish": "ls *.js | grep -v *.config.js | xargs rm -f && ls *.js.map | xargs rm -f"
   },
   "repository": {
     "type": "git",
