@@ -46,15 +46,28 @@ describe("define", () => {
     it("should set a getter property instead", () => {
         let obj = {};
 
-        define(obj, "foo", () => "Hello, World!");
+        define(obj, "foo", { get: () => "Hello, World!" });
         assert.strictEqual(obj.foo, "Hello, World!");
     });
 
     it("should set a enumerable getter property instead", () => {
         let obj = {};
 
-        define(obj, "foo", () => "Hello, World!", true);
+        define(obj, "foo", { get: () => "Hello, World!" }, true);
         assert.strictEqual(obj.foo, "Hello, World!");
         assert.deepStrictEqual(Object.keys(obj), ["foo"]);
+    });
+
+    it("should set a getter and a setter property instead", () => {
+        let obj = {};
+
+        define(obj, "foo", {
+            get: () => obj["_foo"] === void 0 ? "Hello, World!" : obj["_foo"],
+            set: (v) => obj["_foo"] = v
+        });
+        assert.strictEqual(obj.foo, "Hello, World!");
+        obj.foo = "Hi, Ayon";
+        assert.strictEqual(obj.foo, "Hi, Ayon");
+        assert.strictEqual(obj["_foo"], obj.foo);
     });
 });

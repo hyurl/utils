@@ -1,7 +1,8 @@
 /**
  * Sets a property on the target object.
- * @param value If a function is set and the `prop` is neither `valueOf`, nor
- *  `toString`, nor `toJSON`, then the function will be used to set the getter.
+ * @param value Normally this is the value bound to the property, however, it
+ *  could be used to set the getter and the setter using the signature
+ *  `{ get: Function, set?: Function }`.
  * @param enumerable By default, the property is non-enumerable and can't be
  *  seen by the console, use this option to make it enumerable and visible to
  *  the console.
@@ -9,4 +10,4 @@
  *  option to allow it being writable.
  *  **This property doesn't work with setter.**
  */
-export default function define(obj: any, prop: string | symbol, value: any, enumerable?: boolean, writable?: boolean): any;
+export default function define(obj: any, prop: string | symbol, value: any, enumerable?: boolean, writable?: boolean): void;

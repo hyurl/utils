@@ -2,8 +2,9 @@ import typeOf from './typeOf';
 
 /**
  * Sets a property on the target object.
- * @param value If a function is set and the `prop` is neither `valueOf`, nor
- *  `toString`, nor `toJSON`, then the function will be used to set the getter.
+ * @param value Normally this is the value bound to the property, however, it
+ *  could be used to set the getter and the setter using the signature
+ *  `{ get: Function, set?: Function }`.
  * @param enumerable By default, the property is non-enumerable and can't be
  *  seen by the console, use this option to make it enumerable and visible to
  *  the console.
@@ -17,21 +18,34 @@ export default function define(
     value: any,
     enumerable = false,
     writable = false,
-): any {
-    if (typeOf(value) === "function" &&
-        !["valueOf", "toString", "toJSON"].includes(<string>prop)
-    ) {
-        Object.defineProperty(obj, prop, {
-            configurable: true,
-            enumerable,
-            get: value
-        });
-    } else {
-        Object.defineProperty(obj, <string | symbol>prop, {
-            configurable: true,
-            enumerable,
-            writable,
-            value
-        });
+): void {
+    if (typeOf(value) === Object) {
+        if (isGetter(value) || isGetterAndSetter(value)) {
+            Object.defineProperty(obj, prop, {
+                configurable: true,
+                enumerable,
+                ...value
+            });
+            return;
+        }
     }
+
+    Object.defineProperty(obj, <string | symbol>prop, {
+        configurable: true,
+        enumerable,
+        writable,
+        value
+    });
+}
+
+function isGetter(obj: object) {
+    return String(Object.keys(obj)) === "get"
+        && typeof obj["get"] === "function";
+}
+
+function isGetterAndSetter(obj: object) {
+    let sign = String(Object.keys(obj));
+    return (sign === "get,set" || sign === "set,get")
+        && typeof obj["get"] === "function"
+        && typeof obj["set"] === "function";
 }
