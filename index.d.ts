@@ -13,7 +13,6 @@ import isInteger from "./isInteger";
 import isNumeric from "./isNumeric";
 import isOwnKey from "./isOwnKey";
 import isOwnMethod from "./isOwnMethod";
-import isRealObject from "./isRealObject";
 import isSubClassOf from "./isSubClassOf";
 import isVoid from "./isVoid";
 import keysOf from "./keysOf";
@@ -35,4 +34,4 @@ import wrap from "./wrap";
 declare global {
     type Global = Ensured<Partial<NodeJS.Global & Window & typeof globalThis>, keyof Omit<NodeJS.Global, "Buffer" | "clearImmediate" | "gc" | "GLOBAL" | "global" | "process" | "root" | "setImmediate" | "v8debug">>;
 }
-export { count, define, diff, ensureType, flatObject, getGlobal, isBetween, isFloat, isInteger, isNumeric, isEmpty, isOwnKey, isOwnMethod, isRealObject, isSubClassOf, isVoid, keysOf, omit, omitVoid, patch, pick, rand, randStr, sleep, sort, split, timestamp, typeAs, typeOf, until, useThrottle, wrap };
+export { count, define, diff, ensureType, flatObject, getGlobal, isBetween, isFloat, isInteger, isNumeric, isEmpty, isOwnKey, isOwnMethod, isSubClassOf, isVoid, keysOf, omit, omitVoid, patch, pick, rand, randStr, sleep, sort, split, timestamp, typeAs, typeOf, until, useThrottle, wrap };

@@ -1,6 +1,5 @@
-import { isArrayLike } from 'is-like';
+import { isArrayLike, isDictLike } from 'is-like';
 import { ensureArray } from "./ensureType";
-import isRealObject from "./isRealObject";
 
 /**
  * Creates a new array with sorted elements of the original array, the sorted
@@ -41,22 +40,22 @@ export default function sort(
             .map((value, index) => ({ value, index }))
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
             .map(({ value }) => value);
-    } else if (isRealObject(target)) {
+    } else if (isDictLike(target)) {
         let deep = Boolean(method);
         let keys = [
             ...sort(Object.getOwnPropertyNames(target)), // sort the keys
             ...Object.getOwnPropertySymbols(target)
         ];
 
-        return keys.reduce((result, key) => {
+        return keys.reduce((result, key: string) => {
             let value = target[key];
 
             if (deep) {
                 if (isArrayLike(value, true)) {
                     value = ensureArray(value).map(item => {
-                        return isRealObject(item) ? sort(item, deep) : item;
+                        return isDictLike(item) ? sort(item, deep) : item;
                     });
-                } else if (isRealObject(value)) {
+                } else if (isDictLike(value)) {
                     value = sort(value, deep);
                 }
             }

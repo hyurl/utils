@@ -1,7 +1,7 @@
 import isVoid from "./isVoid";
 import isEmpty from "./isEmpty";
 import keysOf from "./keysOf";
-import { isArrayLike } from 'is-like';
+import { isArrayLike, isBufferLike } from 'is-like';
 
 /**
  * Creates an object composed with only the non-void properties.
@@ -28,7 +28,10 @@ export function doOmit<T extends any>(
 ): T {
     if (typeof target === "string") {
         return omitEmptyStrings && target.trim() === "" ? void 0 : target;
-    } else if (target === null || typeof target !== "object") {
+    } else if (target === null
+        || typeof target !== "object"
+        || isBufferLike(target)
+    ) {
         return target;
     } else if (omitEmptyObjects && isEmpty(target)) {
         return depth > 0 ? void 0 : (isArrayLike(target, true) ? [] : {}) as any;

@@ -1,7 +1,6 @@
 import keysOf from './keysOf';
 import isVoid from './isVoid';
-import isRealObject from './isRealObject';
-import { isArrayLike, isBufferLike } from 'is-like';
+import { isDictLike, isArrayLike, isBufferLike } from 'is-like';
 
 type OmitChildrenNodes<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray
@@ -53,15 +52,15 @@ function flatDeep(
     flatArray: boolean
 ) {
     let isArr: boolean;
-    let isObj: boolean;
+    let isDict: boolean;
     let isContent = !isVoid(field);
 
     if (depth === maxDepth || (
         !(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&
-        !(isObj = isRealObject(source))
+        !(isDict = isDictLike(source))
     )) {
         carrier[field] = source;
-    } else if (isObj) {
+    } else if (isDict) {
         keysOf(<object>source).forEach((key: string | symbol) => {
             let value = source[key];
 

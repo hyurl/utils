@@ -12,7 +12,6 @@ import isInteger from "./isInteger";
 import isNumeric from "./isNumeric";
 import isOwnKey from "./isOwnKey";
 import isOwnMethod from "./isOwnMethod";
-import isRealObject from "./isRealObject";
 import isSubClassOf from "./isSubClassOf";
 import isVoid from "./isVoid";
 import keysOf from "./keysOf";
@@ -59,7 +58,6 @@ export {
     isEmpty,
     isOwnKey,
     isOwnMethod,
-    isRealObject,
     isSubClassOf,
     isVoid,
     keysOf,

@@ -1,4 +1,4 @@
-import isRealObject from './isRealObject';
+import { isDictLike } from 'is-like';
 import isEmpty from './isEmpty';
 import isVoid from './isVoid';
 
@@ -34,11 +34,11 @@ function doPatch(
     ignoreEmptyStrings: boolean,
     isChildNode: boolean
 ) {
-    if (isRealObject(origin) && isRealObject(input)) {
+    if (isDictLike(origin) && isDictLike(input)) {
         let keys = Reflect.ownKeys(input);
         let result: any = {};
 
-        keys.forEach(key => {
+        keys.forEach((key: string) => {
             if (origin[key] !== input[key] &&
                 !isVoid(input[key]) && // ignore valid values
                 (!ignoreEmptyStrings || input[key] !== "")

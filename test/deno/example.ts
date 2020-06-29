@@ -13,7 +13,6 @@ import {
     isNumeric,
     isOwnKey,
     isOwnMethod,
-    isRealObject,
     isSubClassOf,
     isVoid,
     keysOf,
@@ -203,16 +202,6 @@ Deno.test("isOwnMethod", () => {
     assert(!isOwnMethod(test, "hasOwnProperty"));
     assert(!isOwnMethod(test, "fnProp"));
     assert(!isOwnMethod(test, "method2"));
-});
-
-Deno.test("isRealObject", () => {
-    assert(isRealObject({}));
-    assert(isRealObject(new class A { }));
-    assert(!isRealObject([]));
-    assert(!isRealObject((function () { return arguments })()));
-    assert(!isRealObject(new Map()));
-    assert(!isRealObject(new Set()));
-    assert(!isRealObject(Promise.resolve(1)));
 });
 
 Deno.test("isSubClassOf", () => {

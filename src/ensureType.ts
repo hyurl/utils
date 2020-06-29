@@ -1,6 +1,5 @@
-import { isArrayLike } from 'is-like';
+import { isArrayLike, isDictLike } from 'is-like';
 import isBetween from './isBetween';
-import isRealObject from './isRealObject';
 import keysOf from './keysOf';
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
@@ -55,8 +54,8 @@ export default function ensureType(target: any): any {
                 return null;
             } else if (isArrayLike(target, true)) {
                 return ensureArray(target).map(ensureType);
-            } else if (isRealObject(target)) {
-                return keysOf(target).reduce((result, key) => {
+            } else if (isDictLike(target)) {
+                return keysOf(target).reduce((result, key: string) => {
                     result[key] = ensureType(target[key]);
                     return result;
                 }, <Record<string, any>>{});

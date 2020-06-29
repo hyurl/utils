@@ -21,7 +21,6 @@ Since 0.1.50, this package now supports Node.js, Web and
 - `isNumeric`[.d.ts](./isNumeric.d.ts)
 - `isOwnKey`[.d.ts](./isOwnKey.d.ts)
 - `isOwnMethod`[.d.ts](./isOwnMethod.d.ts)
-- `isRealObject`[.d.ts](./isRealObject.d.ts)
 - `isSubClassOf`[.d.ts](./isSubClassOf.d.ts)
 - `isVoid`[.d.ts](./isVoid.d.ts)
 - `keysOf`[.d.ts](./keysOf.d.ts)

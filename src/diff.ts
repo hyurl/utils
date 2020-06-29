@@ -1,4 +1,4 @@
-import isRealObject from './isRealObject';
+import { isDictLike } from "is-like";
 import isEmpty from './isEmpty';
 import isVoid from './isVoid';
 
@@ -22,12 +22,12 @@ export default function diff(origin: any, input: any, deep = false) {
             ...input.filter(value => !origin.includes(value)),
             ...origin.filter(value => !input.includes(value))
         ];
-    } else if (isRealObject(origin) && isRealObject(input)) {
+    } else if (isDictLike(origin) && isDictLike(input)) {
         let keys = Reflect.ownKeys(input);
         let _keys = Reflect.ownKeys(origin);
         let result: any = {};
 
-        keys.forEach(key => {
+        keys.forEach((key: string) => {
             if (origin[key] !== input[key] &&
                 !(isVoid(origin[key]) && isVoid(input[key])) // ignore void values
             ) {
@@ -46,7 +46,9 @@ export default function diff(origin: any, input: any, deep = false) {
             }
         });
 
-        _keys.forEach(key => keys.includes(key) || (result[key] = origin[key]));
+        _keys.forEach((key: string) => {
+            keys.includes(key) || (result[key] = origin[key]);
+        });
 
         return result;
     } else {
