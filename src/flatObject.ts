@@ -91,7 +91,7 @@ function flatDeep(
                     flatArray
                 );
             }
-        } else if (depth > 0) {
+        } else {
             carrier[field] = source;
         }
     }
