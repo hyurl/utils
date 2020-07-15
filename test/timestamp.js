@@ -19,6 +19,10 @@ describe("timestamp", () => {
             assert(timestamp(date) === moment(date).unix());
         });
 
+        it("should get the timestamp according to the Date arguments format", () => {
+            assert(timestamp("2020,0,1,12,0,0") === timestamp(new Date(2020, 0, 1, 12, 0, 0)));
+        });
+
         it("should get the timestamp according to the input milliseconds", () => {
             let now = Date.now();
             assert(timestamp(now) === moment(now).unix());

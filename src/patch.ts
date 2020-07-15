@@ -13,8 +13,8 @@ import isVoid from './isVoid';
  * differences, when patching, any void value in the `input` object will be
  * ignored.
  * 
- * This function is very useful, for example, a client issued a patch into the
- * resource store and the server wants to know what properties has modified by
+ * This function is very useful, for example, a client issued a patch of the
+ * resource and the server wants to know what properties has been modified by
  * this update so that it can perform some extra operations to provide a better
  * user experience.
  */
@@ -40,13 +40,10 @@ function doPatch(
 
         keys.forEach((key: string) => {
             if (origin[key] !== input[key] &&
-                !isVoid(input[key]) && // ignore valid values
+                !isVoid(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")
             ) {
-                if (deep &&
-                    typeof origin[key] === "object" && origin[key] !== null &&
-                    typeof input[key] === "object" && input[key] !== null
-                ) {
+                if (deep && isDictLike(origin[key]) && isDictLike(input[key])) {
                     let _result = doPatch(
                         origin[key],
                         input[key],
@@ -56,7 +53,8 @@ function doPatch(
                     );
 
                     if (!isEmpty(_result)) {
-                        result = origin[key] = _result;
+                        result[key] = _result;
+                        Object.assign(origin[key], input[key]);
                     }
                 } else {
                     result[key] = origin[key] = input[key];

@@ -8,8 +8,8 @@
  * differences, when patching, any void value in the `input` object will be
  * ignored.
  *
- * This function is very useful, for example, a client issued a patch into the
- * resource store and the server wants to know what properties has modified by
+ * This function is very useful, for example, a client issued a patch of the
+ * resource and the server wants to know what properties has been modified by
  * this update so that it can perform some extra operations to provide a better
  * user experience.
  */

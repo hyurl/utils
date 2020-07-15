@@ -19,7 +19,11 @@ describe("patch", () => {
             bar: "World",
             child: {
                 foo: 123,
-                bar: 456
+                bar: 456,
+                subChild: {
+                    foo: "abc",
+                    bar: "def"
+                }
             }
         };
 
@@ -27,14 +31,35 @@ describe("patch", () => {
             patch(origin, {
                 foo: "Hi",
                 child: {
-                    bar: 456
+                    bar: 789,
+                    subChild: {
+                        foo: "012",
+                        bar: "def"
+                    }
                 }
             }, true),
             {
-                foo: "Hi"
+                foo: "Hi",
+                child: {
+                    bar: 789,
+                    subChild: {
+                        foo: "012"
+                    }
+                }
             }
         );
-        assert.deepStrictEqual(origin, { ...origin, foo: "Hi" });
+        assert.deepStrictEqual(origin, {
+            foo: "Hi",
+            bar: "World",
+            child: {
+                foo: 123,
+                bar: 789,
+                subChild: {
+                    foo: "012",
+                    bar: "def"
+                }
+            }
+        });
     });
 
     it("should ignore valid values", () => {
