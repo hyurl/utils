@@ -35,7 +35,7 @@ export default function typeOf<T extends any>(
         if (Object.prototype.toString.call(target) === "[object Arguments]") {
             return "arguments";
         } else {
-            return target.constructor || Object;
+            return <any>target.constructor || Object;
         }
     } else {
         return <any>type;
