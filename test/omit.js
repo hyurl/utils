@@ -16,6 +16,6 @@ describe("omit", () => {
     });
 
     it("should omit elements from the array", () => {
-        assert.deepStrictEqual(omit([1, 2, 3, 4, 5], [2, 3]), [1, 2, 5]);
+        assert.deepStrictEqual(omit([1, 2, 3, 4, 5], [2, 3]), [1, 4, 5]);
     });
 });

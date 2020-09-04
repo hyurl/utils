@@ -1,7 +1,7 @@
 import isOwnKey from './isOwnKey';
 
-/** Creates an array composed without the picked elements. */
-export default function omit<T extends any[]>(arr: T, indexes: number[]): T;
+/** Creates an array composed without the picked items. */
+export default function omit<T extends any[]>(arr: T, items: number[]): T;
 /**
  * Creates an object composed without the picked properties.
  * NOTE: this function will collect both the own keys and the enumerable
@@ -10,7 +10,7 @@ export default function omit<T extends any[]>(arr: T, indexes: number[]): T;
 export default function omit<T extends object, U extends keyof T>(obj: T, props: (U | symbol)[]): Omit<T, U>;
 export default function omit(obj: any, props: (string | number | symbol)[]) {
     if (Array.isArray(obj)) {
-        return obj.filter((_, i) => !props.includes(i));
+        return obj.filter(i => !props.includes(i));
     } else {
         let keys = Reflect.ownKeys(obj);
         let result = keys.reduce((result: any, prop: symbol) => {

@@ -1,11 +1,11 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
     "test": "npm run compile && mocha && npm run postpublish",
-    "test-deno": "deno test --unstable --allow-read test/deno/example.ts",
+    "test-deno": "deno test --unstable --allow-read --allow-env test/deno/example.ts",
     "compile": "npm link typescript && tsc && webpack",
     "prepublishOnly": "npm run compile",
     "postpublish": "ls *.js | grep -v *.config.js | xargs rm -f && ls *.js.map | xargs rm -f"
