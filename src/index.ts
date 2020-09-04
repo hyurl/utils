@@ -31,19 +31,6 @@ import until from "./until";
 import useThrottle from "./useThrottle";
 import wrap from "./wrap";
 
-declare global {
-    type Global = Ensured<Partial<NodeJS.Global & Window & typeof globalThis>, keyof Omit<NodeJS.Global,
-        "Buffer" |
-        "clearImmediate" |
-        "gc" |
-        "GLOBAL" |
-        "global" |
-        "process" |
-        "root" |
-        "setImmediate" |
-        "v8debug">>;
-}
-
 export {
     count,
     define,

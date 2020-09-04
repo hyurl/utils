@@ -5,7 +5,6 @@ import _define from "./define.d.ts";
 import _diff from "./diff.d.ts";
 import _ensureType from "./ensureType.d.ts";
 import _flatObject from "./flatObject.d.ts";
-import _getGlobal from "./getGlobal.d.ts";
 import _isBetween from "./isBetween.d.ts";
 import _isEmpty from "./isEmpty.d.ts";
 import _isFloat from "./isFloat.d.ts";
@@ -65,7 +64,6 @@ export const define: typeof _define = utils.define;
 export const diff: typeof _diff = utils.diff;
 export const ensureType: typeof _ensureType = utils.ensureType;
 export const flatObject: typeof _flatObject = utils.flatObject;
-export const getGlobal: typeof _getGlobal = utils.getGlobal;
 export const isBetween: typeof _isBetween = utils.isBetween;
 export const isEmpty: typeof _isEmpty = utils.isEmpty;
 export const isFloat: typeof _isFloat = utils.isFloat;
@@ -91,3 +89,16 @@ export const typeOf: typeof _typeOf = utils.typeOf;
 export const until: typeof _until = utils.until;
 export const useThrottle: typeof _useThrottle = utils.useThrottle;
 export const wrap: typeof _wrap = utils.wrap;
+
+
+// Global and getGlobal is special and act differently between Node.js and Deno.
+type Global = Partial<Window & typeof globalThis>;
+
+export const getGlobal: {
+    /** Gets the global object of the host environment. */
+    (): Global;
+    /** Returns a property from the global object. */
+    <P extends keyof Global>(prop: P): Global[P];
+    /** Returns a property from the global object. */
+    (prop: string): any;
+} = utils.getGlobal;
