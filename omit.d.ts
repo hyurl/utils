@@ -1,5 +1,5 @@
 /** Creates an array composed without the picked items. */
-export default function omit<T extends any[]>(arr: T, items: number[]): T;
+export default function omit<T extends any>(arr: T[], items: T[]): T[];
 /**
  * Creates an object composed without the picked properties.
  * NOTE: this function will collect both the own keys and the enumerable
