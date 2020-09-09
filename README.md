@@ -127,7 +127,7 @@ console.log(timestamp());
 You will need to use this command to run the program:
 
 ```sh
-deno run --unstable --allow-read test-deno.ts
+deno run --unstable --allow-read --allow-env test-deno.ts
 ```
 
 ## Unit Test
