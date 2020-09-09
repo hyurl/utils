@@ -143,11 +143,11 @@ npm test
 ```sh
 npm run test-deno
 # or
-deno test --unstable --allow-read test/deno/example.ts
+deno test --unstable --allow-read --allow-env test/deno/example.ts
 ```
 
 #### Test as Submodule
 
 ```sh
-deno test --unstable --allow-read vendors/hyurl/utils/test/deno/example.ts
+deno test --unstable --allow-read --allow-env vendors/hyurl/utils/test/deno/example.ts
 ```
