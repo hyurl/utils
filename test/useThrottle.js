@@ -3,10 +3,6 @@ const assert = require("assert");
 const { useThrottle, sleep } = require("..");
 
 describe("useThrottle", () => {
-    after(() => {
-        clearInterval(useThrottle.gcTimer);
-    });
-
     it("should create a throttle function and runs the handle function only once", async () => {
         let count = 0;
         let getFullName = useThrottle("getFullName", 100);

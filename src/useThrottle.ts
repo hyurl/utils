@@ -1,5 +1,4 @@
 import isEmpty from './isEmpty';
-import getGlobal from './getGlobal';
 
 if (typeof setImmediate === "undefined") {
     // compatible with browsers
@@ -37,10 +36,6 @@ function useThrottle(resource: any, interval: number) {
         
         if (typeof useThrottle.gcTimer.unref === "function") {
             useThrottle.gcTimer.unref();
-        }
-
-        if (typeof process === "object" && getGlobal("Deno") === void 0) {
-            process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
         }
     }
 

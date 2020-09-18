@@ -25,6 +25,7 @@ import {
     timestamp,
     sleep,
     sort,
+    split,
     typeAs,
     typeOf,
     until,
@@ -411,6 +412,47 @@ Deno.test("sort", () => {
             ["p", "q", "r"]
         );
     }
+});
+
+Deno.test("split", () => {
+    assertEquals(
+        split("Hello, World!", ""),
+        ["H", "e", "l", "l", "o", ",", " ", "W", "o", "r", "l", "d", "!"]
+    );
+    assertEquals(split("Hello, World!", ", "), ["Hello", "World!"]);
+
+    assertEquals(
+        split(Uint8Array.from([1, 2, 3, 4]), 2),
+        [Uint8Array.from([1, 2]), Uint8Array.from([3, 4])]
+    );
+
+    assertEquals(
+        split(new ArrayBuffer(8), 2),
+        [
+            new ArrayBuffer(2),
+            new ArrayBuffer(2),
+            new ArrayBuffer(2),
+            new ArrayBuffer(2)
+        ]
+    );
+
+    assertEquals(
+        split(new Set(["Hello", "World", "Hi", "Ayon"]), 2),
+        [new Set(["Hello", "World"]), new Set(["Hi", "Ayon"])]
+    );
+
+    assertEquals(
+        split(new Map([["Hello", "World"], ["Hi", "Ayon"]]), 1),
+        [new Map([["Hello", "World"]]), new Map([["Hi", "Ayon"]])]
+    );
+
+    assertEquals(
+        split({ hello: "world", hi: "ayon", foo: "bar" }, 2),
+        [
+            { hello: "world", hi: "ayon" },
+            { foo: "bar" }
+        ]
+    );
 });
 
 Deno.test("timestamp", () => {
