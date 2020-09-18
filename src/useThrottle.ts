@@ -34,6 +34,10 @@ function useThrottle(resource: any, interval: number) {
                 }
             });
         }, gcInterval);
+        
+        if (typeof useThrottle.gcTimer.unref === "function") {
+            useThrottle.gcTimer.unref();
+        }
 
         if (typeof process === "object" && getGlobal("Deno") === void 0) {
             process.on("beforeExit", () => clearInterval(useThrottle.gcTimer));
