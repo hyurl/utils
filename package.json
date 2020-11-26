@@ -1,6 +1,6 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
@@ -25,16 +25,16 @@
   },
   "homepage": "https://github.com/hyurl/utils#readme",
   "devDependencies": {
-    "@types/node": "^12.12.47",
+    "@types/node": "^12.19.7",
     "mocha": "^6.2.3",
-    "moment": "^2.27.0",
+    "moment": "^2.29.1",
     "ts-loader": "^6.2.2"
   },
   "dependencies": {
     "check-iterable": "^1.0.2",
     "could-be-class": "^0.2.0",
     "is-like": "^0.1.6",
-    "tslib": "^1.13.0",
+    "tslib": "^1.14.1",
     "utf8-length": "0.0.1"
   },
   "engines": {

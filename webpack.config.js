@@ -3,9 +3,9 @@ module.exports = {
     entry: "./src/index.ts",
     devtool: "source-map",
     target: "node",
-    node: {
-        process: false
-    },
+    // node: {
+    //     process: false
+    // },
     output: {
         path: __dirname + "/bundle",
         filename: "index.js",

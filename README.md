@@ -96,7 +96,11 @@ Module as in Node.js, or loads the bundle file
 ## Deno Support
 
 Yes, this package can be used directly in [Deno](https://deno.land), to use it,
-just add this repository as a submodule to your project, and then import it
+there are two ways to do so:
+
+1. Import [mod.ts](./mod.ts)
+
+Just add this repository as a submodule to your project, and then import it
 locally,
 
 ```sh
@@ -129,6 +133,21 @@ You will need to use this command to run the program:
 ```sh
 deno run --unstable --allow-read --allow-env test-deno.ts
 ```
+
+2. Via [jspm.dev](https://jspm.dev/)
+
+>jspm provides a module CDN allowing any package from npm to be directly loaded
+>in the browser and other JS environments as a fully optimized native JavaScript
+>module.
+
+```ts
+import utils from "https://jspm.dev/@hyurl/utils";
+// Or
+import * as utils from "https://jspm.dev/@hyurl/utils";
+```
+
+*Note: importing from jspm.dev will lost type intellisense, but it doesn't*
+*require special access flags.*
 
 ## Unit Test
 

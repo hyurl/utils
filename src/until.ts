@@ -6,5 +6,5 @@ export default async function until(test: () => boolean | Promise<boolean>) {
         var setImmediate = (cb: () => void) => setTimeout(cb, 0);
     }
 
-    do { await new Promise(setImmediate) } while ((await test()) == false);
+    do { await new Promise<void>(setImmediate); } while ((await test()) == false);
 }
