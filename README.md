@@ -147,7 +147,25 @@ import * as utils from "https://jspm.dev/@hyurl/utils";
 ```
 
 *Note: importing from jspm.dev will lost type intellisense, but it doesn't*
-*require special access flags.*
+*require read-write access.*
+
+However, there is a solution to fix types, in `deps.ts`, import both the
+`mod.ts` (as type) and the commonjs module, then re-export them together.
+
+```ts
+// deps.ts
+import type * as iUtils from "../hyurl/utils/mod.ts";
+import * as _utils from "https://jspm.dev/@hyurl/utils";
+
+export const utils = _utils as typeof iUtils;
+```
+
+In this way, we can use utils with types in our program:
+
+```ts
+// main.ts
+import { utils } from "./deps.ts";
+```
 
 ## Unit Test
 
