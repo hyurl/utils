@@ -3,6 +3,7 @@ node_modules/
 *.js
 *.js.map
 !bundle/*.js*
+!esm/*.js
 !*.config.js
 !test/*.js
 # *.d.ts
