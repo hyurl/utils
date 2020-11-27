@@ -1,6 +1,8 @@
 import { isArrayLike, isDictLike } from 'is-like';
 import { ensureArray } from "./ensureType";
 
+declare var Deno: Object;
+
 /**
  * Creates a new array with sorted elements of the original array, the sorted
  * array is in ascending order by default, unless providing a `compare` function
@@ -81,10 +83,14 @@ function onlyNumbers(arr: any[], type: "number" | "bigint" = "number") {
 }
 
 function shouldUseNativeSort(arr: any[]) {
-    if (typeof process?.versions === "object") {
+    if (typeof process === "object" && typeof process.versions === "object") {
         return arr.length <= 10
             || parseFloat(process.versions.v8 || "0") >= 7.0;
-    } else if (typeof navigator?.userAgent === "string") {
+    } else if (typeof Deno === "object") {
+        return true;
+    } else if (typeof navigator === "object"
+        && typeof navigator.userAgent === "string"
+    ) {
         let match = navigator.userAgent.match(
             /(Chrome|Firefox|Safari|Edge|OPR)\/(\d+)/
         );
