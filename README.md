@@ -80,12 +80,21 @@ import "@hyurl/utils/types";
 
 ## Web Support
 
-When using this package in the browser, either loads it as a ESModule/CommonJS
-Module as in Node.js, or loads the bundle file 
+When using this package in the browser, either loads it as a ESModule or
+CommonJS Module as in Node.js, or loads the bundle file 
 [./bundle/index.js](./bundle/index.js) instead.
 
+### Load ES Module
+
+```ts
+import utils from "https://github.com/hyurl/utils/raw/master/esm/index.js";
+// Note the difference with the TypeScript version.
+```
+
+### Load Bundle
+
 ```html
-<script src="./node_modules/@hyurl/utils/bundle/index.js"></script>
+<script src="https://github.com/hyurl/utils/raw/master/bundle/index.js"></script>
 <script>
     const { count } = window["@hyurl/utils"];
 
@@ -96,75 +105,10 @@ Module as in Node.js, or loads the bundle file
 ## Deno Support
 
 Yes, this package can be used directly in [Deno](https://deno.land), to use it,
-there are two ways to do so:
-
-1. Import [mod.ts](./mod.ts)
-
-Just add this repository as a submodule to your project, and then import it
-locally,
-
-```sh
-git submodule add https://github.com/hyurl/utils vendors/hyurl/utils
-```
-
-(It is recommended that you should store all your third party packages in a
-common directory, for example, `vendors` as used here.)
+just import it from github:
 
 ```ts
-import * as utils from "./vendors/hyurl/utils/mod.ts";
-```
-
-However, there is a trick under the hood that allows a Node.js module working
-in Deno, and it requires read permission of the disk for loading the Node.js
-module.
-
-For example, a file named `test-deno.ts`:
-
-```ts
-import { sleep, timestamp } from "./vendors/hyurl/utils/mod.ts";
-
-await sleep(1000);
-
-console.log(timestamp());
-```
-
-You will need to use this command to run the program:
-
-```sh
-deno run --unstable --allow-read --allow-env test-deno.ts
-```
-
-2. Via [jspm.dev](https://jspm.dev/)
-
->jspm provides a module CDN allowing any package from npm to be directly loaded
->in the browser and other JS environments as a fully optimized native JavaScript
->module.
-
-```ts
-import utils from "https://jspm.dev/@hyurl/utils";
-// Or
-import * as utils from "https://jspm.dev/@hyurl/utils";
-```
-
-*Note: importing from jspm.dev will lost type intellisense, but it doesn't*
-*require read-write access.*
-
-However, there is a solution to fix types, in `deps.ts`, import both the
-`mod.ts` (as type) and the commonjs module, then re-export them together.
-
-```ts
-// deps.ts
-import type * as iUtils from "../hyurl/utils/mod.ts";
-import * as _utils from "https://jspm.dev/@hyurl/utils";
-
-export const utils = _utils as typeof iUtils;
-```
-
-In this way, we can use utils with types in our program:
-
-```ts
-// main.ts
-import { utils } from "./deps.ts";
+import * as utils from "https://github.com/hyurl/utils/raw/master/mod.ts";
 ```
 
 ## Unit Test
@@ -180,11 +124,5 @@ npm test
 ```sh
 npm run test-deno
 # or
-deno test --unstable --allow-read --allow-env test/deno/example.ts
-```
-
-#### Test as Submodule
-
-```sh
-deno test --unstable --allow-read --allow-env vendors/hyurl/utils/test/deno/example.ts
+deno test test/deno/example.ts
 ```

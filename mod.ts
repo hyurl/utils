@@ -1,4 +1,3 @@
-import { createRequire } from "https://deno.land/std/node/module.ts";
 import type * as _ from "./types.d.ts";
 import type _count from "./count.d.ts";
 import type _define from "./define.d.ts";
@@ -56,8 +55,7 @@ declare const _split: {
     <T extends object>(obj: T extends Function ? never : T, size: number): Partial<T>[];
 }
 
-const _require = createRequire(import.meta.url);
-const utils = _require("./bundle");
+import utils from "./esm/index.js";
 
 export const count: typeof _count = utils.count;
 export const define: typeof _define = utils.define;

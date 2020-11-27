@@ -4,11 +4,14 @@
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run compile && mocha && npm run postpublish",
-    "test-deno": "deno test --unstable --allow-read --allow-env test/deno/example.ts",
-    "compile": "npm link typescript && tsc && webpack",
-    "prepublishOnly": "npm run compile",
-    "postpublish": "ls *.js | grep -v *.config.js | xargs rm -f && ls *.js.map | xargs rm -f"
+    "pretest": "npm run compile",
+    "posttest": "ls *.js | grep -v *.config.js | xargs rm -f && ls *.js.map | xargs rm -f",
+    "test": "mocha",
+    "test-deno": "deno test test/deno/example.ts",
+    "compile": "npm link typescript && tsc",
+    "build": "npm run compile && rollup -c rollup.config.js",
+    "prepublishOnly": "npm run build && webpack",
+    "postpublish": "npm run posttest"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,8 @@
   },
   "homepage": "https://github.com/hyurl/utils#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
     "@types/node": "^12.19.7",
     "mocha": "^6.2.3",
     "moment": "^2.29.1",

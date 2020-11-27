@@ -6,3 +6,4 @@ tsconfig.json
 *.tgz
 .*
 webpack*
+*.config.js
