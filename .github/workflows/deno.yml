@@ -24,17 +24,9 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - name: log untrusted output
-        run: |
+      - name: Allow insecure commands
+        run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
 
-          # disable command workflow processing
-          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
-
-          # log untrusted output
-          echo "untrusted output"
-
-          # enable workflow command processing
-          echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
       - name: Setup repo
         uses: actions/checkout@v2
 
