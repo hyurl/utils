@@ -1,6 +1,6 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "mocha",
     "test-deno": "deno test test/deno/example.ts",
     "compile": "tsc",
-    "build": "npm run compile && rollup -c rollup.config.js && npm run posttest",
+    "build": "npm run compile && rollup -c rollup.config.js",
     "prepublishOnly": "npm run build && npm link typescript && webpack",
     "postpublish": "npm run posttest"
   },
