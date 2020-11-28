@@ -114,13 +114,13 @@ Note: this module can also be used Node.js as well.
 Yes, this package can be used directly in [Deno](https://deno.land), to use it,
 there are two ways to import:
 
-1. Directly from GitHub (recommended)
+1. Directly from GitHub (recommended):
 
 ```ts
 import * as utils from "https://github.com/hyurl/utils/raw/master/mod.ts";
 ```
 
-2. Via Deno hosting service
+2. Via Deno hosting service:
 
 ```ts
 import * as utils from "https://deno.land/x/hyurl_utils/mod.ts";
