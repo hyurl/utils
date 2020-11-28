@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npm run compile",
-    "posttest": "ls *.js | grep -v *.config.js | xargs rm -f && ls *.js.map | xargs rm -f",
+    "posttest": "ls *.js | grep -v config.js | xargs rm -f && ls *.js.map | xargs rm -f",
     "test": "mocha",
     "test-deno": "deno test test/deno/example.ts",
-    "compile": "npm link typescript && tsc",
-    "build": "npm run compile && rollup -c rollup.config.js",
-    "prepublishOnly": "npm run build && webpack",
+    "compile": "tsc",
+    "build": "npm run compile && rollup -c rollup.config.js && npm run posttest",
+    "prepublishOnly": "npm run build && npm link typescript && webpack",
     "postpublish": "npm run posttest"
   },
   "repository": {

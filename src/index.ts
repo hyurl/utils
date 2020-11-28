@@ -1,66 +1,32 @@
 import "./types";
-import count from "./count";
-import define from "./define";
-import diff from "./diff";
-import ensureType from "./ensureType";
-import flatObject from "./flatObject";
-import getGlobal from "./getGlobal";
-import isBetween from "./isBetween";
-import isEmpty from "./isEmpty";
-import isFloat from "./isFloat";
-import isInteger from "./isInteger";
-import isNumeric from "./isNumeric";
-import isOwnKey from "./isOwnKey";
-import isOwnMethod from "./isOwnMethod";
-import isSubClassOf from "./isSubClassOf";
-import isVoid from "./isVoid";
-import keysOf from "./keysOf";
-import omit from "./omit";
-import omitVoid from "./omitVoid";
-import patch from "./patch";
-import pick from "./pick";
-import rand from "./rand";
-import randStr from "./randStr";
-import sleep from "./sleep";
-import sort from "./sort";
-import split from "./split";
-import timestamp from "./timestamp";
-import typeAs from "./typeAs";
-import typeOf from "./typeOf";
-import until from "./until";
-import useThrottle from "./useThrottle";
-import wrap from "./wrap";
-
-export {
-    count,
-    define,
-    diff,
-    ensureType,
-    flatObject,
-    getGlobal,
-    isBetween,
-    isFloat,
-    isInteger,
-    isNumeric,
-    isEmpty,
-    isOwnKey,
-    isOwnMethod,
-    isSubClassOf,
-    isVoid,
-    keysOf,
-    omit,
-    omitVoid,
-    patch,
-    pick,
-    rand,
-    randStr,
-    sleep,
-    sort,
-    split,
-    timestamp,
-    typeAs,
-    typeOf,
-    until,
-    useThrottle,
-    wrap
-};
+export { default as count } from "./count";
+export { default as define } from "./define";
+export { default as diff } from "./diff";
+export { default as ensureType } from "./ensureType";
+export { default as flatObject } from "./flatObject";
+export { default as getGlobal } from "./getGlobal";
+export { default as isBetween } from "./isBetween";
+export { default as isEmpty } from "./isEmpty";
+export { default as isFloat } from "./isFloat";
+export { default as isInteger } from "./isInteger";
+export { default as isNumeric } from "./isNumeric";
+export { default as isOwnKey } from "./isOwnKey";
+export { default as isOwnMethod } from "./isOwnMethod";
+export { default as isSubClassOf } from "./isSubClassOf";
+export { default as isVoid } from "./isVoid";
+export { default as keysOf } from "./keysOf";
+export { default as omit } from "./omit";
+export { default as omitVoid } from "./omitVoid";
+export { default as patch } from "./patch";
+export { default as pick } from "./pick";
+export { default as rand } from "./rand";
+export { default as randStr } from "./randStr";
+export { default as sleep } from "./sleep";
+export { default as sort } from "./sort";
+export { default as split } from "./split";
+export { default as timestamp } from "./timestamp";
+export { default as typeAs } from "./typeAs";
+export { default as typeOf } from "./typeOf";
+export { default as until } from "./until";
+export { default as useThrottle } from "./useThrottle";
+export { default as wrap } from "./wrap";

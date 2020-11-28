@@ -80,16 +80,21 @@ import "@hyurl/utils/types";
 
 ## Web Support
 
-When using this package in the browser, either loads it as a ESModule or
-CommonJS Module as in Node.js, or loads the bundle file 
-[./bundle/index.js](./bundle/index.js) instead.
+When using this package in the browser, there are three ways to import this
+package.
 
-### Load ES Module
+1. Import From `node_modules`
+
+This is the same as above, but requires a module bundler such as webpack.
+
+2. Load ES Module
 
 ```ts
 import utils from "https://github.com/hyurl/utils/raw/master/esm/index.js";
-// Note the difference with the TypeScript version.
+// Note the difference with the TypeScript/CommonJS version.
 ```
+
+Note: this module can also be used Node.js as well.
 
 ### Load Bundle
 

@@ -1647,70 +1647,70 @@ exports.default = wrap;
 
 var utils = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wrap = exports.useThrottle = exports.until = exports.typeOf = exports.typeAs = exports.timestamp = exports.split = exports.sort = exports.sleep = exports.randStr = exports.rand = exports.pick = exports.patch = exports.omitVoid = exports.omit = exports.keysOf = exports.isVoid = exports.isSubClassOf = exports.isOwnMethod = exports.isOwnKey = exports.isEmpty = exports.isNumeric = exports.isInteger = exports.isFloat = exports.isBetween = exports.getGlobal = exports.flatObject = exports.ensureType = exports.diff = exports.define = exports.count = void 0;
+exports.wrap = exports.useThrottle = exports.until = exports.typeOf = exports.typeAs = exports.timestamp = exports.split = exports.sort = exports.sleep = exports.randStr = exports.rand = exports.pick = exports.patch = exports.omitVoid = exports.omit = exports.keysOf = exports.isVoid = exports.isSubClassOf = exports.isOwnMethod = exports.isOwnKey = exports.isNumeric = exports.isInteger = exports.isFloat = exports.isEmpty = exports.isBetween = exports.getGlobal = exports.flatObject = exports.ensureType = exports.diff = exports.define = exports.count = void 0;
 
 
-exports.count = count_1.default;
+Object.defineProperty(exports, "count", { enumerable: true, get: function () { return count_1.default; } });
 
-exports.define = define_1.default;
+Object.defineProperty(exports, "define", { enumerable: true, get: function () { return define_1.default; } });
 
-exports.diff = diff_1.default;
+Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_1.default; } });
 
-exports.ensureType = ensureType_1.default;
+Object.defineProperty(exports, "ensureType", { enumerable: true, get: function () { return ensureType_1.default; } });
 
-exports.flatObject = flatObject_1.default;
+Object.defineProperty(exports, "flatObject", { enumerable: true, get: function () { return flatObject_1.default; } });
 
-exports.getGlobal = getGlobal_1.default;
+Object.defineProperty(exports, "getGlobal", { enumerable: true, get: function () { return getGlobal_1.default; } });
 
-exports.isBetween = isBetween_1.default;
+Object.defineProperty(exports, "isBetween", { enumerable: true, get: function () { return isBetween_1.default; } });
 
-exports.isEmpty = isEmpty_1.default;
+Object.defineProperty(exports, "isEmpty", { enumerable: true, get: function () { return isEmpty_1.default; } });
 
-exports.isFloat = isFloat_1.default;
+Object.defineProperty(exports, "isFloat", { enumerable: true, get: function () { return isFloat_1.default; } });
 
-exports.isInteger = isInteger_1.default;
+Object.defineProperty(exports, "isInteger", { enumerable: true, get: function () { return isInteger_1.default; } });
 
-exports.isNumeric = isNumeric_1.default;
+Object.defineProperty(exports, "isNumeric", { enumerable: true, get: function () { return isNumeric_1.default; } });
 
-exports.isOwnKey = isOwnKey_1.default;
+Object.defineProperty(exports, "isOwnKey", { enumerable: true, get: function () { return isOwnKey_1.default; } });
 
-exports.isOwnMethod = isOwnMethod_1.default;
+Object.defineProperty(exports, "isOwnMethod", { enumerable: true, get: function () { return isOwnMethod_1.default; } });
 
-exports.isSubClassOf = isSubClassOf_1.default;
+Object.defineProperty(exports, "isSubClassOf", { enumerable: true, get: function () { return isSubClassOf_1.default; } });
 
-exports.isVoid = isVoid_1.default;
+Object.defineProperty(exports, "isVoid", { enumerable: true, get: function () { return isVoid_1.default; } });
 
-exports.keysOf = keysOf_1.default;
+Object.defineProperty(exports, "keysOf", { enumerable: true, get: function () { return keysOf_1.default; } });
 
-exports.omit = omit_1.default;
+Object.defineProperty(exports, "omit", { enumerable: true, get: function () { return omit_1.default; } });
 
-exports.omitVoid = omitVoid_1.default;
+Object.defineProperty(exports, "omitVoid", { enumerable: true, get: function () { return omitVoid_1.default; } });
 
-exports.patch = patch_1.default;
+Object.defineProperty(exports, "patch", { enumerable: true, get: function () { return patch_1.default; } });
 
-exports.pick = pick_1.default;
+Object.defineProperty(exports, "pick", { enumerable: true, get: function () { return pick_1.default; } });
 
-exports.rand = rand_1.default;
+Object.defineProperty(exports, "rand", { enumerable: true, get: function () { return rand_1.default; } });
 
-exports.randStr = randStr_1.default;
+Object.defineProperty(exports, "randStr", { enumerable: true, get: function () { return randStr_1.default; } });
 
-exports.sleep = sleep_1.default;
+Object.defineProperty(exports, "sleep", { enumerable: true, get: function () { return sleep_1.default; } });
 
-exports.sort = sort_1.default;
+Object.defineProperty(exports, "sort", { enumerable: true, get: function () { return sort_1.default; } });
 
-exports.split = split_1.default;
+Object.defineProperty(exports, "split", { enumerable: true, get: function () { return split_1.default; } });
 
-exports.timestamp = timestamp_1.default;
+Object.defineProperty(exports, "timestamp", { enumerable: true, get: function () { return timestamp_1.default; } });
 
-exports.typeAs = typeAs_1.default;
+Object.defineProperty(exports, "typeAs", { enumerable: true, get: function () { return typeAs_1.default; } });
 
-exports.typeOf = typeOf_1.default;
+Object.defineProperty(exports, "typeOf", { enumerable: true, get: function () { return typeOf_1.default; } });
 
-exports.until = until_1.default;
+Object.defineProperty(exports, "until", { enumerable: true, get: function () { return until_1.default; } });
 
-exports.useThrottle = useThrottle_1.default;
+Object.defineProperty(exports, "useThrottle", { enumerable: true, get: function () { return useThrottle_1.default; } });
 
-exports.wrap = wrap_1.default;
+Object.defineProperty(exports, "wrap", { enumerable: true, get: function () { return wrap_1.default; } });
 
 });
 
