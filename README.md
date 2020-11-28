@@ -89,9 +89,11 @@ This is the same as above, but requires a module bundler such as webpack.
 
 2. Load ES Module
 
-```ts
-import utils from "https://github.com/hyurl/utils/raw/master/esm/index.js";
-// Note the difference with the TypeScript/CommonJS version.
+```html
+<script type="module">
+    import utils from "https://github.com/hyurl/utils/raw/master/esm/index.js";
+    // Note the difference with the TypeScript/CommonJS version.
+</script>
 ```
 
 Note: this module can also be used Node.js as well.
