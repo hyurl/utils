@@ -33,7 +33,7 @@ function commonjsRequire () {
 	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
 }
 
-var types = createCommonjsModule(function (module, exports) {
+createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 
 });
@@ -364,7 +364,7 @@ function test(value, deep, emptyPrimitives) {
         if (isLike.isBufferLike(value)) {
             return value.byteLength === 0;
         }
-        else if (isLike.isArrayLike(value)) {
+        else if (isLike.isArrayLike(value, true)) {
             if (value.length === 0) {
                 return true;
             }
