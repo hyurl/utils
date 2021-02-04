@@ -30,7 +30,7 @@ describe("isEmpty", () => {
     describe("check array-like", () => {
         it("should pass for empty array-like objects", () => {
             assert(isEmpty([]));
-            assert(isEmpty({ length: 0 })); // still controversial
+            assert(!isEmpty({ length: 0 }));
         });
 
         it("should fail for non-empty array-like objects", () => {
