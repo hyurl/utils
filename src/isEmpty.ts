@@ -24,7 +24,7 @@ function test(
     if (typeof value === "object") {
         if (isBufferLike(value)) {
             return value.byteLength === 0;
-        } else if (isArrayLike(value)) {
+        } else if (isArrayLike(value, true)) {
             if (value.length === 0) {
                 return true;
             } else if (!deep) {
