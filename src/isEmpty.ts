@@ -22,7 +22,13 @@ function test(
         return true;
 
     if (typeof value === "object") {
-        if (isBufferLike(value)) {
+        if (value instanceof RegExp) {
+            return false;
+        } else if (value instanceof Date) {
+            return String(value) === "Invalid Date";
+        } else if (value instanceof Error) {
+            return value.message.length === 0;
+        } else if (isBufferLike(value)) {
             return value.byteLength === 0;
         } else if (isArrayLike(value, true)) {
             if (value.length === 0) {

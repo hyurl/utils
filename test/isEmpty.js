@@ -27,6 +27,28 @@ describe("isEmpty", () => {
         });
     });
 
+    describe("check Date, Error and RegExp", () => {
+        it("should pass for invalid date", () => {
+            assert(isEmpty(new Date("foo")));
+        });
+
+        it("should fail when for normal date", () => {
+            assert(!isEmpty(new Date()));
+        });
+
+        it("should fail for RegExp instance", () => {
+            assert(!isEmpty(/foo/));
+        });
+
+        it("should pass for Error instance without meaningful message", () => {
+            assert(isEmpty(new Error()));
+        });
+
+        it("should fail for normal error", () => {
+            assert(!isEmpty(new Error("foo")));
+        });
+    });
+
     describe("check array-like", () => {
         it("should pass for empty array-like objects", () => {
             assert(isEmpty([]));

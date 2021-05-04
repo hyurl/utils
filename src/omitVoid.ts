@@ -30,6 +30,9 @@ export function doOmit<T extends any>(
         return omitEmptyStrings && target.trim() === "" ? void 0 : target;
     } else if (target === null
         || typeof target !== "object"
+        || target instanceof Date
+        || target instanceof Error
+        || target instanceof RegExp
         || isBufferLike(target)
     ) {
         return target;
