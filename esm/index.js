@@ -361,7 +361,16 @@ function test(value, deep, emptyPrimitives) {
     if (emptyPrimitives.includes(value))
         return true;
     if (typeof value === "object") {
-        if (isLike.isBufferLike(value)) {
+        if (value instanceof RegExp) {
+            return false;
+        }
+        else if (value instanceof Date) {
+            return String(value) === "Invalid Date";
+        }
+        else if (value instanceof Error) {
+            return value.message.length === 0;
+        }
+        else if (isLike.isBufferLike(value)) {
             return value.byteLength === 0;
         }
         else if (isLike.isArrayLike(value, true)) {
@@ -792,6 +801,9 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
     }
     else if (target === null
         || typeof target !== "object"
+        || target instanceof Date
+        || target instanceof Error
+        || target instanceof RegExp
         || isLike.isBufferLike(target)) {
         return target;
     }
