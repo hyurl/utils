@@ -23,6 +23,7 @@ import {
     rand,
     randStr,
     timestamp,
+    trim,
     sleep,
     sort,
     split,
@@ -453,6 +454,114 @@ Deno.test("split", () => {
             { foo: "bar" }
         ]
     );
+});
+
+Deno.test("trim", () => {
+    assert(trim(" foo  ") === "foo");
+
+    assertEquals(trim({
+        foo: " foo  ",
+        bar: "bar ",
+        num: 123,
+        bool: true,
+        child: {
+            foo: " foo  ",
+            bar: " bar"
+        }
+    }), {
+        foo: "foo",
+        bar: "bar",
+        num: 123,
+        bool: true,
+        child: {
+            foo: " foo  ",
+            bar: " bar"
+        }
+    });
+
+    assertEquals(trim({
+        foo: " foo  ",
+        bar: "bar ",
+        num: 123,
+        bool: true,
+        child: {
+            foo: " foo  ",
+            bar: " bar"
+        }
+    }, true), {
+        foo: "foo",
+        bar: "bar",
+        num: 123,
+        bool: true,
+        child: {
+            foo: "foo",
+            bar: "bar"
+        }
+    });
+
+    assertEquals(trim([
+        " foo  ",
+        "bar ",
+        123,
+        true,
+        {
+            foo: " foo  ",
+            bar: "bar ",
+            num: 123,
+            bool: true,
+            child: {
+                foo: " foo  ",
+                bar: " bar"
+            }
+        }
+    ]), [
+        "foo",
+        "bar",
+        123,
+        true,
+        {
+            foo: "foo",
+            bar: "bar",
+            num: 123,
+            bool: true,
+            child: {
+                foo: " foo  ",
+                bar: " bar"
+            }
+        }
+    ]);
+
+    assertEquals(trim([
+        " foo  ",
+        "bar ",
+        123,
+        true,
+        {
+            foo: " foo  ",
+            bar: "bar ",
+            num: 123,
+            bool: true,
+            child: {
+                foo: " foo  ",
+                bar: " bar"
+            }
+        }
+    ], true), [
+        "foo",
+        "bar",
+        123,
+        true,
+        {
+            foo: "foo",
+            bar: "bar",
+            num: 123,
+            bool: true,
+            child: {
+                foo: "foo",
+                bar: "bar"
+            }
+        }
+    ]);
 });
 
 Deno.test("timestamp", () => {

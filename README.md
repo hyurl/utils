@@ -34,6 +34,7 @@ Since 0.1.50, this package now supports Node.js, Web and
 - `sort`[.d.ts](./sort.d.ts)
 - `split`[.d.ts](./split.d.ts)
 - `timestamp`[.d.ts](./timestamp.d.ts)
+- `trim` [.d.ts](./trim.d.ts)
 - `typeAs`[.d.ts](./typeAs.d.ts)
 - `typeOf`[.d.ts](./typeOf.d.ts)
 - `until`[.d.ts](./until.d.ts)

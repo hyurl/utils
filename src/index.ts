@@ -25,6 +25,7 @@ export { default as sleep } from "./sleep";
 export { default as sort } from "./sort";
 export { default as split } from "./split";
 export { default as timestamp } from "./timestamp";
+export { default as trim } from "./trim";
 export { default as typeAs } from "./typeAs";
 export { default as typeOf } from "./typeOf";
 export { default as until } from "./until";

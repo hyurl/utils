@@ -62,7 +62,7 @@ function flatDeep(
         carrier[field] = source;
     } else if (isDict) {
         keysOf(<object>source).forEach((key: string | symbol) => {
-            let value = source[key];
+            let value = (<object>source)[key];
 
             if (typeof key === "symbol") {
                 if (depth === 0) { // only allow top-level symbol properties

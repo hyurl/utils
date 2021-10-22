@@ -39,98 +39,149 @@ Object.defineProperty(exports, "__esModule", { value: true });
 });
 
 var isLike = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isDictLike = isDictLike;
+exports.isArrayLike = isArrayLike;
+exports.isCollectionLike = isCollectionLike;
+exports.isTypedArrayLike = isTypedArrayLike;
+exports.isErrorLike = isErrorLike;
+exports.isPromiseLike = isPromiseLike;
+exports.isBufferLike = void 0;
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * @param {any} value 
  * @param {Array<[string|symbol, string]>} props 
  * @param {Array<string>} types
  */
-function isObjectWith(value, ...props) {
-    let isObj = typeof value === "object" && value !== null;
-    return isObj && props.every(([p, t]) => p in value && typeof value[p] === t);
+function isObjectWith(value) {
+  var isObj = _typeof(value) === "object" && value !== null;
+
+  for (var _len = arguments.length, props = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    props[_key - 1] = arguments[_key];
+  }
+
+  return isObj && props.every(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        p = _ref2[0],
+        t = _ref2[1];
+
+    return p in value && _typeof(value[p]) === t;
+  });
 }
 
 function isEmptyDict(obj) {
-    try {
-        let str = JSON.stringify(obj);
-        return str === "{}" || str === "[]";
-    } catch (e) {
-        return false;
-    }
+  try {
+    var str = JSON.stringify(obj);
+    return str === "{}" || str === "[]";
+  } catch (e) {
+    return false;
+  }
 }
+/**
+ * Checks if the input value is a dict `object`, which includes key-value pairs.
+ * @returns {value is { [x: string]: any; }}
+ */
+
 
 function isDictLike(value) {
-    return typeof value === "object" && value !== null
-        && (value.constructor === Object || (
-            !(value instanceof Date) &&
-            !(value instanceof RegExp) &&
-            !isArrayLike(value, true) &&
-            !isEmptyDict(value) &&
-            !isBufferLike(value) &&
-            !isCollectionLike(value) &&
-            !isPromiseLike(value)
-        ));
+  return _typeof(value) === "object" && value !== null && (value.constructor === Object || !(value instanceof Date) && !(value instanceof RegExp) && !isArrayLike(value, true) && !isEmptyDict(value) && !isTypedArrayLike(value) && !isCollectionLike(value) && !isPromiseLike(value));
 }
+/**
+ * Checks if the input value is an `object` with `length` property or a string.
+ * @returns {value is ArrayLike<any>}
+ */
 
-function isArrayLike(value, strict = false) {
-    if (Array.isArray(value)) {
-        return true;
-    } else if (!strict) {
-        return isObjectWith(value, ["length", "number"])
-            || (typeof value === "string");
-    } else if (isObjectWith(value, ["length", "number"])) {
-        let keys = Object.keys(value);
-        let isNonEnumLength = !keys.includes("length");
-        let indexes;
 
-        if (value.length === 0 ||
-            (indexes = keys.map(Number).filter(isFinite)).length === 0) {
-            return isNonEnumLength;
-        } else {
-            let hasIterator = typeof value[Symbol.iterator] === "function";
+function isArrayLike(value) {
+  var strict = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-            for (let i = value.length; i--;) {
-                if (!indexes.includes(i) && !(isNonEnumLength || hasIterator)) {
-                    return false;
-                }
-            }
+  if (Array.isArray(value)) {
+    return true;
+  } else if (!strict) {
+    return isObjectWith(value, ["length", "number"]) || typeof value === "string";
+  } else if (isObjectWith(value, ["length", "number"])) {
+    var keys = Object.keys(value);
+    var isNonEnumLength = !keys.includes("length");
+    var indexes;
 
-            return true;
+    if (value.length === 0 || (indexes = keys.map(Number).filter(isFinite)).length === 0) {
+      return isNonEnumLength;
+    } else {
+      var hasIterator = typeof value[Symbol.iterator] === "function";
+
+      for (var i = value.length; i--;) {
+        if (!indexes.includes(i) && !(isNonEnumLength || hasIterator)) {
+          return false;
         }
+      }
+
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
+/**
+ * Checks if the input value is an `object` with `size` property and
+ * `[Symbol.iterator]()` method, or is an instance of **WeakMap** or
+ * **WeakSet** if `excludeWeakOnes` is not set.
+ */
 
-function isCollectionLike(value, excludeWeakOnes = false) {
-    return (isObjectWith(value, ["size", "number"], [Symbol.iterator, "function"]))
-        || (!excludeWeakOnes &&
-            (value instanceof WeakMap || value instanceof WeakSet));
-}
 
-function isBufferLike(value) {
-    return isObjectWith(value, ["byteLength", "number"], ["slice", "function"]);
+function isCollectionLike(value) {
+  var excludeWeakOnes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return isObjectWith(value, ["size", "number"], [Symbol.iterator, "function"]) || !excludeWeakOnes && (value instanceof WeakMap || value instanceof WeakSet);
 }
+/**
+ * 
+ * @returns {value is ArrayLike<number> & Pick<Uint8Array, "byteLength" | "slice">}
+ */
+
+
+function isTypedArrayLike(value) {
+  return isObjectWith(value, ["byteLength", "number"], ["slice", "function"]);
+}
+/** @deprecated An alias of `isTypedArrayLike`. */
+
+
+var isBufferLike = isTypedArrayLike;
+/**
+ * Checks if the input value is an `object` with `name`, `message` and `stack`
+ * properties.
+ * @returns {value is Error}
+ */
+
+exports.isBufferLike = isBufferLike;
 
 function isErrorLike(value) {
-    return isObjectWith(value,
-        ["name", "string"],
-        ["message", "string"],
-        ["stack", "string"]
-    );
+  return isObjectWith(value, ["name", "string"], ["message", "string"], ["stack", "string"]);
 }
+/**
+ * Checks if the input is an `object` with `then()` method.
+ * @returns {value is PromiseLike<any>}
+ */
+
 
 function isPromiseLike(value) {
-    return isObjectWith(value, ["then", "function"]);
+  return isObjectWith(value, ["then", "function"]);
 }
-
-exports.isDictLike = isDictLike;
-exports.isArrayLike = isArrayLike;
-exports.isCollectionLike = isCollectionLike;
-exports.isBufferLike = isBufferLike;
-exports.isErrorLike = isErrorLike;
-exports.isPromiseLike = isPromiseLike;
 });
 
 var utf8Length = function(s) {
@@ -164,7 +215,7 @@ function count(target, option = void 0) {
             return target.length;
         }
     }
-    else if (isLike.isArrayLike(target)) {
+    else if ((0, isLike.isArrayLike)(target)) {
         if (arguments.length === 2) {
             let times = 0;
             for (let i = target.length; i--;) {
@@ -179,10 +230,10 @@ function count(target, option = void 0) {
             return target.length;
         }
     }
-    else if (isLike.isBufferLike(target)) {
+    else if ((0, isLike.isBufferLike)(target)) {
         return target.byteLength;
     }
-    else if (isLike.isCollectionLike(target, true)) {
+    else if ((0, isLike.isCollectionLike)(target, true)) {
         return target.size;
     }
     else {
@@ -273,11 +324,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function typeOf(target) {
     if (arguments.length === 0)
         throw new TypeError("1 argument is required, 0 given");
-    else if (isVoid_1.default(target))
+    else if ((0, isVoid_1.default)(target))
         return "void";
     let type = typeof target;
     if (type === "function") {
-        if (couldBeClass_1.default(target)) {
+        if ((0, couldBeClass_1.default)(target)) {
             return "class";
         }
         else {
@@ -316,7 +367,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *  **This property doesn't work with setter.**
  */
 function define(obj, prop, value, enumerable = false, writable = false) {
-    if (typeOf_1.default(value) === Object) {
+    if ((0, typeOf_1.default)(value) === Object) {
         if (isGetter(value) || isGetterAndSetter(value)) {
             Object.defineProperty(obj, prop, Object.assign({ configurable: true, enumerable }, value));
             return;
@@ -370,10 +421,10 @@ function test(value, deep, emptyPrimitives) {
         else if (value instanceof Error) {
             return value.message.length === 0;
         }
-        else if (isLike.isBufferLike(value)) {
+        else if ((0, isLike.isBufferLike)(value)) {
             return value.byteLength === 0;
         }
-        else if (isLike.isArrayLike(value, true)) {
+        else if ((0, isLike.isArrayLike)(value, true)) {
             if (value.length === 0) {
                 return true;
             }
@@ -389,7 +440,7 @@ function test(value, deep, emptyPrimitives) {
                 return true;
             }
         }
-        else if (isLike.isCollectionLike(value, true)) {
+        else if ((0, isLike.isCollectionLike)(value, true)) {
             if (value.size === 0) {
                 return true;
             }
@@ -446,19 +497,19 @@ function diff(origin, input, deep = false) {
             ...origin.filter(value => !input.includes(value))
         ];
     }
-    else if (isLike.isDictLike(origin) && isLike.isDictLike(input)) {
+    else if ((0, isLike.isDictLike)(origin) && (0, isLike.isDictLike)(input)) {
         let keys = Reflect.ownKeys(input);
         let _keys = Reflect.ownKeys(origin);
         let result = {};
         keys.forEach((key) => {
             if (origin[key] !== input[key] &&
-                !(isVoid_1.default(origin[key]) && isVoid_1.default(input[key])) // ignore void values
+                !((0, isVoid_1.default)(origin[key]) && (0, isVoid_1.default)(input[key])) // ignore void values
             ) {
                 if (deep &&
                     typeof origin[key] === "object" && origin[key] !== null &&
                     typeof input[key] === "object" && input[key] !== null) {
                     let _result = diff(origin[key], input[key], deep);
-                    if (!isEmpty_1.default(_result)) {
+                    if (!(0, isEmpty_1.default)(_result)) {
                         result[key] = _result;
                     }
                 }
@@ -553,7 +604,7 @@ function ensureType(target) {
             else {
                 let num = Number(target);
                 if (!isNaN(num) &&
-                    isBetween_1.default(num, numberInterval) &&
+                    (0, isBetween_1.default)(num, numberInterval) &&
                     target[0] !== "+" // Most likely a telephone number.
                 ) {
                     return num;
@@ -567,11 +618,11 @@ function ensureType(target) {
             if (target === null) {
                 return null;
             }
-            else if (isLike.isArrayLike(target, true)) {
+            else if ((0, isLike.isArrayLike)(target, true)) {
                 return ensureArray(target).map(ensureType);
             }
-            else if (isLike.isDictLike(target)) {
-                return keysOf_1.default(target).reduce((result, key) => {
+            else if ((0, isLike.isDictLike)(target)) {
+                return (0, keysOf_1.default)(target).reduce((result, key) => {
                     result[key] = ensureType(target[key]);
                     return result;
                 }, {});
@@ -604,13 +655,13 @@ exports.default = flatObject;
 function flatDeep(carrier, source, field, depth, maxDepth, flatArray) {
     let isArr;
     let isDict;
-    let isContent = !isVoid_1.default(field);
-    if (depth === maxDepth || (!(isArr = isLike.isArrayLike(source, true) && !isLike.isBufferLike(source)) &&
-        !(isDict = isLike.isDictLike(source)))) {
+    let isContent = !(0, isVoid_1.default)(field);
+    if (depth === maxDepth || (!(isArr = (0, isLike.isArrayLike)(source, true) && !(0, isLike.isBufferLike)(source)) &&
+        !(isDict = (0, isLike.isDictLike)(source)))) {
         carrier[field] = source;
     }
     else if (isDict) {
-        keysOf_1.default(source).forEach((key) => {
+        (0, keysOf_1.default)(source).forEach((key) => {
             let value = source[key];
             if (typeof key === "symbol") {
                 if (depth === 0) { // only allow top-level symbol properties
@@ -711,7 +762,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Checks if a property name is one of the properties of the target object.
  */
 function isOwnKey(obj, prop) {
-    return !isVoid_1.default(obj) && Object.prototype.hasOwnProperty.call(obj, prop);
+    return !(0, isVoid_1.default)(obj) && Object.prototype.hasOwnProperty.call(obj, prop);
 }
 exports.default = isOwnKey;
 
@@ -766,7 +817,7 @@ function omit(obj, props) {
         // special treatment for Error types
         if (obj instanceof Error) {
             ["name", "message"].forEach(prop => {
-                if (!props.includes(prop) && !isOwnKey_1.default(result, prop))
+                if (!props.includes(prop) && !(0, isOwnKey_1.default)(result, prop))
                     result[prop] = obj[prop];
             });
         }
@@ -804,27 +855,27 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
         || target instanceof Date
         || target instanceof Error
         || target instanceof RegExp
-        || isLike.isBufferLike(target)) {
+        || (0, isLike.isBufferLike)(target)) {
         return target;
     }
-    else if (omitEmptyObjects && isEmpty_1.default(target)) {
-        return depth > 0 ? void 0 : (isLike.isArrayLike(target, true) ? [] : {});
+    else if (omitEmptyObjects && (0, isEmpty_1.default)(target)) {
+        return depth > 0 ? void 0 : ((0, isLike.isArrayLike)(target, true) ? [] : {});
     }
-    if (isLike.isArrayLike(target, true)) {
+    if ((0, isLike.isArrayLike)(target, true)) {
         let arr = [];
         for (let i = 0, len = target.length; i < len; ++i) {
             let value = target[i];
-            if (!isVoid_1.default(value)) {
+            if (!(0, isVoid_1.default)(value)) {
                 if (deep) {
                     value = doOmit(value, deep, omitEmptyObjects, omitEmptyStrings, depth + 1);
-                    isVoid_1.default(value) || arr.push(value);
+                    (0, isVoid_1.default)(value) || arr.push(value);
                 }
                 else {
                     arr.push(value);
                 }
             }
         }
-        if (depth > 0 && omitEmptyObjects && isEmpty_1.default(arr)) {
+        if (depth > 0 && omitEmptyObjects && (0, isEmpty_1.default)(arr)) {
             return void 0;
         }
         else {
@@ -832,12 +883,12 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
         }
     }
     else {
-        let obj = keysOf_1.default(target).reduce((obj, key) => {
+        let obj = (0, keysOf_1.default)(target).reduce((obj, key) => {
             let value = target[key];
-            if (!isVoid_1.default(value)) {
+            if (!(0, isVoid_1.default)(value)) {
                 if (deep) {
                     value = doOmit(value, deep, omitEmptyObjects, omitEmptyStrings, depth + 1);
-                    isVoid_1.default(value) || (obj[key] = value);
+                    (0, isVoid_1.default)(value) || (obj[key] = value);
                 }
                 else {
                     obj[key] = value;
@@ -845,7 +896,7 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
             }
             return obj;
         }, {});
-        if (depth > 0 && omitEmptyObjects && isEmpty_1.default(obj)) {
+        if (depth > 0 && omitEmptyObjects && (0, isEmpty_1.default)(obj)) {
             return void 0;
         }
         else {
@@ -882,16 +933,16 @@ function patch(origin, input, deep = false, ignoreEmptyStrings = false) {
 }
 exports.default = patch;
 function doPatch(origin, input, deep, ignoreEmptyStrings, isChildNode) {
-    if (isLike.isDictLike(origin) && isLike.isDictLike(input)) {
+    if ((0, isLike.isDictLike)(origin) && (0, isLike.isDictLike)(input)) {
         let keys = Reflect.ownKeys(input);
         let result = {};
         keys.forEach((key) => {
             if (origin[key] !== input[key] &&
-                !isVoid_1.default(input[key]) && // ignore invalid values
+                !(0, isVoid_1.default)(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")) {
-                if (deep && isLike.isDictLike(origin[key]) && isLike.isDictLike(input[key])) {
+                if (deep && (0, isLike.isDictLike)(origin[key]) && (0, isLike.isDictLike)(input[key])) {
                     let _result = doPatch(origin[key], input[key], deep, ignoreEmptyStrings, true);
-                    if (!isEmpty_1.default(_result)) {
+                    if (!(0, isEmpty_1.default)(_result)) {
                         result[key] = _result;
                         Object.assign(origin[key], input[key]);
                     }
@@ -951,7 +1002,7 @@ function randStr(length, chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJ
     let str = "";
     let max = chars.length - 1;
     while (0 < length--) {
-        str += chars[rand_1.default(0, max)];
+        str += chars[(0, rand_1.default)(0, max)];
     }
     return str;
 }
@@ -977,8 +1028,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 function sort(target, method = void 0) {
-    if (isLike.isArrayLike(target, true)) {
-        let arr = ensureType_1.ensureArray(target);
+    if ((0, isLike.isArrayLike)(target, true)) {
+        let arr = (0, ensureType_1.ensureArray)(target);
         let compare = method;
         // If the compare function is omitted and all the elements are numbers
         // (or of bigint), sort them by their values.
@@ -995,7 +1046,7 @@ function sort(target, method = void 0) {
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
             .map(({ value }) => value);
     }
-    else if (isLike.isDictLike(target)) {
+    else if ((0, isLike.isDictLike)(target)) {
         let deep = Boolean(method);
         let keys = [
             ...sort(Object.getOwnPropertyNames(target)),
@@ -1004,12 +1055,12 @@ function sort(target, method = void 0) {
         return keys.reduce((result, key) => {
             let value = target[key];
             if (deep) {
-                if (isLike.isArrayLike(value, true)) {
-                    value = ensureType_1.ensureArray(value).map(item => {
-                        return isLike.isDictLike(item) ? sort(item, deep) : item;
+                if ((0, isLike.isArrayLike)(value, true)) {
+                    value = (0, ensureType_1.ensureArray)(value).map(item => {
+                        return (0, isLike.isDictLike)(item) ? sort(item, deep) : item;
                     });
                 }
-                else if (isLike.isDictLike(value)) {
+                else if ((0, isLike.isDictLike)(value)) {
                     value = sort(value, deep);
                 }
             }
@@ -1148,15 +1199,15 @@ function split(obj, sep) {
         && (typeof sep === "string" || Buffer.isBuffer(sep))) {
         return splitBuffer(obj, sep);
     }
-    else if (isLike.isBufferLike(obj)) {
+    else if ((0, isLike.isBufferLike)(obj)) {
         checkNumberArgument("byteLength", sep);
         return splitArrayLike(obj, sep, obj.byteLength);
     }
-    else if (isLike.isArrayLike(obj)) {
+    else if ((0, isLike.isArrayLike)(obj)) {
         checkNumberArgument("length", sep);
         return splitArrayLike(obj, sep);
     }
-    else if (isLike.isCollectionLike(obj)) {
+    else if ((0, isLike.isCollectionLike)(obj)) {
         let ctor = obj["constructor"];
         checkNumberArgument("size", sep);
         return splitArrayLike([...obj], sep).map(list => new ctor(list));
@@ -1217,15 +1268,62 @@ function timestamp(input, ms = false) {
 function parseDateRawArgs(str) {
     let [Y, M, D, H, m, s, ms] = str.split(",").map(Number);
     let date = new Date();
-    isVoid_1.default(Y) || date.setFullYear(Y);
-    isVoid_1.default(M) || date.setMonth(M);
-    isVoid_1.default(D) || date.setDate(D);
-    isVoid_1.default(H) || date.setHours(H);
-    isVoid_1.default(m) || date.setMinutes(m);
-    isVoid_1.default(s) || date.setSeconds(s);
-    isVoid_1.default(ms) || date.setMilliseconds(ms);
+    (0, isVoid_1.default)(Y) || date.setFullYear(Y);
+    (0, isVoid_1.default)(M) || date.setMonth(M);
+    (0, isVoid_1.default)(D) || date.setDate(D);
+    (0, isVoid_1.default)(H) || date.setHours(H);
+    (0, isVoid_1.default)(m) || date.setMinutes(m);
+    (0, isVoid_1.default)(s) || date.setSeconds(s);
+    (0, isVoid_1.default)(ms) || date.setMilliseconds(ms);
     return date;
 }
+
+});
+
+var trim_1 = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/**
+ * Trims the leading and tailing spaces of a string, the string properties of
+ * an object, or the string and object elements in an array.
+ */
+function trim(target, deep = false) {
+    if (typeof target === "string") {
+        return target.trim();
+    }
+    else if ((0, isLike.isArrayLike)(target)) {
+        return (0, ensureType_1.ensureArray)(target).map(item => trim(item, deep));
+    }
+    else if ((0, isLike.isDictLike)(target)) {
+        const keys = [
+            ...Object.getOwnPropertyNames(target),
+            ...Object.getOwnPropertySymbols(target)
+        ];
+        return keys.reduce((result, key) => {
+            let value = target[key];
+            if (typeof value === "string") {
+                value = value.trim();
+            }
+            else if (deep) {
+                if ((0, isLike.isArrayLike)(value, true)) {
+                    value = (0, ensureType_1.ensureArray)(value).map(item => {
+                        return (0, isLike.isDictLike)(item) ? trim(item, deep) : item;
+                    });
+                }
+                else if ((0, isLike.isDictLike)(value)) {
+                    value = trim(value, deep);
+                }
+            }
+            result[key] = value;
+            return result;
+        }, {});
+    }
+    else {
+        return target;
+    }
+}
+exports.default = trim;
 
 });
 
@@ -1234,7 +1332,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 function typeAs(target, type) {
-    if (typeOf_1.default(type) !== "class" &&
+    if ((0, typeOf_1.default)(type) !== "class" &&
         type !== Symbol &&
         (typeof BigInt === "function" && type !== BigInt)) {
         throw new TypeError("'type' must be a valid constructor");
@@ -1243,7 +1341,7 @@ function typeAs(target, type) {
     let primitiveMap = {
         "string": String,
         "number": Number,
-        "bigint": getGlobal_1.default("BigInt"),
+        "bigint": (0, getGlobal_1.default)("BigInt"),
         "boolean": Boolean,
         "symbol": Symbol
     };
@@ -1517,7 +1615,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Hangs the execution context until the test is passed.
  */
 function until(test) {
-    return tslib_1.__awaiter(this, void 0, void 0, function* () {
+    return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
         if (typeof setImmediate === "undefined") {
             var setImmediate = (cb) => setTimeout(cb, 0);
         }
@@ -1586,7 +1684,7 @@ function createThrottleTask(interval) {
         func: void 0
     };
     function throttle(handle, ...args) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
             let now = Date.now();
             if ((now - this.lastActive) >= interval) {
                 // Clear cache and update the invoke time before dispatching the
@@ -1606,7 +1704,7 @@ function createThrottleTask(interval) {
                 // and make the procedure asynchronous so that they will be
                 // performed after the current job.
                 setImmediate(() => {
-                    if (!isEmpty_1.default(this.queue)) {
+                    if (!(0, isEmpty_1.default)(this.queue)) {
                         this.queue.forEach((job) => {
                             error ? job.reject(error) : job.resolve(result);
                             this.queue.delete(job);
@@ -1648,9 +1746,9 @@ function wrap(target, wrapper) {
     let fn = function (...args) {
         return wrapper.call(this, target, ...args);
     };
-    define_1.default(fn, "name", target.name);
-    define_1.default(fn, "length", target.length);
-    define_1.default(fn, "toString", target.toString.bind(target));
+    (0, define_1.default)(fn, "name", target.name);
+    (0, define_1.default)(fn, "length", target.length);
+    (0, define_1.default)(fn, "toString", target.toString.bind(target));
     return fn;
 }
 exports.default = wrap;
@@ -1659,7 +1757,7 @@ exports.default = wrap;
 
 var utils = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.wrap = exports.useThrottle = exports.until = exports.typeOf = exports.typeAs = exports.timestamp = exports.split = exports.sort = exports.sleep = exports.randStr = exports.rand = exports.pick = exports.patch = exports.omitVoid = exports.omit = exports.keysOf = exports.isVoid = exports.isSubClassOf = exports.isOwnMethod = exports.isOwnKey = exports.isNumeric = exports.isInteger = exports.isFloat = exports.isEmpty = exports.isBetween = exports.getGlobal = exports.flatObject = exports.ensureType = exports.diff = exports.define = exports.count = void 0;
+exports.wrap = exports.useThrottle = exports.until = exports.typeOf = exports.typeAs = exports.trim = exports.timestamp = exports.split = exports.sort = exports.sleep = exports.randStr = exports.rand = exports.pick = exports.patch = exports.omitVoid = exports.omit = exports.keysOf = exports.isVoid = exports.isSubClassOf = exports.isOwnMethod = exports.isOwnKey = exports.isNumeric = exports.isInteger = exports.isFloat = exports.isEmpty = exports.isBetween = exports.getGlobal = exports.flatObject = exports.ensureType = exports.diff = exports.define = exports.count = void 0;
 
 
 Object.defineProperty(exports, "count", { enumerable: true, get: function () { return count_1.default; } });
@@ -1714,6 +1812,8 @@ Object.defineProperty(exports, "split", { enumerable: true, get: function () { r
 
 Object.defineProperty(exports, "timestamp", { enumerable: true, get: function () { return timestamp_1.default; } });
 
+Object.defineProperty(exports, "trim", { enumerable: true, get: function () { return trim_1.default; } });
+
 Object.defineProperty(exports, "typeAs", { enumerable: true, get: function () { return typeAs_1.default; } });
 
 Object.defineProperty(exports, "typeOf", { enumerable: true, get: function () { return typeOf_1.default; } });
@@ -1728,4 +1828,4 @@ Object.defineProperty(exports, "wrap", { enumerable: true, get: function () { re
 
 var index = /*@__PURE__*/getDefaultExportFromCjs(utils);
 
-export default index;
+export { index as default };
