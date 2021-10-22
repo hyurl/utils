@@ -10,7 +10,7 @@
     "test-deno": "deno test test/deno/example.ts",
     "compile": "tsc",
     "build": "npm run compile && rollup -c rollup.config.js",
-    "prepublishOnly": "npm run build && npm link typescript && webpack",
+    "prepublishOnly": "npm run build && webpack",
     "postpublish": "npm run posttest"
   },
   "repository": {
@@ -30,10 +30,11 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
-    "@types/node": "^12.19.7",
+    "@types/node": "^16.11.3",
     "mocha": "^6.2.3",
     "moment": "^2.29.1",
-    "ts-loader": "^6.2.2"
+    "ts-loader": "^6.2.2",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "check-iterable": "^1.0.2",
