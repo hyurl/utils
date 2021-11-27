@@ -1,6 +1,6 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
@@ -39,8 +39,8 @@
   "dependencies": {
     "check-iterable": "^1.0.2",
     "could-be-class": "^0.2.0",
-    "is-like": "^0.1.6",
-    "tslib": "^1.14.1",
+    "is-like": "^0.1.9",
+    "tslib": "^2.3.1",
     "utf8-length": "0.0.1"
   },
   "engines": {
