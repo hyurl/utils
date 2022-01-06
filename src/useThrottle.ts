@@ -12,11 +12,16 @@ export default useThrottle;
  * if a subsequent call happens within the `interval` time, the previous result
  * will be returned and the current `handle` function will not be invoked.
  * 
+ * If `backgroundUpdate` is set, when reaching the `interval` time, the `handle`
+ * function will be called in background and updates the result the when it's
+ * done, the current call and any calls before the update will return the
+ * previous result instead.
+ * 
  * NOTE: this function only creates the throttle function once and uses
  * `interval` only once, any later calls on the same `resource` will return the
  * initial throttle function.
  */
-function useThrottle(resource: any, interval: number) {
+function useThrottle(resource: any, interval: number, backgroundUpdate = false) {
     if (interval < 1) {
         throw new RangeError(
             "The 'interval' time for throttle must not be smaller than 1"
@@ -33,7 +38,7 @@ function useThrottle(resource: any, interval: number) {
                 }
             });
         }, gcInterval);
-        
+
         if (typeof useThrottle.gcTimer.unref === "function") {
             useThrottle.gcTimer.unref();
         }
@@ -42,7 +47,10 @@ function useThrottle(resource: any, interval: number) {
     let task = useThrottle.tasks.get(resource);
 
     if (!task) {
-        useThrottle.tasks.set(resource, task = createThrottleTask(interval));
+        useThrottle.tasks.set(
+            resource,
+            task = createThrottleTask(interval, backgroundUpdate)
+        );
     }
 
     return task.func;
@@ -57,7 +65,7 @@ namespace useThrottle {
 type ThrottleTask = {
     interval: number;
     lastActive: number;
-    cache: { value: any, error: any };
+    cache: { value: any, error: any; };
     queue: Set<{ resolve: (value: any) => void, reject: (err: any) => void; }>;
     func: <T, A extends any[]>(
         handle: (...args: A) => T | Promise<T>,
@@ -65,7 +73,10 @@ type ThrottleTask = {
     ) => Promise<T>;
 };
 
-function createThrottleTask(interval: number): ThrottleTask {
+function createThrottleTask(
+    interval: number,
+    backgroundUpdate = false
+): ThrottleTask {
     let task: ThrottleTask = {
         interval,
         lastActive: 0,
@@ -82,37 +93,50 @@ function createThrottleTask(interval: number): ThrottleTask {
         let now = Date.now();
 
         if ((now - this.lastActive) >= interval) {
-            // Clear cache and update the invoke time before dispatching the
-            // new job.
-            this.cache = void 0;
             this.lastActive = now;
 
-            let result: T;
-            let error: any;
+            if (backgroundUpdate && this.cache) {
+                Promise.resolve(handle(...args)).then(result => {
+                    this.cache = { value: result, error: null };
+                }).catch(err => {
+                    this.cache = { value: void 0, error: err };
+                });
 
-            try {
-                result = await handle(...args);
-                this.cache = { value: result, error: null };
-            } catch (err) {
-                this.cache = { value: void 0, error: error = err };
-            }
+                if (this.cache.error)
+                    throw this.cache.error;
+                else
+                    return this.cache.value as T;
+            } else {
+                // Clear cache before dispatching the new job.
+                this.cache = void 0;
 
-            // Resolve or reject subsequent jobs once the result is ready,
-            // and make the procedure asynchronous so that they will be
-            // performed after the current job.
-            setImmediate(() => {
-                if (!isEmpty(this.queue)) {
-                    this.queue.forEach((job) => {
-                        error ? job.reject(error) : job.resolve(result);
-                        this.queue.delete(job);
-                    });
+                let result: T;
+                let error: any;
+
+                try {
+                    result = await handle(...args);
+                    this.cache = { value: result, error: null };
+                } catch (err) {
+                    this.cache = { value: void 0, error: error = err };
                 }
-            });
 
-            if (error)
-                throw error;
-            else
-                return result;
+                // Resolve or reject subsequent jobs once the result is ready,
+                // and make the procedure asynchronous so that they will be
+                // performed after the current job.
+                setImmediate(() => {
+                    if (!isEmpty(this.queue)) {
+                        this.queue.forEach((job) => {
+                            error ? job.reject(error) : job.resolve(result);
+                            this.queue.delete(job);
+                        });
+                    }
+                });
+
+                if (error)
+                    throw error;
+                else
+                    return result;
+            }
         } else if (this.cache) {
             if (this.cache.error)
                 throw this.cache.error;

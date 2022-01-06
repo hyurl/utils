@@ -54,4 +54,24 @@ describe("useThrottle", () => {
         assert.strictEqual(result.length, 2);
         assert(result[0] === result[1]);
     });
+
+    it("should create a throttle function and re-runs the handle function in background", async () => {
+        let count = 0;
+        let getFullName = useThrottle("getFullName3", 50, true);
+        let result = [];
+
+        for (let i = 0; i < 10; i++) {
+            result.push(await getFullName(async () => {
+                count++;
+
+                await Promise.resolve(null);
+
+                return count;
+            }, "Ayon", "Lee"));
+            await sleep(10);
+        }
+
+        assert.deepStrictEqual(result, [1, 1, 1, 1, 1, 1, 2, 2, 2, 2]);
+        assert.strictEqual(count, 2);
+    });
 });
