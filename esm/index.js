@@ -220,7 +220,7 @@ function count(target, option = void 0) {
             return target.length;
         }
     }
-    else if ((0, isLike.isArrayLike)(target)) {
+    else if ((0, isLike.isArrayLike)(target, true)) {
         if (arguments.length === 2) {
             let times = 0;
             for (let i = target.length; i--;) {
@@ -1208,7 +1208,7 @@ function split(obj, sep) {
         checkNumberArgument("byteLength", sep);
         return splitArrayLike(obj, sep, obj.byteLength);
     }
-    else if ((0, isLike.isArrayLike)(obj)) {
+    else if ((0, isLike.isArrayLike)(obj, true)) {
         checkNumberArgument("length", sep);
         return splitArrayLike(obj, sep);
     }
@@ -1297,7 +1297,7 @@ function trim(target, deep = false) {
     if (typeof target === "string") {
         return target.trim();
     }
-    else if ((0, isLike.isArrayLike)(target)) {
+    else if ((0, isLike.isArrayLike)(target, true)) {
         return (0, ensureType_1.ensureArray)(target).map(item => trim(item, deep));
     }
     else if ((0, isLike.isDictLike)(target)) {
@@ -1643,7 +1643,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Hangs the execution context until the test is passed.
  */
 function until(test) {
-    return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+    return tslib_1.__awaiter(this, void 0, void 0, function* () {
         if (typeof setImmediate === "undefined") {
             var setImmediate = (cb) => setTimeout(cb, 0);
         }
@@ -1717,7 +1717,7 @@ function createThrottleTask(interval, backgroundUpdate = false) {
         func: void 0
     };
     function throttle(handle, ...args) {
-        return (0, tslib_1.__awaiter)(this, void 0, void 0, function* () {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             let now = Date.now();
             if ((now - this.lastActive) >= interval) {
                 this.lastActive = now;
