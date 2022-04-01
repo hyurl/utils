@@ -34,7 +34,7 @@ function count(target: any, option: any = void 0) {
         } else {
             return target.length;
         }
-    } else if (isArrayLike(target)) {
+    } else if (isArrayLike(target, true)) {
         if (arguments.length === 2) {
             let times = 0;
 

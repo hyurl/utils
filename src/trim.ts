@@ -8,7 +8,7 @@ import { ensureArray } from "./ensureType";
 export default function trim<T extends any>(target: T, deep = false): T extends string ? string : T {
     if (typeof target === "string") {
         return target.trim() as any;
-    } else if (isArrayLike(target)) {
+    } else if (isArrayLike(target, true)) {
         return ensureArray(target).map(item => trim(item, deep)) as any;
     } else if (isDictLike(target)) {
         const keys = [

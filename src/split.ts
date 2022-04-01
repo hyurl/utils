@@ -114,7 +114,7 @@ export default function split(obj: any, sep: any) {
     } else if (isBufferLike(obj)) {
         checkNumberArgument("byteLength", sep);
         return splitArrayLike(obj, sep, obj.byteLength);
-    } else if (isArrayLike(obj)) {
+    } else if (isArrayLike(obj, true)) {
         checkNumberArgument("length", sep);
         return splitArrayLike(obj, sep);
     } else if (isCollectionLike(obj)) {
