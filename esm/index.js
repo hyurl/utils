@@ -977,7 +977,9 @@ function pick(obj, props) {
     }
     else {
         return props.reduce((result, prop) => {
-            prop in obj && (result[prop] = obj[prop]);
+            if (prop in obj && obj[prop] !== undefined) {
+                result[prop] = obj[prop];
+            }
             return result;
         }, {});
     }
@@ -1367,7 +1369,7 @@ exports.default = typeAs;
 
 });
 
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -1476,7 +1478,11 @@ function __generator(thisArg, body) {
 
 var __createBinding = Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -1606,6 +1612,11 @@ function __classPrivateFieldSet(receiver, state, value, kind, f) {
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 }
 
+function __classPrivateFieldIn(state, receiver) {
+    if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof state === "function" ? receiver === state : state.has(receiver);
+}
+
 var tslib_es6 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	__extends: __extends,
@@ -1631,7 +1642,8 @@ var tslib_es6 = /*#__PURE__*/Object.freeze({
 	__importStar: __importStar,
 	__importDefault: __importDefault,
 	__classPrivateFieldGet: __classPrivateFieldGet,
-	__classPrivateFieldSet: __classPrivateFieldSet
+	__classPrivateFieldSet: __classPrivateFieldSet,
+	__classPrivateFieldIn: __classPrivateFieldIn
 });
 
 var tslib_1 = /*@__PURE__*/getAugmentedNamespace(tslib_es6);
