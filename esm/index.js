@@ -812,18 +812,25 @@ function omit(obj, props) {
     else {
         let keys = Reflect.ownKeys(obj);
         let result = keys.reduce((result, prop) => {
-            props.includes(prop) || (result[prop] = obj[prop]);
+            if (!props.includes(prop) && obj[prop] !== undefined) {
+                result[prop] = obj[prop];
+            }
             return result;
         }, {});
         // collect properties from the prototype chain
         for (let prop in Object.getPrototypeOf(obj)) {
-            props.includes(prop) || (result[prop] = obj[prop]);
+            if (!props.includes(prop) && obj[prop] !== undefined) {
+                result[prop] = obj[prop];
+            }
         }
         // special treatment for Error types
         if (obj instanceof Error) {
             ["name", "message"].forEach(prop => {
-                if (!props.includes(prop) && !(0, isOwnKey_1.default)(result, prop))
+                if (!props.includes(prop) &&
+                    obj[prop] !== undefined &&
+                    !(0, isOwnKey_1.default)(result, prop)) {
                     result[prop] = obj[prop];
+                }
             });
         }
         return result;
