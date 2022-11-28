@@ -71,7 +71,7 @@ describe("useThrottle", () => {
             await sleep(10);
         }
 
-        assert.deepStrictEqual(result, [1, 1, 1, 1, 1, 1, 2, 2, 2, 2]);
-        assert.strictEqual(count, 2);
+        assert.deepStrictEqual(result, [1, 1, 1, 1, 1, 2, 2, 2, 2, 2]);
+        assert.strictEqual(count, 3);
     });
 });

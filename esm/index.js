@@ -1733,10 +1733,17 @@ function createThrottleTask(interval, backgroundUpdate = false) {
         lastActive: 0,
         cache: void 0,
         queue: new Set(),
-        func: void 0
+        func: void 0,
+        daemon: null,
     };
     function throttle(handle, ...args) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            if (backgroundUpdate && !this.daemon) {
+                this.daemon = setInterval(() => this.func(handle, ...args), interval);
+                if (typeof this.daemon.unref === "function") {
+                    this.daemon.unref();
+                }
+            }
             let now = Date.now();
             if ((now - this.lastActive) >= interval) {
                 this.lastActive = now;

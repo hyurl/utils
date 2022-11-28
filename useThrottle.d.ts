@@ -31,4 +31,5 @@ declare type ThrottleTask = {
         reject: (err: any) => void;
     }>;
     func: <T, A extends any[]>(handle: (...args: A) => T | Promise<T>, ...args: A) => Promise<T>;
+    daemon?: any;
 };

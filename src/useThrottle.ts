@@ -71,6 +71,7 @@ type ThrottleTask = {
         handle: (...args: A) => T | Promise<T>,
         ...args: A
     ) => Promise<T>;
+    daemon?: any;
 };
 
 function createThrottleTask(
@@ -82,7 +83,8 @@ function createThrottleTask(
         lastActive: 0,
         cache: void 0,
         queue: new Set(),
-        func: void 0
+        func: void 0,
+        daemon: null,
     };
 
     async function throttle<T, A extends any[]>(
@@ -90,6 +92,14 @@ function createThrottleTask(
         handle: (...args: A) => T | Promise<T>,
         ...args: A
     ): Promise<T> {
+        if (backgroundUpdate && !this.daemon) {
+            this.daemon = setInterval(() => this.func(handle, ...args), interval);
+
+            if (typeof this.daemon.unref === "function") {
+                this.daemon.unref();
+            }
+        }
+
         let now = Date.now();
 
         if ((now - this.lastActive) >= interval) {
