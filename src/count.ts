@@ -20,6 +20,12 @@ function count(obj: any): number;
 function count(target: any, option: any = void 0) {
     if (typeof target === "string") {
         if (typeof option === "string") {
+            if (!option) {
+                return target.length + 1;
+            } else if (!target) {
+                return 0;
+            }
+
             return target.split(option).length - 1;
         } else if (option === true) {
             if (typeof Buffer === "function" &&

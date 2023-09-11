@@ -14,7 +14,7 @@ export default function omit(obj: any, props: (string | number | symbol)[]) {
         return obj.filter(i => !props.includes(i));
     } else {
         let keys = Reflect.ownKeys(obj);
-        let result = keys.reduce((result: any, prop: symbol) => {
+        let result = keys.reduce((result: any, prop: string | symbol) => {
             if (!props.includes(prop) && obj[prop] !== undefined) {
                 result[prop] = obj[prop];
             }

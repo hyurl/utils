@@ -7,7 +7,7 @@ export default function pick(obj: any, props: (string | number | symbol)[]) {
     if (Array.isArray(obj)) {
         return (<number[]>props).map(i => obj[i]);
     } else {
-        return props.reduce((result: any, prop: string) => {
+        return props.reduce((result: any, prop: string | symbol) => {
             if (prop in obj && obj[prop] !== undefined) {
                 result[prop] = obj[prop];
             }
