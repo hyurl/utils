@@ -3,7 +3,7 @@
  * this method is defined in the prototype of the object and is not inherited
  * from a super class).
  */
-export default function isOwnMethod<T>(obj: T, method: string): boolean {
+export default function isOwnMethod(obj: any, method: string | symbol): boolean {
     let proto = Object.getPrototypeOf(obj);
     return proto !== null
         && Object.prototype.hasOwnProperty.call(proto, method)
