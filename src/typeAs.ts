@@ -4,7 +4,7 @@ import typeOf from './typeOf';
 
 /**
  * Returns the object if it's an instance of the type, otherwise returns `null`.
- * This function is used with the syntax shown in the example.
+ * This function is mainly used for the optional chaining syntax.
  * @example
  *  let foo = typeAs(bar, SomeType)?.doSomething();
  */
@@ -13,7 +13,7 @@ export default function typeAs(target: any, type: NumberConstructor): number;
 export default function typeAs(target: any, type: BigIntConstructor): bigint;
 export default function typeAs(target: any, type: BooleanConstructor): boolean;
 export default function typeAs(target: any, type: SymbolConstructor): symbol;
-export default function typeAs<T>(target: T, type: Constructor<T>): T;
+export default function typeAs<T>(target: any, type: Constructor<T>): T;
 export default function typeAs(target: any, type: any): any {
     if (typeOf(type) !== "class" &&
         type !== Symbol &&
@@ -33,7 +33,7 @@ export default function typeAs(target: any, type: any): any {
 
     if (target instanceof type) {
         if ([String, Number, Boolean].includes(type)) {
-            return type(target); // make sure the primitives are returned.
+            return target.valueOf(); // make sure the primitives are returned.
         } else {
             return target;
         }
