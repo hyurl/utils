@@ -1,3 +1,5 @@
+import { pick as _pick } from "@ayonli/jsext/object";
+
 /** Creates an array composed of the picked elements. */
 export default function pick<T extends any[]>(arr: T, indexes: number[]): T;
 /** Creates an object composed of the picked properties. */
@@ -7,12 +9,6 @@ export default function pick(obj: any, props: (string | number | symbol)[]) {
     if (Array.isArray(obj)) {
         return (<number[]>props).map(i => obj[i]);
     } else {
-        return props.reduce((result: any, prop: string | symbol) => {
-            if (prop in obj && obj[prop] !== undefined) {
-                result[prop] = obj[prop];
-            }
-
-            return result;
-        }, {});
+        return _pick(obj, props);
     }
 }

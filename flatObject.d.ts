@@ -1,7 +1,8 @@
-declare type OmitChildrenNodes<T> = Pick<T, {
+import type { Constructor, TypedArray } from "@ayonli/jsext";
+type OmitChildrenNodes<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray ? K : T[K] extends (any[] | ArrayLike<any> | Function | Constructor<any> | Map<any, any> | Set<any> | Promise<any> | TypedArray) ? K : T[K] extends object ? never : K;
 }[keyof T]>;
-declare type OmitChildrenElements<T> = Pick<T, {
+type OmitChildrenElements<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray ? K : T[K] extends (Function | Constructor<any> | Map<any, any> | Set<any> | Promise<any> | TypedArray) ? K : T[K] extends (object | any[] | ArrayLike<any>) ? never : K;
 }[keyof T]>;
 /**

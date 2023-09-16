@@ -1,7 +1,7 @@
 import { isArrayLike, isDictLike } from 'is-like';
 import { ensureArray } from "./ensureType";
 
-declare var Deno: Object;
+declare var Deno: any;
 
 /**
  * Creates a new array with sorted elements of the original array, the sorted
@@ -20,7 +20,7 @@ export default function sort<T>(arr: ArrayLike<T>, compare?: (a: T, b: T) => num
 export default function sort<T extends object>(obj: T, deep?: boolean): T;
 export default function sort(
     target: any | any[],
-    method: ((a: any, b: any) => number) | boolean = void 0
+    method: ((a: any, b: any) => number) | boolean | undefined = void 0
 ) {
     if (isArrayLike(target, true)) {
         let arr = ensureArray(target);
@@ -45,11 +45,11 @@ export default function sort(
     } else if (isDictLike(target)) {
         let deep = Boolean(method);
         let keys = [
-            ...sort(Object.getOwnPropertyNames(target)), // sort the keys
+            ...sort(Object.getOwnPropertyNames(target)), // sort the string keys
             ...Object.getOwnPropertySymbols(target)
         ];
 
-        return keys.reduce((result, key: string) => {
+        return keys.reduce((result, key) => {
             let value = target[key];
 
             if (deep) {
@@ -97,7 +97,7 @@ function shouldUseNativeSort(arr: any[]) {
 
         if (match) {
             let name = match[1];
-            let version = parseFloat(match[2]);
+            let version = parseFloat(match[2] as string);
 
             if ((name === "Edge" && arr.length <= 512) ||
                 (name === "Chrome" && (version >= 70) || arr.length <= 10) ||

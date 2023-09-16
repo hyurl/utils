@@ -1,3 +1,5 @@
+import type { Ensured } from "@ayonli/jsext";
+
 export type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
 
 /** Gets the global object of the host environment. */
@@ -6,8 +8,8 @@ export default function getGlobal(): Global;
 export default function getGlobal<P extends keyof Global>(prop: P): Global[P];
 /** Returns a property from the global object. */
 export default function getGlobal(prop: string): any;
-export default function getGlobal(prop: string = void 0): any {
-    let _global: Global & { [prop: string]: any; };
+export default function getGlobal(prop: string | undefined = void 0): any {
+    let _global: Global & { [prop: string]: any; } | undefined;
 
     if (typeof globalThis === "object") {
         _global = <any>globalThis;

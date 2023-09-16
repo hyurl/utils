@@ -1,5 +1,5 @@
-import keysOf from './keysOf';
 import isVoid from './isVoid';
+import type { Constructor, TypedArray } from "@ayonli/jsext";
 import { isDictLike, isArrayLike, isBufferLike } from 'is-like';
 
 type OmitChildrenNodes<T> = Pick<T, {
@@ -40,7 +40,7 @@ export default function flatObject<T extends object>(
     flatArray: true
 ): OmitChildrenElements<T> & Record<string | symbol, any>;
 export default function flatObject(obj: any, depth = 1, flatArray = false) {
-    return flatDeep({}, obj, void 0, 0, depth, flatArray);
+    return flatDeep({}, obj, "", 0, depth, flatArray);
 }
 
 function flatDeep(
@@ -51,9 +51,9 @@ function flatDeep(
     maxDepth: number,
     flatArray: boolean
 ) {
-    let isArr: boolean;
-    let isDict: boolean;
-    let isContent = !isVoid(field);
+    let isArr: boolean | undefined;
+    let isDict: boolean | undefined;
+    let isContent = !isVoid(field) && field !== "";
 
     if (depth === maxDepth || (
         !(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&
@@ -61,8 +61,8 @@ function flatDeep(
     )) {
         carrier[field] = source;
     } else if (isDict) {
-        keysOf(<object>source).forEach((key: string | symbol) => {
-            let value = (<object>source)[key];
+        Reflect.ownKeys(<object>source).forEach(key => {
+            let value = (<any>source)[key];
 
             if (typeof key === "symbol") {
                 if (depth === 0) { // only allow top-level symbol properties

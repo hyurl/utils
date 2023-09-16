@@ -12,24 +12,27 @@ export default useThrottle;
  * NOTE: this function only creates the throttle function once and uses
  * `interval` only once, any later calls on the same `resource` will return the
  * initial throttle function.
+ *
+ * @deprecated this implementation is too complicated and redundant, use
+ *  `jsext.throttle` from `@ayonli/jsext` instead.
  */
-declare function useThrottle(resource: any, interval: number, backgroundUpdate?: boolean): <T, A extends any[]>(handle: (...args: A) => T | Promise<T>, ...args: A) => Promise<T>;
+declare function useThrottle(resource: any, interval: number, backgroundUpdate?: boolean): (<T, A extends any[]>(handle: (...args: A) => T | Promise<T>, ...args: A) => Promise<T>) | undefined;
 declare namespace useThrottle {
     var gcInterval: number;
     let gcTimer: any;
     const tasks: Map<any, ThrottleTask>;
 }
-declare type ThrottleTask = {
+type ThrottleTask = {
     interval: number;
     lastActive: number;
     cache: {
         value: any;
         error: any;
-    };
+    } | undefined;
     queue: Set<{
         resolve: (value: any) => void;
         reject: (err: any) => void;
     }>;
-    func: <T, A extends any[]>(handle: (...args: A) => T | Promise<T>, ...args: A) => Promise<T>;
+    func: (<T, A extends any[]>(handle: (...args: A) => T | Promise<T>, ...args: A) => Promise<T>) | undefined;
     daemon?: any;
 };

@@ -19,7 +19,7 @@ export default function define(
     enumerable = false,
     writable = false,
 ): void {
-    if (typeOf(value) === Object) {
+    if ((typeOf(value) as any) === Object) {
         if (isGetter(value) || isGetterAndSetter(value)) {
             Object.defineProperty(obj, prop, {
                 configurable: true,
@@ -38,12 +38,12 @@ export default function define(
     });
 }
 
-function isGetter(obj: object) {
+function isGetter(obj: any) {
     return String(Object.keys(obj)) === "get"
         && typeof obj["get"] === "function";
 }
 
-function isGetterAndSetter(obj: object) {
+function isGetterAndSetter(obj: any) {
     let sign = String(Object.keys(obj));
     return (sign === "get,set" || sign === "set,get")
         && typeof obj["get"] === "function"

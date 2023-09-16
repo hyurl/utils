@@ -1,3 +1,5 @@
+import type { Constructor } from "@ayonli/jsext";
+
 /** Checks if a class is a sub-class of (inherited from) the base class. */
 export default function isSubClassOf<T, B>(
     target: Constructor<T>,

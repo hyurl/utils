@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import type { TypedArray } from "@ayonli/jsext";
 /** Splits a string into chunks by the given separator. */
 export default function split(str: string, separator: string | RegExp): string[];
 /** Splits a string into chunks with the given length. */

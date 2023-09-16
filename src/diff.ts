@@ -27,7 +27,7 @@ export default function diff(origin: any, input: any, deep = false) {
         let _keys = Reflect.ownKeys(origin);
         let result: any = {};
 
-        keys.forEach((key: string) => {
+        keys.forEach(key => {
             if (origin[key] !== input[key] &&
                 !(isVoid(origin[key]) && isVoid(input[key])) // ignore void values
             ) {
@@ -46,7 +46,7 @@ export default function diff(origin: any, input: any, deep = false) {
             }
         });
 
-        _keys.forEach((key: string) => {
+        _keys.forEach(key => {
             keys.includes(key) || (result[key] = origin[key]);
         });
 

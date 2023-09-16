@@ -38,7 +38,7 @@ function doPatch(
         let keys = Reflect.ownKeys(input);
         let result: any = {};
 
-        keys.forEach((key: string) => {
+        keys.forEach(key => {
             if (origin[key] !== input[key] &&
                 !isVoid(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")

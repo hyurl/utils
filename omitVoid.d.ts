@@ -6,4 +6,4 @@
  *  removed as well.
  */
 export default function omitVoid<T>(target: T, deep?: boolean, omitEmptyObjects?: boolean, omitEmptyStrings?: boolean): T;
-export declare function doOmit<T extends any>(target: T, deep: boolean, omitEmptyObjects: boolean, omitEmptyStrings: boolean, depth: number): T;
+export declare function doOmit<T extends any>(target: T, deep: boolean, omitEmptyObjects: boolean, omitEmptyStrings: boolean, depth: number): T | undefined;

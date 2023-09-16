@@ -1,2 +1,4 @@
-/** Generates a random number within the range from `min` to `max`. */
-export default function rand(min: number, max: number): number;
+import { random } from "@ayonli/jsext/number";
+/** @deprecated use `Number.random` from `@ayonli/jsext/number/augment` instead. */
+declare const rand: typeof random;
+export default rand;

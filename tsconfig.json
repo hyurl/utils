@@ -2,20 +2,21 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es2015",
-        "preserveConstEnums": true,
         "rootDir": "./src/",
         "outDir": "./",
-        "experimentalDecorators": true,
-        "newLine": "LF",
+        "sourceMap": true,
+        "declaration": true,
+        "strict": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
-        "importHelpers": true,
-        "pretty": true,
-        "removeComments": false,
-        "sourceMap": true,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "noImplicitAny": false,
-        "declaration": true
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true
     },
     "include": [
         "./src/*.ts"

@@ -1,5 +1,3 @@
-/**
- * Wraps a function inside another function and returns a new function that
- * copies the original function's name and properties.
- */
-export default function wrap<T extends (...args: any[]) => any>(target: T, wrapper: (target: T, ...args: Parameters<T>) => ReturnType<T>): T;
+/** @deprecated use `jsext.wrap` from `@ayonli/jsext` instead. */
+declare const wrap: <T, Fn extends (this: T, ...args: any[]) => any>(fn: Fn, wrapper: (this: T, fn: Fn, ...args: Parameters<Fn>) => ReturnType<Fn>) => Fn;
+export default wrap;

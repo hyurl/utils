@@ -1,16 +1,14 @@
 {
   "name": "@hyurl/utils",
-  "version": "0.2.27",
+  "version": "0.3.0",
   "description": "Utility functions of HyURL collection.",
   "main": "index.js",
   "scripts": {
-    "pretest": "npm run compile",
-    "posttest": "ls *.js | grep -v config.js | xargs rm -f && ls *.js.map | xargs rm -f",
-    "test": "mocha",
-    "test-deno": "deno test test/deno/example.ts",
-    "compile": "tsc",
-    "build": "npm run compile && rollup -c rollup.config.js",
-    "prepublishOnly": "npm run build && webpack",
+    "pretest": "tsc",
+    "posttest": "ls *.js | grep -v config.js | xargs rm && ls *.js.map | xargs rm",
+    "test": "mocha -r source-map-support/register",
+    "build": "tsc && rollup -c rollup.config.mjs && webpack",
+    "prepublishOnly": "npm run build",
     "postpublish": "npm run posttest"
   },
   "repository": {
@@ -21,29 +19,36 @@
     "hyurl",
     "util"
   ],
-  "author": "Ayon Lee <i@hyurl.com>",
+  "author": "A-yon Lee <the@ayon.li>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hyurl/utils/issues"
   },
   "homepage": "https://github.com/hyurl/utils#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
-    "@types/node": "^16.11.3",
-    "mocha": "^6.2.3",
-    "moment": "^2.29.1",
-    "ts-loader": "^6.2.2",
-    "typescript": "^4.4.4"
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.6.1",
+    "builtin-modules": "^3.3.0",
+    "mocha": "^10.2.0",
+    "moment": "^2.29.4",
+    "rollup": "^3.29.2",
+    "source-map-support": "^0.5.21",
+    "ts-loader": "^9.4.4",
+    "typescript": "^4.9.5",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "check-iterable": "^1.0.2",
-    "could-be-class": "^0.2.0",
-    "is-like": "^0.1.9",
-    "tslib": "^2.3.1",
+    "@ayonli/jsext": "^0.4.0",
+    "check-iterable": "^1.1.0",
+    "could-be-class": "^0.2.1",
+    "is-like": "^0.1.12",
+    "tslib": "^2.6.2",
     "utf8-length": "0.0.1"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": ">=12"
   }
 }

@@ -1,20 +1,10 @@
 declare global {
-    interface TypedArray extends Iterable<number> {
-        readonly length: number;
-        readonly byteLength: number;
-    }
-    type Optional<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
-    type Ensured<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>;
     type DiffKeys<T, U> = {
         [K in keyof T]: K extends keyof U ? never : K;
     }[keyof T];
     type Diff<T, U> = Pick<T & U, DiffKeys<T, U> | DiffKeys<U, T>>;
     type DeepPartial<T> = {
         [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
-    };
-    type Constructor<T> = Function & {
-        new (...args: any[]): T;
-        prototype: T;
     };
     type Callable<T extends any = any, A extends any[] = any[]> = (...args: A) => T;
     type ResolveType<T extends Callable> = ReturnType<T> extends Promise<infer U> ? U : ReturnType<T>;

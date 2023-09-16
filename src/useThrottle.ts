@@ -1,5 +1,6 @@
 import isEmpty from './isEmpty';
 
+// @ts-ignore
 if (typeof setImmediate === "undefined") {
     // compatible with browsers
     var setImmediate = (cb: () => void) => setTimeout(cb, 0);
@@ -20,6 +21,9 @@ export default useThrottle;
  * NOTE: this function only creates the throttle function once and uses
  * `interval` only once, any later calls on the same `resource` will return the
  * initial throttle function.
+ * 
+ * @deprecated this implementation is too complicated and redundant, use
+ *  `jsext.throttle` from `@ayonli/jsext` instead.
  */
 function useThrottle(resource: any, interval: number, backgroundUpdate = false) {
     if (interval < 1) {
@@ -65,12 +69,12 @@ namespace useThrottle {
 type ThrottleTask = {
     interval: number;
     lastActive: number;
-    cache: { value: any, error: any; };
+    cache: { value: any, error: any; } | undefined;
     queue: Set<{ resolve: (value: any) => void, reject: (err: any) => void; }>;
-    func: <T, A extends any[]>(
+    func: (<T, A extends any[]>(
         handle: (...args: A) => T | Promise<T>,
         ...args: A
-    ) => Promise<T>;
+    ) => Promise<T>) | undefined;
     daemon?: any;
 };
 
@@ -93,7 +97,7 @@ function createThrottleTask(
         ...args: A
     ): Promise<T> {
         if (backgroundUpdate && !this.daemon) {
-            this.daemon = setInterval(() => this.func(handle, ...args), interval);
+            this.daemon = setInterval(() => this.func?.(handle, ...args), interval);
 
             if (typeof this.daemon.unref === "function") {
                 this.daemon.unref();
@@ -120,7 +124,7 @@ function createThrottleTask(
                 // Clear cache before dispatching the new job.
                 this.cache = void 0;
 
-                let result: T;
+                let result: T | undefined;
                 let error: any;
 
                 try {
@@ -145,7 +149,7 @@ function createThrottleTask(
                 if (error)
                     throw error;
                 else
-                    return result;
+                    return result as T;
             }
         } else if (this.cache) {
             if (this.cache.error)
@@ -159,6 +163,6 @@ function createThrottleTask(
         }
     }
 
-    task.func = throttle.bind(task);
+    task.func = throttle.bind(task) as any;
     return task;
 }

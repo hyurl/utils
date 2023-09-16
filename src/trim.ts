@@ -35,6 +35,6 @@ export default function trim<T extends any>(target: T, deep = false): T extends 
             return result;
         }, {} as any);
     } else {
-        return target;
+        return target as any;
     }
 }

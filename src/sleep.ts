@@ -1,7 +1,5 @@
-/**
- * Delays the execution context for a while before running the remaining
- * procedures.
- */
-export default function sleep(ms: number) {
-    return new Promise<void>(resolve => setTimeout(resolve, Number(ms)));
-}
+import { sleep as _sleep } from "@ayonli/jsext/promise";
+
+/** @deprecated use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead. */
+const sleep = _sleep;
+export default sleep;

@@ -1,8 +1,5 @@
-/**
- * Checks if the value is a float number.
- */
-export default function isFloat(value: any): value is number {
-    return typeof value === "number"
-        && !isNaN(value)
-        && (!Number.isFinite(value) || value % 1 !== 0);
-}
+import { isFloat as _isFloat } from "@ayonli/jsext/number";
+
+/** @deprecated use `Number.isFloat` from `@ayonli/jsext/number/augment` instead. */
+const isFloat = _isFloat as (value: any) => value is number;
+export default isFloat;

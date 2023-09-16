@@ -1,4 +1,5 @@
-export declare type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
+import type { Ensured } from "@ayonli/jsext";
+export type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
 /** Gets the global object of the host environment. */
 export default function getGlobal(): Global;
 /** Returns a property from the global object. */

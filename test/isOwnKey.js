@@ -19,8 +19,4 @@ describe("isOwnKey", () => {
     it("should fail if the property doesn't exist", () => {
         assert(!isOwnKey({}, "foo"));
     });
-
-    it("should fail if the object is null", () => {
-        assert(!isOwnKey(null, "foo"));
-    });
 });

@@ -1,11 +1,5 @@
-import isVoid from './isVoid';
+import { hasOwn } from "@ayonli/jsext/object";
 
-/**
- * Checks if a property name is one of the properties of the target object.
- */
-export default function isOwnKey<T>(
-    obj: T,
-    prop: string | number | symbol
-): prop is keyof T {
-    return !isVoid(obj) && Object.prototype.hasOwnProperty.call(obj, prop);
-}
+/** @deprecated use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead. */
+const isOwnKey = hasOwn;
+export default isOwnKey;

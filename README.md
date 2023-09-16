@@ -5,41 +5,48 @@
 This package currently contains the following functions, more functions may be
 included in the future. Each function is stored in a separated file.
 
-Since 0.1.50, this package now supports Node.js, Web and
-[Deno](https://deno.land).
-
-- `count`[.d.ts](./count.d.ts)
-- `define`[.d.ts](./define.d.ts)
-- `diff`[.d.ts](./diff.d.ts)
-- `ensureType`[.d.ts](./ensureType.d.ts)
-- `flatObject`[.d.ts](./flatObject.d.ts)
-- `getGlobal`[.d.ts](./getGlobal.d.ts)
-- `isBetween`[.d.ts](./isBetween.d.ts)
-- `isEmpty`[.d.ts](./isEmpty.d.ts)
-- `isFloat`[.d.ts](./isFloat.d.ts)
-- `isInteger`[.d.ts](./isInteger.d.ts)
-- `isNumeric`[.d.ts](./isNumeric.d.ts)
-- `isOwnKey`[.d.ts](./isOwnKey.d.ts)
-- `isOwnMethod`[.d.ts](./isOwnMethod.d.ts)
-- `isSubClassOf`[.d.ts](./isSubClassOf.d.ts)
-- `isVoid`[.d.ts](./isVoid.d.ts)
-- `keysOf`[.d.ts](./keysOf.d.ts)
-- `omit`[.d.ts](./omit.d.ts)
-- `omitVoid`[.d.ts](./omitVoid.d.ts)
-- `patch`[.d.ts](./patch.d.ts)
-- `pick`[.d.ts](./pick.d.ts)
-- `rand`[.d.ts](./rand.d.ts)
-- `randStr`[.d.ts](./randStr.d.ts)
-- `sleep`[.d.ts](./sleep.d.ts)
-- `sort`[.d.ts](./sort.d.ts)
-- `split`[.d.ts](./split.d.ts)
-- `timestamp`[.d.ts](./timestamp.d.ts)
+- `count` [.d.ts](./count.d.ts)
+- `define` [.d.ts](./define.d.ts)
+- `diff` [.d.ts](./diff.d.ts)
+- `ensureType` [.d.ts](./ensureType.d.ts)
+- `flatObject` [.d.ts](./flatObject.d.ts)
+- `getGlobal` [.d.ts](./getGlobal.d.ts)
+- `isBetween` [.d.ts](./isBetween.d.ts)
+- `isEmpty` [.d.ts](./isEmpty.d.ts)
+- `isNumeric` [.d.ts](./isNumeric.d.ts)
+- `isSubClassOf` [.d.ts](./isSubClassOf.d.ts)
+- `isVoid` [.d.ts](./isVoid.d.ts)
+- `keysOf` [.d.ts](./keysOf.d.ts)
+- `omit` [.d.ts](./omit.d.ts)
+- `omitVoid` [.d.ts](./omitVoid.d.ts)
+- `patch` [.d.ts](./patch.d.ts)
+- `pick` [.d.ts](./pick.d.ts)
+- `sort` [.d.ts](./sort.d.ts)
+- `split` [.d.ts](./split.d.ts)
+- `timestamp` [.d.ts](./timestamp.d.ts)
 - `trim` [.d.ts](./trim.d.ts)
-- `typeAs`[.d.ts](./typeAs.d.ts)
-- `typeOf`[.d.ts](./typeOf.d.ts)
-- `until`[.d.ts](./until.d.ts)
-- `useThrottle`[.d.ts](./useThrottle.d.ts)
-- `wrap`[.d.ts](./wrap.d.ts)
+- `typeOf` [.d.ts](./typeOf.d.ts)
+
+**Deprecated**
+
+Since v0.3.0, the following functions have been merged to [@ayonli/jsext](https://github.com/ayonli/jsext),
+which provides more semantic APIs for the JavaScript language. This package will remain because the
+two packages serve different purposes, while **@ayonli/jsext** provides basic APIs for the language
+itself, **@hyurl/utils** provides higher level functions that are used in more specific scenarios.
+
+This package still keeps a link to these functions, but they have been marked __deprecated__ and will be removed in v0.4.0.
+
+- `isFloat` Deprecated: use `Number.isFloat` from `@ayonli/jsext/number/augment` instead.
+- `isInteger` Deprecated: use `Number.isInteger` instead.
+- `isOwnKey` Deprecated: use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead.
+- `isOwnMethod` Deprecated: use `Object.hasOwnMethod` from `@ayonli/jsext/object/augment` instead.
+- `rand` Deprecated: use `Number.random` from `@ayonli/jsext/number/augment` instead.
+- `randStr` Deprecated: use `String.random` from `@ayonli/jsext/string/augment` instead.
+- `sleep` Deprecated: use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead.
+- `typeAs` Deprecated: use `Object.as` from `@ayonli/jsext/object/augment` instead.
+- `until` Deprecated: use `Promise.until` from `@ayonli/jsext/promise/augment` instead.
+- `useThrottle` Deprecated: use `jsext.throttle` from `@ayonli/jsext` instead.
+- `wrap` Deprecated: use `jsext.wrap` from `@ayonli/jsext` instead.
 
 ## Import
 
@@ -88,57 +95,21 @@ package.
 
 This is the same as above, but requires a module bundler such as webpack.
 
-2. Load ES Module
+2. Import ES Module
 
 ```html
 <script type="module">
-    import utils from "https://github.com/hyurl/utils/raw/master/esm/index.js";
-    // Note the difference with the TypeScript/CommonJS version.
+    import utils from "https://deno.land/x/hyurl_utils/esm/index.js";
 </script>
 ```
 
-Note: this module can also be used Node.js as well.
+Note: the ES module can also be used in Deno.
 
-### Load Bundle
+3. Include Bundle
 
 ```html
-<script src="https://github.com/hyurl/utils/raw/master/bundle/index.js"></script>
+<script src="https://deno.land/x/hyurl_utils/bundle/index.js"></script>
 <script>
-    const { count } = window["@hyurl/utils"];
-
-    console.log(count([1,2,3]));
+    const utils = window["@hyurl/utils"];
 <script>
-```
-
-## Deno Support
-
-Yes, this package can be used directly in [Deno](https://deno.land), to use it,
-there are two ways to import:
-
-1. Directly from GitHub (recommended):
-
-```ts
-import * as utils from "https://github.com/hyurl/utils/raw/master/mod.ts";
-```
-
-2. Via Deno hosting service:
-
-```ts
-import * as utils from "https://deno.land/x/hyurl_utils/mod.ts";
-```
-
-## Unit Test
-
-### In Node.js
-
-```sh
-npm test
-```
-
-### In Deno
-
-```sh
-npm run test-deno
-# or
-deno test test/deno/example.ts
 ```

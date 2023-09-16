@@ -1,6 +1,5 @@
 import isVoid from "./isVoid";
 import isEmpty from "./isEmpty";
-import keysOf from "./keysOf";
 import { isArrayLike, isBufferLike } from 'is-like';
 
 /**
@@ -16,7 +15,7 @@ export default function omitVoid<T>(
     omitEmptyObjects = false,
     omitEmptyStrings = false
 ): T {
-    return doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, 0);
+    return doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, 0) as T;
 }
 
 export function doOmit<T extends any>(
@@ -25,9 +24,11 @@ export function doOmit<T extends any>(
     omitEmptyObjects: boolean,
     omitEmptyStrings: boolean,
     depth: number
-): T {
+): T | undefined {
     if (typeof target === "string") {
-        return omitEmptyStrings && target.trim() === "" ? void 0 : target;
+        return omitEmptyStrings && target.trim() === ""
+            ? (depth > 0 ? void 0 : "" as T)
+            : target;
     } else if (target === null
         || typeof target !== "object"
         || target instanceof Date
@@ -67,8 +68,8 @@ export function doOmit<T extends any>(
             return arr as any;
         }
     } else {
-        let obj = keysOf(<object><any>target).reduce((obj, key) => {
-            let value = target[key];
+        let obj = Reflect.ownKeys(target as object).reduce((obj, key) => {
+            let value = (target as any)[key];
 
             if (!isVoid(value)) {
                 if (deep) {
@@ -78,9 +79,9 @@ export function doOmit<T extends any>(
                         omitEmptyObjects,
                         omitEmptyStrings,
                         depth + 1);
-                    isVoid(value) || (obj[key] = value);
+                    isVoid(value) || ((obj as any)[key] = value);
                 } else {
-                    obj[key] = value;
+                    (obj as any)[key] = value;
                 }
             }
 

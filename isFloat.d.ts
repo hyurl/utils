@@ -1,4 +1,3 @@
-/**
- * Checks if the value is a float number.
- */
-export default function isFloat(value: any): value is number;
+/** @deprecated use `Number.isFloat` from `@ayonli/jsext/number/augment` instead. */
+declare const isFloat: (value: any) => value is number;
+export default isFloat;

@@ -21,7 +21,7 @@ const numberInterval: [number, number] = [
 export default function ensureType(target: any): any {
     switch (typeof target) {
         case "string": {
-            let re: RegExpMatchArray;
+            let re: RegExpMatchArray | null;
 
             if (truePattern.test(target)) {
                 return true;
@@ -34,7 +34,7 @@ export default function ensureType(target: any): any {
             } else if (infinityPattern.test(target)) {
                 return Number(target);
             } else if (re = target.match(regexPattern)) {
-                return new RegExp(re[1], re[2]);
+                return new RegExp(re[1] as string, re[2]);
             } else {
                 let num = Number(target);
 
@@ -55,10 +55,10 @@ export default function ensureType(target: any): any {
             } else if (isArrayLike(target, true)) {
                 return ensureArray(target).map(ensureType);
             } else if (isDictLike(target)) {
-                return keysOf(target).reduce((result, key: string) => {
+                return keysOf(target).reduce((result, key) => {
                     result[key] = ensureType(target[key]);
                     return result;
-                }, <Record<string, any>>{});
+                }, <Record<string | symbol, any>>{});
             } else {
                 return target;
             }

@@ -1,4 +1,6 @@
 import { isArrayLike, isBufferLike, isCollectionLike } from "is-like";
+import type { RealArrayLike } from "@ayonli/jsext/array";
+import type { TypedArray } from "@ayonli/jsext";
 
 function checkNumberArgument(name: string, value: any) {
     if (typeof value !== "number") {
@@ -8,12 +10,12 @@ function checkNumberArgument(name: string, value: any) {
     }
 }
 
-function splitArrayLike(arr: ArrayLike<any>, length: number, total: number = void 0) {
-    let result = [];
+function splitArrayLike(arr: ArrayLike<any>, length: number, total: number | undefined = void 0) {
+    let result: any[] = [];
 
     for (let i = 0, j = (total || arr.length); i < j; i += length) {
-        if (typeof arr["slice"] === "function") {
-            result.push(arr["slice"](i, i + length));
+        if (typeof (arr as RealArrayLike<any>).slice === "function") {
+            result.push((arr as RealArrayLike<any>).slice(i, i + length));
         } else {
             result.push(Array.prototype.slice.call(arr, i, i + length));
         }

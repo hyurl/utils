@@ -1,5 +1,4 @@
-/**
- * Delays the execution context for a while before running the remaining
- * procedures.
- */
-export default function sleep(ms: number): Promise<void>;
+import { sleep as _sleep } from "@ayonli/jsext/promise";
+/** @deprecated use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead. */
+declare const sleep: typeof _sleep;
+export default sleep;
