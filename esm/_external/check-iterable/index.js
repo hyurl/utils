@@ -1,4 +1,4 @@
-import { __exports as checkIterable } from '../../_virtual/index3.js';
+import { __exports as checkIterable } from '../../_virtual/index2.js';
 
 Object.defineProperty(checkIterable, "__esModule", {
   value: true

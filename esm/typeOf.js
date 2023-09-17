@@ -1,6 +1,5 @@
 import isVoid from './isVoid.js';
-import './_external/could-be-class/index.js';
-import { __exports as couldBeClass } from './_virtual/index.js';
+import { couldBeClass as couldBeClass_2 } from './_external/could-be-class/index.js';
 
 /**
  * Returns a string representation or the constructor of the value's type.
@@ -13,7 +12,7 @@ function typeOf(target) {
         return "void";
     let type = typeof target;
     if (type === "function") {
-        if (couldBeClass(target)) {
+        if (couldBeClass_2(target)) {
             return "class";
         }
         else {

@@ -1,4 +1,4 @@
-var isLike = {};
+var checkIterable = {};
 
-export { isLike as __exports };
+export { checkIterable as __exports };
 //# sourceMappingURL=index2.js.map

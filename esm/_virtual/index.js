@@ -1,4 +1,4 @@
-var couldBeClass = {};
+var isLike = {};
 
-export { couldBeClass as __exports };
+export { isLike as __exports };
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-import { __exports as isLike } from '../../_virtual/index2.js';
+import { __exports as isLike } from '../../_virtual/index.js';
 
 Object.defineProperty(isLike, "__esModule", {
   value: true

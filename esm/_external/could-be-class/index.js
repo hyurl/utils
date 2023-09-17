@@ -1,5 +1,3 @@
-import { __exports as couldBeClass$1 } from '../../_virtual/index.js';
-
 /**
  * Checks if an object could be an instantiable class.
  * @param {any} obj
@@ -50,8 +48,7 @@ function couldBeClass(obj) {
     return false;
 }
 
-couldBeClass$1.couldBeClass = couldBeClass;
-couldBeClass$1.default = couldBeClass;
+var couldBeClass_2 = couldBeClass;
 
-export { couldBeClass$1 as default };
+export { couldBeClass_2 as couldBeClass };
 //# sourceMappingURL=index.js.map
