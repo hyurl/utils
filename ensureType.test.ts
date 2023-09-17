@@ -5,49 +5,49 @@ import { ensureType } from ".";
 describe("ensureType", () => {
     describe("ensure booleans", () => {
         it("should cast the value into boolean true", () => {
-            assert(ensureType("true") === true);
-            assert(ensureType("yes") === true);
-            assert(ensureType("on") === true);
+            assert.ok(ensureType("true") === true);
+            assert.ok(ensureType("yes") === true);
+            assert.ok(ensureType("on") === true);
         });
 
         it("should cast the value into boolean false", () => {
-            assert(ensureType("false") === false);
-            assert(ensureType("no") === false);
-            assert(ensureType("off") === false);
+            assert.ok(ensureType("false") === false);
+            assert.ok(ensureType("no") === false);
+            assert.ok(ensureType("off") === false);
         });
     });
 
     describe("ensure null", () => {
         it("should cast the value into null", () => {
-            assert(ensureType("null") === null);
-            assert(ensureType("nil") === null);
-            assert(ensureType("none") === null);
-            assert(ensureType("void") === null);
-            assert(ensureType("undefined") === null);
+            assert.ok(ensureType("null") === null);
+            assert.ok(ensureType("nil") === null);
+            assert.ok(ensureType("none") === null);
+            assert.ok(ensureType("void") === null);
+            assert.ok(ensureType("undefined") === null);
         });
     });
 
     describe("ensure numbers", () => {
         it("should cast the value into a number", () => {
-            assert(ensureType("12345") === 12345);
-            assert(ensureType("12345.123") === 12345.123);
-            assert(ensureType("9007199254740991") === Number.MAX_SAFE_INTEGER);
-            assert(ensureType("-9007199254740991") === Number.MIN_SAFE_INTEGER);
-            assert(Object.is(ensureType("NaN"), NaN));
-            assert(ensureType("Infinity") === Infinity);
-            assert(ensureType("-Infinity") === -Infinity);
+            assert.ok(ensureType("12345") === 12345);
+            assert.ok(ensureType("12345.123") === 12345.123);
+            assert.ok(ensureType("9007199254740991") === Number.MAX_SAFE_INTEGER);
+            assert.ok(ensureType("-9007199254740991") === Number.MIN_SAFE_INTEGER);
+            assert.ok(Object.is(ensureType("NaN"), NaN));
+            assert.ok(ensureType("Infinity") === Infinity);
+            assert.ok(ensureType("-Infinity") === -Infinity);
         });
 
         it("should not cast if the numeric is greater than Number.MAX_SAFE_INTEGER", () => {
-            assert(ensureType("9007199254740992") === "9007199254740992");
+            assert.ok(ensureType("9007199254740992") === "9007199254740992");
         });
 
         it("should not cast if the numeric is lower than Number.MAX_SAFE_INTEGER", () => {
-            assert(ensureType("-9007199254740992") === "-9007199254740992");
+            assert.ok(ensureType("-9007199254740992") === "-9007199254740992");
         });
 
         it("should not cast if the numeric might be a phone number", () => {
-            assert(ensureType("+8913800774500") === "+8913800774500");
+            assert.ok(ensureType("+8913800774500") === "+8913800774500");
         });
     });
 
@@ -111,13 +111,13 @@ describe("ensureType", () => {
 
     describe("ensure no cast", () => {
         it("should not cast if the input value is not a string", () => {
-            assert(ensureType(12345) === 12345);
-            assert(ensureType(true) === true);
-            assert(ensureType(null) === null);
+            assert.ok(ensureType(12345) === 12345);
+            assert.ok(ensureType(true) === true);
+            assert.ok(ensureType(null) === null);
         });
 
         it("should not cast if the string doesn't match any special pattern", () => {
-            assert(ensureType("Hello, World!") === "Hello, World!");
+            assert.ok(ensureType("Hello, World!") === "Hello, World!");
         });
     });
 });

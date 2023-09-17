@@ -4,23 +4,23 @@ import { isVoid } from ".";
 
 describe("isVoid", () => {
     it("should pass for null", () => {
-        assert(isVoid(null));
+        assert.ok(isVoid(null));
     });
 
     it("should pass for undefined", () => {
-        assert(isVoid(void 0));
+        assert.ok(isVoid(void 0));
     });
 
     it("should pass for NaN", () => {
-        assert(isVoid(NaN));
+        assert.ok(isVoid(NaN));
     });
 
     it("should fail for non-void values", () => {
-        assert(!isVoid(false));
-        assert(!isVoid(true));
-        assert(!isVoid(0));
-        assert(!isVoid(123));
-        assert(!isVoid({}));
-        assert(!isVoid([]));
+        assert.ok(!isVoid(false));
+        assert.ok(!isVoid(true));
+        assert.ok(!isVoid(0));
+        assert.ok(!isVoid(123));
+        assert.ok(!isVoid({}));
+        assert.ok(!isVoid([]));
     });
 });

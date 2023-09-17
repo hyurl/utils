@@ -1,6 +1,6 @@
 {
     "name": "@hyurl/utils",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Utility functions of HyURL collection.",
     "exports": {
         ".": {
@@ -141,7 +141,8 @@
         }
     },
     "scripts": {
-        "test": "mocha",
+        "test": "mocha -r ts-node/register",
+        "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "build": "tsc && rollup -c rollup.config.mjs && webpack",
         "prepublishOnly": "npm run build"
     },
@@ -202,9 +203,6 @@
         "node": ">=12"
     },
     "mocha": {
-        "require": [
-            "ts-node/register"
-        ],
         "spec": [
             "*.test.ts"
         ]

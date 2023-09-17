@@ -9,12 +9,13 @@ describe("omit", () => {
         // @ts-ignore
         err[foo] = "Hello, World!";
 
-        assert.deepStrictEqual(omit(err, ["stack"]), {
-            name: err.name,
-            message: err.message,
-            // @ts-ignore
-            [foo]: err[foo]
-        });
+        const res = omit(err, ["stack"]);
+        assert.strictEqual(res.name, err.name);
+        assert.strictEqual(res.message, err.message);
+        // @ts-ignore
+        assert.strictEqual(res[foo], err[foo]);
+        // @ts-ignore
+        assert.strictEqual(res["stack"], undefined);
     });
 
     it("should omit elements from the array", () => {

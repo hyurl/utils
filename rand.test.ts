@@ -7,7 +7,7 @@ describe("rand", () => {
         let count = 1000;
 
         while (0 < count--) {
-            assert(isBetween(rand(0, 9), [0, 9]));
+            assert.ok(isBetween(rand(0, 9), [0, 9]));
         }
     });
 });

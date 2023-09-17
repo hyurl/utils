@@ -5,51 +5,51 @@ import jsext from "@ayonli/jsext";
 
 describe("typeOf", () => {
     it("should return 'string' for a string", () => {
-        assert(typeOf("Hello, World!") === "string");
+        assert.ok(typeOf("Hello, World!") === "string");
     });
 
     it("should return 'number' for a number", () => {
-        assert(typeOf(12345) === "number");
+        assert.ok(typeOf(12345) === "number");
     });
 
     if (typeof BigInt === "function") {
         it("should return 'bigint' for a bigint", () => {
-            assert(typeOf(BigInt("12345")) === "bigint");
+            assert.ok(typeOf(BigInt("12345")) === "bigint");
         });
     }
 
     it("should return 'boolean' for a boolean", () => {
-        assert(typeOf(true) === "boolean");
+        assert.ok(typeOf(true) === "boolean");
     });
 
     it("should return 'symbol' for a symbol", () => {
-        assert(typeOf(Symbol()) === "symbol");
+        assert.ok(typeOf(Symbol()) === "symbol");
     });
 
     it("should return 'function' for a function", () => {
-        assert(typeOf(() => { }) === "function");
+        assert.ok(typeOf(() => { }) === "function");
     });
 
     it("should return 'class' for a class", () => {
-        assert(typeOf(class { }) === "class");
+        assert.ok(typeOf(class { }) === "class");
     });
 
     it("should return 'void' for all void values", () => {
-        assert(typeOf(void 0) === "void");
-        assert(typeOf(null) === "void");
-        assert(typeOf(NaN) === "void");
+        assert.ok(typeOf(void 0) === "void");
+        assert.ok(typeOf(null) === "void");
+        assert.ok(typeOf(NaN) === "void");
     });
 
     it("should return the constructor for values of compound types", () => {
-        assert(typeOf([] as any[]) === Array);
-        assert(typeOf({}) === Object);
-        assert(typeOf(Object.create(null)) === Object);
-        assert(typeOf(Buffer.from("Hello, World!")) === Buffer);
+        assert.ok(typeOf([] as any[]) === Array);
+        assert.ok(typeOf({}) === Object);
+        assert.ok(typeOf(Object.create(null)) === Object);
+        assert.ok(typeOf(Buffer.from("Hello, World!")) === Buffer);
     });
 
     it("should throw TypeError is no argument is passed", () => {
         // @ts-ignore
         const [err] = jsext.try(() => typeOf());
-        assert(err instanceof TypeError);
+        assert.ok(err instanceof TypeError);
     });
 });

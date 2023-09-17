@@ -7,33 +7,33 @@ describe("typeAs", () => {
         let re = /^[0-9a-f]$/;
         let _re = typeAs(re, RegExp);
 
-        assert(re === _re);
+        assert.ok(re === _re);
     });
 
     it("should return primitives when testing primitive constructors", () => {
-        assert(typeAs("Hello, World!", String) === "Hello, World!");
-        assert(typeAs(new String("Hello, World!"), String) === "Hello, World!");
+        assert.ok(typeAs("Hello, World!", String) === "Hello, World!");
+        assert.ok(typeAs(new String("Hello, World!"), String) === "Hello, World!");
 
-        assert(typeAs(123, Number) === 123);
-        assert(typeAs(new Number(123), Number) === 123);
+        assert.ok(typeAs(123, Number) === 123);
+        assert.ok(typeAs(new Number(123), Number) === 123);
 
-        assert(typeAs(true, Boolean) === true);
-        assert(typeAs(new Boolean(true), Boolean) === true);
+        assert.ok(typeAs(true, Boolean) === true);
+        assert.ok(typeAs(new Boolean(true), Boolean) === true);
 
         let symbol = Symbol("");
-        assert(typeAs(symbol, Symbol) === symbol);
+        assert.ok(typeAs(symbol, Symbol) === symbol);
 
         if (typeof BigInt === "function") {
-            assert(typeAs(BigInt(123), BigInt) === BigInt(123));
+            assert.ok(typeAs(BigInt(123), BigInt) === BigInt(123));
         }
     });
 
     it("should return null when testing failed", () => {
-        assert(typeAs("", RegExp) === null);
-        assert(typeAs("", Symbol) === null);
+        assert.ok(typeAs("", RegExp) === null);
+        assert.ok(typeAs("", Symbol) === null);
 
         if (typeof BigInt === "function") {
-            assert(typeAs("", BigInt) === null);
+            assert.ok(typeAs("", BigInt) === null);
         }
     });
 });

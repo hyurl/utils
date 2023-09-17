@@ -1,5 +1,5 @@
 import isVoid from './isVoid';
-import isClass from "could-be-class";
+import { couldBeClass as isClass } from "could-be-class";
 import type { Constructor } from "@ayonli/jsext";
 
 export type TypeNames = "string"

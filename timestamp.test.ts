@@ -1,31 +1,31 @@
 import * as assert from "assert";
-import * as moment from "moment";
+import moment = require("moment"); // must use require in order to work in both Node.js and Bun
 import { describe, it } from "mocha";
 import { timestamp } from ".";
 
 describe("timestamp", () => {
     describe("in seconds", () => {
         it("should get the current timestamp", () => {
-            assert(timestamp() === Math.floor(Date.now() / 1000));
+            assert.ok(timestamp() === Math.floor(Date.now() / 1000));
         });
 
         it("should get the timestamp according to the input date string", () => {
             let dateStr = "2020-01-27 14:00:00.000+0800";
-            assert(timestamp(dateStr) === moment(dateStr).unix());
+            assert.ok(timestamp(dateStr) === moment(dateStr).unix());
         });
 
         it("should get the timestamp according to the input Date object", () => {
             let date = new Date();
-            assert(timestamp(date) === moment(date).unix());
+            assert.ok(timestamp(date) === moment(date).unix());
         });
 
         it("should get the timestamp according to the Date arguments format", () => {
-            assert(timestamp("2020,0,1,12,0,0") === timestamp(new Date(2020, 0, 1, 12, 0, 0)));
+            assert.ok(timestamp("2020,0,1,12,0,0") === timestamp(new Date(2020, 0, 1, 12, 0, 0)));
         });
 
         it("should get the timestamp according to the input milliseconds", () => {
             let now = Date.now();
-            assert(timestamp(now) === moment(now).unix());
+            assert.ok(timestamp(now) === moment(now).unix());
         });
 
         it("should support time string only", () => {
@@ -39,22 +39,22 @@ describe("timestamp", () => {
 
     describe("in milliseconds", () => {
         it("should get the current timestamp", () => {
-            assert(timestamp(true) === Date.now());
+            assert.ok(timestamp(true) === Date.now());
         });
 
         it("should get the timestamp according to the input date string", () => {
             let dateStr = "2020-01-27 14:00:00.000+0800";
-            assert(timestamp(dateStr, true) === moment(dateStr).valueOf());
+            assert.ok(timestamp(dateStr, true) === moment(dateStr).valueOf());
         });
 
         it("should get the timestamp according to the input Date object", () => {
             let date = new Date();
-            assert(timestamp(date, true) === date.valueOf());
+            assert.ok(timestamp(date, true) === date.valueOf());
         });
 
         it("should get the timestamp according to the input milliseconds", () => {
             let now = Date.now();
-            assert(timestamp(now, true) === now);
+            assert.ok(timestamp(now, true) === now);
         });
     });
 });

@@ -4,19 +4,19 @@ import { isOwnKey } from ".";
 
 describe("isOwnKey", () => {
     it("should pass for string property", () => {
-        assert(isOwnKey({ foo: "Hello" }, "foo"));
+        assert.ok(isOwnKey({ foo: "Hello" }, "foo"));
     });
 
     it("should pass for numeric property", () => {
-        assert(isOwnKey({ 1: "Hello" }, 1));
+        assert.ok(isOwnKey({ 1: "Hello" }, 1));
     });
 
     it("should pass for symbolic property", () => {
         let foo = Symbol("foo");
-        assert(isOwnKey({ [foo]: "Hello" }, foo));
+        assert.ok(isOwnKey({ [foo]: "Hello" }, foo));
     });
 
     it("should fail if the property doesn't exist", () => {
-        assert(!isOwnKey({}, "foo"));
+        assert.ok(!isOwnKey({}, "foo"));
     });
 });

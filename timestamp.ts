@@ -34,11 +34,21 @@ function timestamp(input: any, ms = false) {
         if (dateTime.includes(",") && dateTime.split(",").every(isNumeric)) {
             date = parseDateRawArgs(dateTime);
         } else {
-            if (/^\d{1,2}:\d{2}(:\d{2})?/.test(dateTime)) { // time only
+            let match: RegExpMatchArray | null = null;
+
+            if (match = dateTime.match(/^(\d{1,2}):\d{2}(:\d{2})?/)) { // time only
+                if (match[1].length !== 2) {
+                    dateTime = "0" + dateTime;
+                }
+
+                if (!match[2]) {
+                    dateTime += ":00";
+                }
+
                 date = new Date();
                 dateTime = date.getFullYear()
-                    + "-" + (date.getMonth() + 1)
-                    + "-" + date.getDate()
+                    + "-" + String(date.getMonth() + 1).padStart(2, "0")
+                    + "-" + String(date.getDate()).padStart(2, "0")
                     + " " + dateTime;
             }
 
@@ -48,6 +58,7 @@ function timestamp(input: any, ms = false) {
         if (String(date) !== "Invalid Date") {
             return ms ? date.valueOf() : Math.floor(date.valueOf() / 1000);
         } else {
+            console.log(dateTime);
             throw new Error("The input argument is not a valid date-time string");
         }
     }
