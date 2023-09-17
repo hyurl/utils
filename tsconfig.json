@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2015",
-        "rootDir": "./src/",
-        "outDir": "./",
+        "target": "es2018",
+        "rootDir": ".",
+        "outDir": "./cjs",
+        "newLine": "LF",
+        "importHelpers": true,
         "sourceMap": true,
-        "declaration": true,
         "strict": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
@@ -15,14 +16,21 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "noPropertyAccessFromIndexSignature": true,
-        "noUncheckedIndexedAccess": true,
-        "skipLibCheck": true
+        // "noUncheckedIndexedAccess": true,
+        "types": [
+            "node"
+        ],
+        "paths": {
+            "@hyurl/utils": [
+                "."
+            ]
+        }
     },
     "include": [
-        "./src/*.ts"
+        "*.ts"
     ],
     "exclude": [
-        "./test/*",
-        "./node_modules/*"
+        "node_modules",
+        "*.test.ts"
     ]
 }

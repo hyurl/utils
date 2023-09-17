@@ -1,54 +1,212 @@
 {
-  "name": "@hyurl/utils",
-  "version": "0.3.0",
-  "description": "Utility functions of HyURL collection.",
-  "main": "index.js",
-  "scripts": {
-    "pretest": "tsc",
-    "posttest": "ls *.js | grep -v config.js | xargs rm && ls *.js.map | xargs rm",
-    "test": "mocha -r source-map-support/register",
-    "build": "tsc && rollup -c rollup.config.mjs && webpack",
-    "prepublishOnly": "npm run build",
-    "postpublish": "npm run posttest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hyurl/utils.git"
-  },
-  "keywords": [
-    "hyurl",
-    "util"
-  ],
-  "author": "A-yon Lee <the@ayon.li>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hyurl/utils/issues"
-  },
-  "homepage": "https://github.com/hyurl/utils#readme",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.4",
-    "@rollup/plugin-node-resolve": "^15.2.1",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^20.6.1",
-    "builtin-modules": "^3.3.0",
-    "mocha": "^10.2.0",
-    "moment": "^2.29.4",
-    "rollup": "^3.29.2",
-    "source-map-support": "^0.5.21",
-    "ts-loader": "^9.4.4",
-    "typescript": "^4.9.5",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "@ayonli/jsext": "^0.4.0",
-    "check-iterable": "^1.1.0",
-    "could-be-class": "^0.2.1",
-    "is-like": "^0.1.12",
-    "tslib": "^2.6.2",
-    "utf8-length": "0.0.1"
-  },
-  "engines": {
-    "node": ">=12"
-  }
+    "name": "@hyurl/utils",
+    "version": "0.3.0",
+    "description": "Utility functions of HyURL collection.",
+    "exports": {
+        ".": {
+            "require": "./cjs/index.js",
+            "import": "./esm/index.js"
+        },
+        "./count": {
+            "require": "./cjs/count.js",
+            "import": "./esm/count.js"
+        },
+        "./define": {
+            "require": "./cjs/define.js",
+            "import": "./esm/define.js"
+        },
+        "./diff": {
+            "require": "./cjs/diff.js",
+            "import": "./esm/diff.js"
+        },
+        "./ensureType": {
+            "require": "./cjs/ensureType.js",
+            "import": "./esm/ensureType.js"
+        },
+        "./flatObject": {
+            "require": "./cjs/flatObject.js",
+            "import": "./esm/flatObject.js"
+        },
+        "./getGlobal": {
+            "require": "./cjs/getGlobal.js",
+            "import": "./esm/getGlobal.js"
+        },
+        "./isBetween": {
+            "require": "./cjs/isBetween.js",
+            "import": "./esm/isBetween.js"
+        },
+        "./isEmpty": {
+            "require": "./cjs/isEmpty.js",
+            "import": "./esm/isEmpty.js"
+        },
+        "./isFloat": {
+            "require": "./cjs/isFloat.js",
+            "import": "./esm/isFloat.js"
+        },
+        "./isInteger": {
+            "require": "./cjs/isInteger.js",
+            "import": "./esm/isInteger.js"
+        },
+        "./isNumeric": {
+            "require": "./cjs/isNumeric.js",
+            "import": "./esm/isNumeric.js"
+        },
+        "./isOwnKey": {
+            "require": "./cjs/isOwnKey.js",
+            "import": "./esm/isOwnKey.js"
+        },
+        "./isOwnMethod": {
+            "require": "./cjs/isOwnMethod.js",
+            "import": "./esm/isOwnMethod.js"
+        },
+        "./isSubClassOf": {
+            "require": "./cjs/isSubClassOf.js",
+            "import": "./esm/isSubClassOf.js"
+        },
+        "./isVoid": {
+            "require": "./cjs/isVoid.js",
+            "import": "./esm/isVoid.js"
+        },
+        "./keysOf": {
+            "require": "./cjs/keysOf.js",
+            "import": "./esm/keysOf.js"
+        },
+        "./omit": {
+            "require": "./cjs/omit.js",
+            "import": "./esm/omit.js"
+        },
+        "./omitVoid": {
+            "require": "./cjs/omitVoid.js",
+            "import": "./esm/omitVoid.js"
+        },
+        "./patch": {
+            "require": "./cjs/patch.js",
+            "import": "./esm/patch.js"
+        },
+        "./pick": {
+            "require": "./cjs/pick.js",
+            "import": "./esm/pick.js"
+        },
+        "./rand": {
+            "require": "./cjs/rand.js",
+            "import": "./esm/rand.js"
+        },
+        "./randStr": {
+            "require": "./cjs/randStr.js",
+            "import": "./esm/randStr.js"
+        },
+        "./sleep": {
+            "require": "./cjs/sleep.js",
+            "import": "./esm/sleep.js"
+        },
+        "./sort": {
+            "require": "./cjs/sort.js",
+            "import": "./esm/sort.js"
+        },
+        "./split": {
+            "require": "./cjs/split.js",
+            "import": "./esm/split.js"
+        },
+        "./timestamp": {
+            "require": "./cjs/timestamp.js",
+            "import": "./esm/timestamp.js"
+        },
+        "./trim": {
+            "require": "./cjs/trim.js",
+            "import": "./esm/trim.js"
+        },
+        "./typeAs": {
+            "require": "./cjs/typeAs.js",
+            "import": "./esm/typeAs.js"
+        },
+        "./typeOf": {
+            "require": "./cjs/typeOf.js",
+            "import": "./esm/typeOf.js"
+        },
+        "./types": {
+            "require": "./cjs/types.js",
+            "import": "./esm/types.js"
+        },
+        "./until": {
+            "require": "./cjs/until.js",
+            "import": "./esm/until.js"
+        },
+        "./useThrottle": {
+            "require": "./cjs/useThrottle.js",
+            "import": "./esm/useThrottle.js"
+        },
+        "./wrap": {
+            "require": "./cjs/wrap.js",
+            "import": "./esm/wrap.js"
+        }
+    },
+    "scripts": {
+        "test": "mocha",
+        "build": "tsc && rollup -c rollup.config.mjs && webpack",
+        "prepublishOnly": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hyurl/utils.git"
+    },
+    "keywords": [
+        "count",
+        "define",
+        "diff",
+        "ensureType",
+        "flatObject",
+        "getGlobal",
+        "isEmpty",
+        "isVoid",
+        "keysOf",
+        "omit",
+        "omitVoid",
+        "patch",
+        "pick",
+        "sort",
+        "split",
+        "timestamp",
+        "trim",
+        "typeOf"
+    ],
+    "author": "A-yon Lee <the@ayon.li>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hyurl/utils/issues"
+    },
+    "homepage": "https://github.com/hyurl/utils#readme",
+    "dependencies": {
+        "@ayonli/jsext": "^0.4.2",
+        "could-be-class": "^0.2.1",
+        "is-like": "^0.1.12",
+        "utf8-length": "0.0.1"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.4",
+        "@rollup/plugin-node-resolve": "^15.2.1",
+        "@rollup/plugin-typescript": "^11.1.3",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^20.6.1",
+        "glob": "^10.3.4",
+        "mocha": "^10.2.0",
+        "moment": "^2.29.4",
+        "rollup": "^3.29.2",
+        "ts-loader": "^9.4.4",
+        "ts-node": "^10.9.1",
+        "tslib": "^2.6.2",
+        "typescript": "^4.9.5",
+        "webpack": "^5.88.2",
+        "webpack-cli": "^5.1.4"
+    },
+    "engines": {
+        "node": ">=12"
+    },
+    "mocha": {
+        "require": [
+            "ts-node/register"
+        ],
+        "spec": [
+            "*.test.ts"
+        ]
+    }
 }

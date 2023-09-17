@@ -1,9 +1,9 @@
 .vscode/
-test/
-src/
-.gitignore
-tsconfig.json
+.github/
+bundle/
+node_modules/
+*.test.ts
 *.tgz
-.*
-webpack*
 *.config.js
+*.config.mjs
+tsconfig.json

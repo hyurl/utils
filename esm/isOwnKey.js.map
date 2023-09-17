@@ -1,0 +1,1 @@
+{"version":3,"file":"isOwnKey.js","sources":["../isOwnKey.ts"],"sourcesContent":["import { hasOwn } from \"@ayonli/jsext/object\";\n/** @deprecated use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead. */\nconst isOwnKey = hasOwn;\nexport default isOwnKey;\n//# sourceMappingURL=isOwnKey.js.map"],"names":[],"mappings":";;AACA;AACK,MAAC,QAAQ,GAAG;;;;"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"wrap.js","sources":["../wrap.ts"],"sourcesContent":["import jsext from \"@ayonli/jsext\";\n/** @deprecated use `jsext.wrap` from `@ayonli/jsext` instead. */\nconst wrap = jsext.wrap;\nexport default wrap;\n//# sourceMappingURL=wrap.js.map"],"names":[],"mappings":";;AACA;AACK,MAAC,IAAI,GAAG,KAAK,CAAC;;;;"}

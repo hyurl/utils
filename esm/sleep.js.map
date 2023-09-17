@@ -1,0 +1,1 @@
+{"version":3,"file":"sleep.js","sources":["../sleep.ts"],"sourcesContent":["import { sleep as _sleep } from \"@ayonli/jsext/promise\";\n/** @deprecated use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead. */\nconst sleep = _sleep;\nexport default sleep;\n//# sourceMappingURL=sleep.js.map"],"names":["_sleep"],"mappings":";;AACA;AACK,MAAC,KAAK,GAAGA;;;;"}
