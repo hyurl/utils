@@ -1,6 +1,6 @@
 import { isDictLike as isDictLike_1 } from './_external/is-like/index.js';
+import { isValid } from './_external/@ayonli/jsext/object/index.js';
 import isEmpty from './isEmpty.js';
-import isVoid from './isVoid.js';
 
 /**
  * Patches the differences onto the `origin` object from the `input` object. If
@@ -26,7 +26,7 @@ function doPatch(origin, input, deep, ignoreEmptyStrings, isChildNode) {
         let result = {};
         keys.forEach(key => {
             if (origin[key] !== input[key] &&
-                !isVoid(input[key]) && // ignore invalid values
+                isValid(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")) {
                 if (deep && isDictLike_1(origin[key]) && isDictLike_1(input[key])) {
                     let _result = doPatch(origin[key], input[key], deep, ignoreEmptyStrings, true);

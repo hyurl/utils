@@ -1,5 +1,5 @@
-import isNumeric from './isNumeric.js';
-import isVoid from './isVoid.js';
+import { isValid } from './_external/@ayonli/jsext/object/index.js';
+import { isNumeric } from './_external/@ayonli/jsext/number/index.js';
 
 function timestamp(input, ms = false) {
     if (typeof input === "boolean") {
@@ -48,13 +48,13 @@ function timestamp(input, ms = false) {
 function parseDateRawArgs(str) {
     let [Y, M, D, H, m, s, ms] = str.split(",").map(Number);
     let date = new Date();
-    isVoid(Y) || date.setFullYear(Y);
-    isVoid(M) || date.setMonth(M);
-    isVoid(D) || date.setDate(D);
-    isVoid(H) || date.setHours(H);
-    isVoid(m) || date.setMinutes(m);
-    isVoid(s) || date.setSeconds(s);
-    isVoid(ms) || date.setMilliseconds(ms);
+    isValid(Y) && date.setFullYear(Y);
+    isValid(M) && date.setMonth(M);
+    isValid(D) && date.setDate(D);
+    isValid(H) && date.setHours(H);
+    isValid(m) && date.setMinutes(m);
+    isValid(s) && date.setSeconds(s);
+    isValid(ms) && date.setMilliseconds(ms);
     return date;
 }
 

@@ -1,6 +1,6 @@
-import isVoid from './isVoid.js';
 import isEmpty from './isEmpty.js';
 import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1 } from './_external/is-like/index.js';
+import { isValid } from './_external/@ayonli/jsext/object/index.js';
 
 /**
  * Creates an object composed with only the non-void properties.
@@ -33,10 +33,10 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
         let arr = [];
         for (let i = 0, len = target.length; i < len; ++i) {
             let value = target[i];
-            if (!isVoid(value)) {
+            if (isValid(value)) {
                 if (deep) {
                     value = doOmit(value, deep, omitEmptyObjects, omitEmptyStrings, depth + 1);
-                    isVoid(value) || arr.push(value);
+                    !isValid(value) || arr.push(value);
                 }
                 else {
                     arr.push(value);
@@ -53,10 +53,10 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
     else {
         let obj = Reflect.ownKeys(target).reduce((obj, key) => {
             let value = target[key];
-            if (!isVoid(value)) {
+            if (isValid(value)) {
                 if (deep) {
                     value = doOmit(value, deep, omitEmptyObjects, omitEmptyStrings, depth + 1);
-                    isVoid(value) || (obj[key] = value);
+                    !isValid(value) || (obj[key] = value);
                 }
                 else {
                     obj[key] = value;
