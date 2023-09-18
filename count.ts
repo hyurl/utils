@@ -1,7 +1,6 @@
 import { isArrayLike, isBufferLike, isCollectionLike } from "is-like";
 
-const bytes: (str: string) => number = require("utf8-length");
-const encoder = typeof TextEncoder === "function" ? new TextEncoder() : null;
+const encoder = new TextEncoder();
 
 export default count;
 
@@ -32,10 +31,8 @@ function count(target: any, option: any = void 0) {
                 typeof Buffer.byteLength === "function"
             ) {
                 return Buffer.byteLength(target);
-            } else if (encoder) {
-                return encoder.encode(target).byteLength;
             } else {
-                return bytes(target);
+                return encoder.encode(target).byteLength;
             }
         } else {
             return target.length;

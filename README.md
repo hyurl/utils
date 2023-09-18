@@ -100,7 +100,7 @@ This is the same as above, but requires a module bundler such as webpack.
 
 ```html
 <script type="module">
-    import utils from "https://deno.land/x/hyurl_utils/esm/index.js";
+    import * as utils from "https://deno.land/x/hyurl_utils/esm/index.js";
     // or individuals
     import count from "https://deno.land/x/hyurl_utils/esm/count.js";
     import split from "https://deno.land/x/hyurl_utils/esm/split.js";

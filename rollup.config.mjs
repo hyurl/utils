@@ -34,6 +34,6 @@ export default {
             declaration: false,
         }),
         resolve({ preferBuiltins: true }),
-        commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
+        commonjs({ ignore: builtinModules }),
     ],
 };

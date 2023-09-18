@@ -1,6 +1,6 @@
 {
     "name": "@hyurl/utils",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "Utility functions of HyURL collection.",
     "exports": {
         ".": {
@@ -179,8 +179,7 @@
     "dependencies": {
         "@ayonli/jsext": "^0.4.6",
         "could-be-class": "^0.2.1",
-        "is-like": "^0.1.12",
-        "utf8-length": "0.0.1"
+        "is-like": "^0.1.12"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^25.0.4",

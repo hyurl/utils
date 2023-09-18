@@ -1,7 +1,6 @@
 import { isArrayLike as isArrayLike_1, isBufferLike as isBufferLike_1, isCollectionLike as isCollectionLike_1 } from './_external/is-like/index.js';
 
-const bytes = require("utf8-length");
-const encoder = typeof TextEncoder === "function" ? new TextEncoder() : null;
+const encoder = new TextEncoder();
 function count(target, option = void 0) {
     if (typeof target === "string") {
         if (typeof option === "string") {
@@ -18,11 +17,8 @@ function count(target, option = void 0) {
                 typeof Buffer.byteLength === "function") {
                 return Buffer.byteLength(target);
             }
-            else if (encoder) {
-                return encoder.encode(target).byteLength;
-            }
             else {
-                return bytes(target);
+                return encoder.encode(target).byteLength;
             }
         }
         else {
