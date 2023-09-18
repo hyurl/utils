@@ -1,5 +1,5 @@
-import isNumeric from './isNumeric';
-import isVoid from './isVoid';
+import { isValid } from "@ayonli/jsext/object";
+import { isNumeric } from '@ayonli/jsext/number';
 
 export default timestamp;
 
@@ -68,13 +68,13 @@ function parseDateRawArgs(str: string) {
     let [Y, M, D, H, m, s, ms] = str.split(",").map(Number);
     let date = new Date();
 
-    isVoid(Y) || date.setFullYear(Y);
-    isVoid(M) || date.setMonth(M);
-    isVoid(D) || date.setDate(D);
-    isVoid(H) || date.setHours(H);
-    isVoid(m) || date.setMinutes(m);
-    isVoid(s) || date.setSeconds(s);
-    isVoid(ms) || date.setMilliseconds(ms);
+    isValid(Y) && date.setFullYear(Y);
+    isValid(M) && date.setMonth(M);
+    isValid(D) && date.setDate(D);
+    isValid(H) && date.setHours(H);
+    isValid(m) && date.setMinutes(m);
+    isValid(s) && date.setSeconds(s);
+    isValid(ms) && date.setMilliseconds(ms);
 
     return date;
 }

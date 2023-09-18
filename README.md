@@ -12,7 +12,6 @@ included in the future. Each function is stored in a separated file.
 - `flatObject` [.ts](./flatObject.ts)
 - `getGlobal` [.ts](./getGlobal.ts)
 - `isEmpty` [.ts](./isEmpty.ts)
-- `isVoid` [.ts](./isVoid.ts)
 - `keysOf` [.ts](./keysOf.ts)
 - `omitVoid` [.ts](./omitVoid.ts)
 - `patch` [.ts](./patch.ts)
@@ -38,7 +37,8 @@ will be removed in v0.4.0.
 - `isBetween` use `Number.isBetween` from `@ayonli/jsext/number/augment` instead.
 - `isOwnKey` use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead.
 - `isOwnMethod` use `Object.hasOwnMethod` from `@ayonli/jsext/object/augment` instead.
-- `isSubClassOf` use `jsext.jsSubclassOf()` from `@ayonli/jsext` instead.
+- `isSubClassOf` use `jsext.jsSubclassOf` from `@ayonli/jsext` instead.
+- `isVoid` use `!Object.isValid` from `@ayonli/jsext/object/augment` instead.
 - `omit` use `Object.omit` from `@ayonli/jsext/object/augment` instead.
 - `pick` use `Object.pick` from `@ayonli/jsext/object/augment` instead.
 - `rand` use `Number.random` from `@ayonli/jsext/number/augment` instead.

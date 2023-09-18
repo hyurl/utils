@@ -1,6 +1,6 @@
-import isVoid from "./isVoid";
 import isEmpty from "./isEmpty";
 import { isArrayLike, isBufferLike } from 'is-like';
+import { isValid } from "@ayonli/jsext/object";
 
 /**
  * Creates an object composed with only the non-void properties.
@@ -47,7 +47,7 @@ export function doOmit<T extends any>(
         for (let i = 0, len = (<ArrayLike<any>>target).length; i < len; ++i) {
             let value = target[i];
 
-            if (!isVoid(value)) {
+            if (isValid(value)) {
                 if (deep) {
                     value = doOmit(
                         value,
@@ -55,7 +55,7 @@ export function doOmit<T extends any>(
                         omitEmptyObjects,
                         omitEmptyStrings,
                         depth + 1);
-                    isVoid(value) || arr.push(value);
+                    !isValid(value) || arr.push(value);
                 } else {
                     arr.push(value);
                 }
@@ -71,7 +71,7 @@ export function doOmit<T extends any>(
         let obj = Reflect.ownKeys(target as object).reduce((obj, key) => {
             let value = (target as any)[key];
 
-            if (!isVoid(value)) {
+            if (isValid(value)) {
                 if (deep) {
                     value = doOmit(
                         value,
@@ -79,7 +79,7 @@ export function doOmit<T extends any>(
                         omitEmptyObjects,
                         omitEmptyStrings,
                         depth + 1);
-                    isVoid(value) || ((obj as any)[key] = value);
+                    !isValid(value) || ((obj as any)[key] = value);
                 } else {
                     (obj as any)[key] = value;
                 }

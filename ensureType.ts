@@ -1,6 +1,5 @@
-import { isArrayLike, isDictLike } from 'is-like';
-import isBetween from './isBetween';
-import keysOf from './keysOf';
+import { isArrayLike, isDictLike } from "is-like";
+import { isBetween } from "@ayonli/jsext/number";
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;
@@ -55,7 +54,7 @@ export default function ensureType(target: any): any {
             } else if (isArrayLike(target, true)) {
                 return ensureArray(target).map(ensureType);
             } else if (isDictLike(target)) {
-                return keysOf(target).reduce((result, key) => {
+                return Reflect.ownKeys(target).reduce((result, key) => {
                     result[key] = ensureType(target[key]);
                     return result;
                 }, <Record<string | symbol, any>>{});

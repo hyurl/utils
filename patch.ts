@@ -1,6 +1,6 @@
 import { isDictLike } from 'is-like';
+import { isValid } from "@ayonli/jsext/object";
 import isEmpty from './isEmpty';
-import isVoid from './isVoid';
 
 
 /**
@@ -40,7 +40,7 @@ function doPatch(
 
         keys.forEach(key => {
             if (origin[key] !== input[key] &&
-                !isVoid(input[key]) && // ignore invalid values
+                isValid(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")
             ) {
                 if (deep && isDictLike(origin[key]) && isDictLike(input[key])) {
