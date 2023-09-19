@@ -16,7 +16,7 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "noPropertyAccessFromIndexSignature": true,
-        // "noUncheckedIndexedAccess": true,
+        "noUncheckedIndexedAccess": true,
         "types": [
             "node"
         ],

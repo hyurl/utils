@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sources":["../../../../../../jsext/esm/_virtual/index.js"],"sourcesContent":["var checkIterable = {};\n\nexport { checkIterable as __exports };\n//# sourceMappingURL=index.js.map\n"],"names":[],"mappings":"AAAG,IAAC,aAAa,GAAG;;;;"}

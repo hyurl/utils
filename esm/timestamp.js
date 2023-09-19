@@ -2,6 +2,7 @@ import { isValid } from './_external/@ayonli/jsext/object/index.js';
 import { isNumeric } from './_external/@ayonli/jsext/number/index.js';
 
 function timestamp(input, ms = false) {
+    var _a;
     if (typeof input === "boolean") {
         ms = input;
         input = void 0;
@@ -22,7 +23,7 @@ function timestamp(input, ms = false) {
         else {
             let match = null;
             if (match = dateTime.match(/^(\d{1,2}):\d{2}(:\d{2})?/)) { // time only
-                if (match[1].length !== 2) {
+                if (((_a = match[1]) === null || _a === void 0 ? void 0 : _a.length) !== 2) {
                     dateTime = "0" + dateTime;
                 }
                 if (!match[2]) {

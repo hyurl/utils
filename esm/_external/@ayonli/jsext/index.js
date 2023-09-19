@@ -2,6 +2,7 @@ import { isAsyncGenerator as isAsyncGenerator_1, isGenerator as isGenerator_1 } 
 import { sequence } from './number/index.js';
 
 var _a;
+console.log("AAAAAA");
 function _try(fn, ...args) {
     if (typeof fn === "function") {
         try {

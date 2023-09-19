@@ -162,14 +162,17 @@ describe("sort", () => {
             ["h", "i", "j"]
         );
         assert.deepStrictEqual(
+            // @ts-ignore
             keysOf(result.c[foo]),
             ["k", "l", bar]
         );
         assert.deepStrictEqual(
+            // @ts-ignore
             keysOf(result.c[foo][bar][0]),
             ["m", "n", "o"]
         );
         assert.deepStrictEqual(
+            // @ts-ignore
             keysOf(result.c[foo][bar][1]),
             ["p", "q", "r"]
         );

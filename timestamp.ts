@@ -37,7 +37,7 @@ function timestamp(input: any, ms = false) {
             let match: RegExpMatchArray | null = null;
 
             if (match = dateTime.match(/^(\d{1,2}):\d{2}(:\d{2})?/)) { // time only
-                if (match[1].length !== 2) {
+                if (match[1]?.length !== 2) {
                     dateTime = "0" + dateTime;
                 }
 
@@ -68,13 +68,13 @@ function parseDateRawArgs(str: string) {
     let [Y, M, D, H, m, s, ms] = str.split(",").map(Number);
     let date = new Date();
 
-    isValid(Y) && date.setFullYear(Y);
-    isValid(M) && date.setMonth(M);
-    isValid(D) && date.setDate(D);
-    isValid(H) && date.setHours(H);
-    isValid(m) && date.setMinutes(m);
-    isValid(s) && date.setSeconds(s);
-    isValid(ms) && date.setMilliseconds(ms);
+    isValid(Y) && date.setFullYear(Y as number);
+    isValid(M) && date.setMonth(M as number);
+    isValid(D) && date.setDate(D as number);
+    isValid(H) && date.setHours(H as number);
+    isValid(m) && date.setMinutes(m as number);
+    isValid(s) && date.setSeconds(s as number);
+    isValid(ms) && date.setMilliseconds(ms as number);
 
     return date;
 }
