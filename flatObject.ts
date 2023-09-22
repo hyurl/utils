@@ -1,6 +1,6 @@
-import isVoid from './isVoid';
 import type { Constructor, TypedArray } from "@ayonli/jsext";
-import { isDictLike, isArrayLike, isBufferLike } from 'is-like';
+import { isDictLike, isArrayLike, isBufferLike } from "is-like";
+import isVoid from "./isVoid.ts";
 
 type OmitChildrenNodes<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray

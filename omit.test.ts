@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { omit } from ".";
+import { omit } from "./index.ts";
 
 describe("omit", () => {
     it("should omit properties from the object", () => {

@@ -1,4 +1,4 @@
-import { omit as omit$1 } from './_external/@ayonli/jsext/object/index.js';
+import { omit as omit$1 } from './external/@ayonli/jsext/object/index.js';
 
 function omit(obj, props) {
     if (Array.isArray(obj)) {

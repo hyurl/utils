@@ -1,4 +1,4 @@
-import rand from './rand';
+import rand from "./rand.ts";
 
 /** 
  * Generates a random string.

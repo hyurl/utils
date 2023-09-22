@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { describe, it } from "mocha";
-import { isEmpty } from ".";
+import { isEmpty } from "./index.ts";
 
 describe("isEmpty", () => {
     describe("check primitives", () => {

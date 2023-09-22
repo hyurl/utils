@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isOwnMethod } from ".";
+import { isOwnMethod } from "./index.ts";
 
 class Test {
     fnProp = () => {};

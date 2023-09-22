@@ -1,5 +1,5 @@
-import { isDictLike as isDictLike_1 } from './_external/is-like/index.js';
-import { isValid } from './_external/@ayonli/jsext/object/index.js';
+import { isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isValid } from './external/@ayonli/jsext/object/index.js';
 import isEmpty from './isEmpty.js';
 
 /**

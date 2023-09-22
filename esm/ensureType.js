@@ -1,5 +1,5 @@
-import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './_external/is-like/index.js';
-import { isBetween } from './_external/@ayonli/jsext/number/index.js';
+import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isBetween } from './external/@ayonli/jsext/number/index.js';
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;

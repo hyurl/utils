@@ -1,5 +1,5 @@
-import { isValid } from './_external/@ayonli/jsext/object/index.js';
-import { isNumeric } from './_external/@ayonli/jsext/number/index.js';
+import { isValid } from './external/@ayonli/jsext/object/index.js';
+import { isNumeric } from './external/@ayonli/jsext/number/index.js';
 
 function timestamp(input, ms = false) {
     var _a;

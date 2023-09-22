@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isFloat } from ".";
+import { isFloat } from "./index.ts";
 
 describe("isFloat", () => {
     it("should pass for a clear float number", () => {

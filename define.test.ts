@@ -1,14 +1,13 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { define } from ".";
-import jsext from "@ayonli/jsext";
+import { define } from "./index.ts";
+import { _try } from "@ayonli/jsext";
 
 describe("define", () => {
     it("should set a non-enumerable and non-writable property", () => {
         const obj: { foo?: string; } = {};
 
         define(obj, "foo", "Hello, World!");
-        jsext.try(() => {
+        _try(() => {
             obj.foo = "Hi, Ayon!";
         });
 
@@ -20,7 +19,7 @@ describe("define", () => {
         const obj: { foo?: string; } = {};
 
         define(obj, "foo", "Hello, World!", true);
-        jsext.try(() => {
+        _try(() => {
             obj.foo = "Hi, Ayon!";
         });
 

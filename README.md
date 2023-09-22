@@ -13,7 +13,7 @@ included in the future. Each function is stored in a separated file.
 - `getGlobal` [.ts](./getGlobal.ts)
 - `isEmpty` [.ts](./isEmpty.ts)
 - `keysOf` [.ts](./keysOf.ts)
-- `omitVoid` [.ts](./omitVoid.ts)
+- `omitInvalid` [.ts](./omitInvalid.ts)
 - `patch` [.ts](./patch.ts)
 - `sort` [.ts](./sort.ts)
 - `split` [.ts](./split.ts)
@@ -25,8 +25,7 @@ included in the future. Each function is stored in a separated file.
 
 Since v0.3.0, the following functions have been merged to [@ayonli/jsext](https://github.com/ayonli/jsext).
 The two packages serve different purposes, while **@ayonli/jsext** provides basic and semantic APIs
-for the JavaScript language, **@hyurl/utils** provides higher level functions that are used in more
-specific scenarios.
+for the JavaScript language, **@hyurl/utils** provides higher level functions that deal with objects.
 
 This package still keeps a link to these functions, but they have been marked __deprecated__ and
 will be removed in v0.4.0.
@@ -41,6 +40,7 @@ will be removed in v0.4.0.
 - `isVoid` use `!Object.isValid` from `@ayonli/jsext/object/augment` instead.
 - `omit` use `Object.omit` from `@ayonli/jsext/object/augment` instead.
 - `pick` use `Object.pick` from `@ayonli/jsext/object/augment` instead.
+- `omitVoid` use `omitInvalid` instead.
 - `rand` use `Number.random` from `@ayonli/jsext/number/augment` instead.
 - `randStr` use `String.random` from `@ayonli/jsext/string/augment` instead.
 - `sleep` use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead.
@@ -106,8 +106,6 @@ This is the same as above, but requires a module bundler such as webpack.
     import split from "https://deno.land/x/hyurl_utils/esm/split.js";
 </script>
 ```
-
-Note: the ES module can also be used in Deno.
 
 3. Include Bundle
 

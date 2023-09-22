@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { trim } from ".";
+import { trim } from "./index.ts";
 
 describe("trim", () => {
     it("should trim a string", () => {

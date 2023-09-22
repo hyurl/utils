@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { sleep, timestamp } from ".";
+import { sleep, timestamp } from "./index.ts";
 
 describe("sleep", () => {
     it("should delay for a while before assert", async () => {

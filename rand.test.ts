@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { rand, isBetween } from ".";
+import { rand, isBetween } from "./index.ts";
 
 describe("rand", () => {
     it("should generate random numbers within the range", () => {

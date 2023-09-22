@@ -1,4 +1,4 @@
-import { pick as pick$1 } from './_external/@ayonli/jsext/object/index.js';
+import { pick as pick$1 } from './external/@ayonli/jsext/object/index.js';
 
 function pick(obj, props) {
     if (Array.isArray(obj)) {

@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { pick } from ".";
+import { pick } from "./index.ts";
 
 describe("pick", () => {
     it("should pick properties from the object", () => {

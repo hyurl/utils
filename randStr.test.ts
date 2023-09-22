@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { randStr } from ".";
+import { randStr } from "./index.ts";
 
 describe("randStr", () => {
     it("should generate a random string", () => {

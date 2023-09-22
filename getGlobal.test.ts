@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { getGlobal } from ".";
+import { getGlobal } from "./index.ts";
 
 describe("getGlobal", () => {
     it("should get the global object", () => {

@@ -1,4 +1,4 @@
-import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './_external/is-like/index.js';
+import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
 import { ensureArray } from './ensureType.js';
 
 /**

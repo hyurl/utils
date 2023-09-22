@@ -1,4 +1,4 @@
-import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1, isCollectionLike as isCollectionLike_1 } from './_external/is-like/index.js';
+import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1, isCollectionLike as isCollectionLike_1 } from './external/is-like/index.js';
 
 function checkNumberArgument(name, value) {
     if (typeof value !== "number") {

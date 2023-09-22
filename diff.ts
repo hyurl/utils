@@ -1,6 +1,6 @@
 import { isDictLike } from "is-like";
-import isEmpty from './isEmpty';
-import isVoid from './isVoid';
+import isEmpty from "./isEmpty.ts";
+import isVoid from "./isVoid.ts";
 
 
 /**

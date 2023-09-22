@@ -1,7 +1,7 @@
 import * as assert from "assert";
-import moment = require("moment"); // must use require in order to work in both Node.js and Bun
+import moment from "moment";
 import { describe, it } from "mocha";
-import { timestamp } from ".";
+import { timestamp } from "./index.ts";
 
 describe("timestamp", () => {
     describe("in seconds", () => {

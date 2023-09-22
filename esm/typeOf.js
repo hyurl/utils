@@ -1,5 +1,5 @@
 import isVoid from './isVoid.js';
-import { couldBeClass as couldBeClass_2 } from './_external/could-be-class/index.js';
+import { couldBeClass as couldBeClass_2 } from './external/could-be-class/index.js';
 
 /**
  * Returns a string representation or the constructor of the value's type.

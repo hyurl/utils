@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { sort, keysOf } from ".";
+import { sort, keysOf } from "./index.ts";
 
 describe("sort", () => {
     it("should sort an array of numbers in ascending order", () => {

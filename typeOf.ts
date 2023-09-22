@@ -1,4 +1,4 @@
-import isVoid from './isVoid';
+import isVoid from "./isVoid.ts";
 import { couldBeClass as isClass } from "could-be-class";
 import type { Constructor } from "@ayonli/jsext";
 

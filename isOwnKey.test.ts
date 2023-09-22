@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isOwnKey } from ".";
+import { isOwnKey } from "./index.ts";
 
 describe("isOwnKey", () => {
     it("should pass for string property", () => {

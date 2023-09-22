@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isVoid } from ".";
+import { isVoid } from "./index.ts";
 
 describe("isVoid", () => {
     it("should pass for null", () => {

@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { wrap } from ".";
+import { wrap } from "./index.ts";
 
 describe("until", () => {
     it("should wrap a function with name and properties", () => {

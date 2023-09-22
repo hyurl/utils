@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { keysOf } from ".";
+import { keysOf } from "./index.ts";
 
 describe("keysOf", () => {
     it("should return the own properties of the object", () => {

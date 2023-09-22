@@ -1,4 +1,4 @@
-import { isDictLike as isDictLike_1 } from './_external/is-like/index.js';
+import { isDictLike as isDictLike_1 } from './external/is-like/index.js';
 import isEmpty from './isEmpty.js';
 import isVoid from './isVoid.js';
 

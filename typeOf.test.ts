@@ -1,7 +1,6 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { typeOf } from ".";
-import jsext from "@ayonli/jsext";
+import { typeOf } from "./index.ts";
+import { _try } from "@ayonli/jsext";
 
 describe("typeOf", () => {
     it("should return 'string' for a string", () => {
@@ -49,7 +48,7 @@ describe("typeOf", () => {
 
     it("should throw TypeError is no argument is passed", () => {
         // @ts-ignore
-        const [err] = jsext.try(() => typeOf());
+        const [err] = _try(() => typeOf());
         assert.ok(err instanceof TypeError);
     });
 });

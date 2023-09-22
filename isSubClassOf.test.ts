@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isSubClassOf } from ".";
+import { isSubClassOf } from "./index.ts";
 
 class A { }
 class B extends A { }

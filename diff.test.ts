@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { diff } from ".";
+import { diff } from "./index.ts";
 
 describe("diff", () => {
     it("should create a difference set of two arrays", () => {

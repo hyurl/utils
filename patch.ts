@@ -1,6 +1,6 @@
-import { isDictLike } from 'is-like';
+import { isDictLike } from "is-like";
 import { isValid } from "@ayonli/jsext/object";
-import isEmpty from './isEmpty';
+import isEmpty from "./isEmpty.ts";
 
 
 /**

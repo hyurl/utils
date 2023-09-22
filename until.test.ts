@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { until } from ".";
+import { until } from "./index.ts";
 
 describe("until", () => {
     it("should hang the execution context until the condition fits", async () => {

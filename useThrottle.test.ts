@@ -1,7 +1,6 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { useThrottle, sleep } from ".";
-import jsext from "@ayonli/jsext";
+import { useThrottle, sleep } from "./index.ts";
+import { _try } from "@ayonli/jsext";
 
 describe("useThrottle", () => {
     it("should create a throttle function and runs the handle function only once", async () => {
@@ -41,7 +40,7 @@ describe("useThrottle", () => {
         let result: unknown[] = [];
 
         for (let i = 0; i < 2; i++) {
-            const [err] = await jsext.try(throwError(async () => {
+            const [err] = await _try(throwError(async () => {
                 count++;
                 throw new Error("Something went wrong");
             }));

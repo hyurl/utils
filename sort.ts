@@ -1,5 +1,5 @@
-import { isArrayLike, isDictLike } from 'is-like';
-import { ensureArray } from "./ensureType";
+import { isArrayLike, isDictLike } from "is-like";
+import { ensureArray } from "./ensureType.ts";
 
 declare var Deno: any;
 

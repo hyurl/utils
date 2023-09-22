@@ -1,4 +1,4 @@
-import jsext from './_external/@ayonli/jsext/index.js';
+import jsext from './external/@ayonli/jsext/index.js';
 
 /** @deprecated use `jsext.jsSubclassOf` from `@ayonli/jsext` instead. */
 const isSubClassOf = jsext.isSubclassOf;

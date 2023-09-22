@@ -1,5 +1,5 @@
 import { isArrayLike, isDictLike } from "is-like";
-import { ensureArray } from "./ensureType";
+import { ensureArray } from "./ensureType.ts";
 
 /**
  * Trims the leading and tailing spaces of a string, the string properties of

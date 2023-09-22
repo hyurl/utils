@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { flatObject } from ".";
+import { flatObject } from "./index.ts";
 
 describe("flatObject", () => {
     it("should flat an object with only one level of depth", () => {

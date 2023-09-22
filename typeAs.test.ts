@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { typeAs } from ".";
+import { typeAs } from "./index.ts";
 
 describe("typeAs", () => {
     it("should return the original object as-is when testing object constructor", () => {

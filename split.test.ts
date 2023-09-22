@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { split } from ".";
+import { split } from "./index.ts";
 
 describe("split", () => {
     describe("Split strings", () => {

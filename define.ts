@@ -1,4 +1,4 @@
-import typeOf from './typeOf';
+import typeOf from "./typeOf.ts";
 
 /**
  * Sets a property on the target object.

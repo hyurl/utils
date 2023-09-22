@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { ensureType } from ".";
+import { ensureType } from "./index.ts";
 
 describe("ensureType", () => {
     describe("ensure booleans", () => {

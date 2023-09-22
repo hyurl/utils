@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { count } from ".";
+import { count } from "./index.ts";
 
 describe("count", () => {
     describe("count string length", () => {

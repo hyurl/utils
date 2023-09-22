@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { patch } from ".";
+import { patch } from "./index.ts";
 
 describe("patch", () => {
     it("should return the difference of two objects for patch", () => {

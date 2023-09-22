@@ -1,6 +1,5 @@
 import * as assert from "assert";
-import { describe, it } from "mocha";
-import { isBetween } from ".";
+import { isBetween } from "./index.ts";
 
 describe("isBetween", () => {
     it("should pass if a number equals to the minimal edge", () => {
