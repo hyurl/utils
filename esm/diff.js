@@ -1,4 +1,4 @@
-import { isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isDictLike } from './external/is-like/index.js';
 import isEmpty from './isEmpty.js';
 import isVoid from './isVoid.js';
 
@@ -9,7 +9,7 @@ function diff(origin, input, deep = false) {
             ...origin.filter(value => !input.includes(value))
         ];
     }
-    else if (isDictLike_1(origin) && isDictLike_1(input)) {
+    else if (isDictLike(origin) && isDictLike(input)) {
         let keys = Reflect.ownKeys(input);
         let _keys = Reflect.ownKeys(origin);
         let result = {};

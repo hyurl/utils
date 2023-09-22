@@ -1,4 +1,4 @@
-import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1, isCollectionLike as isCollectionLike_1 } from './external/is-like/index.js';
+import { isBufferLike, isArrayLike, isCollectionLike } from './external/is-like/index.js';
 
 const BaseEmptyPrimitives = ["", NaN, null, void 0];
 const EmptyPrimitives = [...BaseEmptyPrimitives, 0, false];
@@ -23,10 +23,10 @@ function test(value, deep, emptyPrimitives) {
         else if (value instanceof Error) {
             return value.message.length === 0;
         }
-        else if (isBufferLike_1(value)) {
+        else if (isBufferLike(value)) {
             return value.byteLength === 0;
         }
-        else if (isArrayLike_1(value, true)) {
+        else if (isArrayLike(value, true)) {
             if (value.length === 0) {
                 return true;
             }
@@ -42,7 +42,7 @@ function test(value, deep, emptyPrimitives) {
                 return true;
             }
         }
-        else if (isCollectionLike_1(value, true)) {
+        else if (isCollectionLike(value, true)) {
             if (value.size === 0) {
                 return true;
             }

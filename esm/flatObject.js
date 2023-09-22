@@ -1,4 +1,4 @@
-import { isArrayLike as isArrayLike_1, isBufferLike as isBufferLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isArrayLike, isBufferLike, isDictLike } from './external/is-like/index.js';
 import isVoid from './isVoid.js';
 
 function flatObject(obj, depth = 1, flatArray = false) {
@@ -8,8 +8,8 @@ function flatDeep(carrier, source, field, depth, maxDepth, flatArray) {
     let isArr;
     let isDict;
     let isContent = !isVoid(field) && field !== "";
-    if (depth === maxDepth || (!(isArr = isArrayLike_1(source, true) && !isBufferLike_1(source)) &&
-        !(isDict = isDictLike_1(source)))) {
+    if (depth === maxDepth || (!(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&
+        !(isDict = isDictLike(source)))) {
         carrier[field] = source;
     }
     else if (isDict) {

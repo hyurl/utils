@@ -1,4 +1,4 @@
-import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1, isCollectionLike as isCollectionLike_1 } from './external/is-like/index.js';
+import { isBufferLike, isArrayLike, isCollectionLike } from './external/is-like/index.js';
 
 function checkNumberArgument(name, value) {
     if (typeof value !== "number") {
@@ -84,15 +84,15 @@ function split(obj, sep) {
         && (typeof sep === "string" || Buffer.isBuffer(sep))) {
         return splitBuffer(obj, sep);
     }
-    else if (isBufferLike_1(obj)) {
+    else if (isBufferLike(obj)) {
         checkNumberArgument("byteLength", sep);
         return splitArrayLike(obj, sep, obj.byteLength);
     }
-    else if (isArrayLike_1(obj, true)) {
+    else if (isArrayLike(obj, true)) {
         checkNumberArgument("length", sep);
         return splitArrayLike(obj, sep);
     }
-    else if (isCollectionLike_1(obj)) {
+    else if (isCollectionLike(obj)) {
         let ctor = obj["constructor"];
         checkNumberArgument("size", sep);
         return splitArrayLike([...obj], sep).map(list => new ctor(list));

@@ -1,4 +1,4 @@
-import { isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isDictLike } from './external/is-like/index.js';
 import { isValid } from './external/@ayonli/jsext/object/index.js';
 import isEmpty from './isEmpty.js';
 
@@ -21,14 +21,14 @@ function patch(origin, input, deep = false, ignoreEmptyStrings = false) {
     return doPatch(origin, input, deep, ignoreEmptyStrings, false);
 }
 function doPatch(origin, input, deep, ignoreEmptyStrings, isChildNode) {
-    if (isDictLike_1(origin) && isDictLike_1(input)) {
+    if (isDictLike(origin) && isDictLike(input)) {
         let keys = Reflect.ownKeys(input);
         let result = {};
         keys.forEach(key => {
             if (origin[key] !== input[key] &&
                 isValid(input[key]) && // ignore invalid values
                 (!ignoreEmptyStrings || input[key] !== "")) {
-                if (deep && isDictLike_1(origin[key]) && isDictLike_1(input[key])) {
+                if (deep && isDictLike(origin[key]) && isDictLike(input[key])) {
                     let _result = doPatch(origin[key], input[key], deep, ignoreEmptyStrings, true);
                     if (!isEmpty(_result)) {
                         result[key] = _result;

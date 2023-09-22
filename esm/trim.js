@@ -1,4 +1,4 @@
-import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isArrayLike, isDictLike } from './external/is-like/index.js';
 import { ensureArray } from './ensureType.js';
 
 /**
@@ -9,10 +9,10 @@ function trim(target, deep = false) {
     if (typeof target === "string") {
         return target.trim();
     }
-    else if (isArrayLike_1(target, true)) {
+    else if (isArrayLike(target, true)) {
         return ensureArray(target).map(item => trim(item, deep));
     }
-    else if (isDictLike_1(target)) {
+    else if (isDictLike(target)) {
         const keys = [
             ...Object.getOwnPropertyNames(target),
             ...Object.getOwnPropertySymbols(target)
@@ -23,12 +23,12 @@ function trim(target, deep = false) {
                 value = value.trim();
             }
             else if (deep) {
-                if (isArrayLike_1(value, true)) {
+                if (isArrayLike(value, true)) {
                     value = ensureArray(value).map(item => {
-                        return isDictLike_1(item) ? trim(item, deep) : item;
+                        return isDictLike(item) ? trim(item, deep) : item;
                     });
                 }
-                else if (isDictLike_1(value)) {
+                else if (isDictLike(value)) {
                     value = trim(value, deep);
                 }
             }

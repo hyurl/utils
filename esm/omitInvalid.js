@@ -1,4 +1,4 @@
-import { isBufferLike as isBufferLike_1, isArrayLike as isArrayLike_1 } from './external/is-like/index.js';
+import { isBufferLike, isArrayLike } from './external/is-like/index.js';
 import { isValid } from './external/@ayonli/jsext/object/index.js';
 import isEmpty from './isEmpty.js';
 
@@ -23,13 +23,13 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
         || target instanceof Date
         || target instanceof Error
         || target instanceof RegExp
-        || isBufferLike_1(target)) {
+        || isBufferLike(target)) {
         return target;
     }
     else if (omitEmptyObjects && isEmpty(target)) {
-        return depth > 0 ? void 0 : (isArrayLike_1(target, true) ? [] : {});
+        return depth > 0 ? void 0 : (isArrayLike(target, true) ? [] : {});
     }
-    if (isArrayLike_1(target, true)) {
+    if (isArrayLike(target, true)) {
         let arr = [];
         for (let i = 0, len = target.length; i < len; ++i) {
             let value = target[i];

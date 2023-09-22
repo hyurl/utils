@@ -1,4 +1,4 @@
-import { isArrayLike as isArrayLike_1, isBufferLike as isBufferLike_1, isCollectionLike as isCollectionLike_1 } from './external/is-like/index.js';
+import { isArrayLike, isBufferLike, isCollectionLike } from './external/is-like/index.js';
 
 const encoder = new TextEncoder();
 function count(target, option = void 0) {
@@ -25,7 +25,7 @@ function count(target, option = void 0) {
             return target.length;
         }
     }
-    else if (isArrayLike_1(target, true)) {
+    else if (isArrayLike(target, true)) {
         if (arguments.length === 2) {
             let times = 0;
             for (let i = target.length; i--;) {
@@ -40,10 +40,10 @@ function count(target, option = void 0) {
             return target.length;
         }
     }
-    else if (isBufferLike_1(target)) {
+    else if (isBufferLike(target)) {
         return target.byteLength;
     }
-    else if (isCollectionLike_1(target, true)) {
+    else if (isCollectionLike(target, true)) {
         return target.size;
     }
     else {

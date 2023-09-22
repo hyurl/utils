@@ -1,8 +1,8 @@
-import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isArrayLike, isDictLike } from './external/is-like/index.js';
 import { ensureArray } from './ensureType.js';
 
 function sort(target, method = void 0) {
-    if (isArrayLike_1(target, true)) {
+    if (isArrayLike(target, true)) {
         let arr = ensureArray(target);
         let compare = method;
         // If the compare function is omitted and all the elements are numbers
@@ -20,7 +20,7 @@ function sort(target, method = void 0) {
             .sort((a, b) => compare(a.value, b.value) || a.index - b.index)
             .map(({ value }) => value);
     }
-    else if (isDictLike_1(target)) {
+    else if (isDictLike(target)) {
         let deep = Boolean(method);
         let keys = [
             ...sort(Object.getOwnPropertyNames(target)),
@@ -29,12 +29,12 @@ function sort(target, method = void 0) {
         return keys.reduce((result, key) => {
             let value = target[key];
             if (deep) {
-                if (isArrayLike_1(value, true)) {
+                if (isArrayLike(value, true)) {
                     value = ensureArray(value).map(item => {
-                        return isDictLike_1(item) ? sort(item, deep) : item;
+                        return isDictLike(item) ? sort(item, deep) : item;
                     });
                 }
-                else if (isDictLike_1(value)) {
+                else if (isDictLike(value)) {
                     value = sort(value, deep);
                 }
             }

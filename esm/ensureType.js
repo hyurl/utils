@@ -1,4 +1,4 @@
-import { isArrayLike as isArrayLike_1, isDictLike as isDictLike_1 } from './external/is-like/index.js';
+import { isArrayLike, isDictLike } from './external/is-like/index.js';
 import { isBetween } from './external/@ayonli/jsext/number/index.js';
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
@@ -55,10 +55,10 @@ function ensureType(target) {
             if (target === null) {
                 return null;
             }
-            else if (isArrayLike_1(target, true)) {
+            else if (isArrayLike(target, true)) {
                 return ensureArray(target).map(ensureType);
             }
-            else if (isDictLike_1(target)) {
+            else if (isDictLike(target)) {
                 return Reflect.ownKeys(target).reduce((result, key) => {
                     result[key] = ensureType(target[key]);
                     return result;
