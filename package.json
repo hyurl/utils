@@ -255,7 +255,7 @@
     "dependencies": {
         "@ayonli/jsext": "^0.5.2",
         "could-be-class": "^0.2.1",
-        "is-like": "^0.1.12"
+        "is-like": "^0.1.13"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^25.0.4",
