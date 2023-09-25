@@ -33,7 +33,7 @@ function isNumeric(value) {
 function isBetween(value, [min, max]) {
     return value >= min && value <= max;
 }
-/** Returns a random integer ranged from `min` to `max`. */
+/** Returns a random integer ranged from `min` to `max` (inclusive). */
 function random(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
@@ -42,16 +42,13 @@ function* sequence(min, max, step = 1, loop = false) {
     let id = min;
     while (true) {
         yield id;
-        if (id >= max) {
+        if ((id += step) > max) {
             if (loop) {
                 id = min;
             }
             else {
                 break;
             }
-        }
-        else {
-            id += step;
         }
     }
 }

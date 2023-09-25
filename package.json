@@ -253,7 +253,7 @@
     },
     "homepage": "https://github.com/hyurl/utils#readme",
     "dependencies": {
-        "@ayonli/jsext": "^0.5.2",
+        "@ayonli/jsext": "^0.5.3",
         "could-be-class": "^0.2.1",
         "is-like": "^0.1.13"
     },
