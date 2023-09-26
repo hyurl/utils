@@ -5,10 +5,15 @@ import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { builtinModules } from "module";
+// import { readFileSync } from "fs";
+// const pkg = JSON.parse(readFileSync(path.resolve("./package.json"), "utf-8"));
+// const external = Object.keys(pkg.dependencies || {});
 
 export default {
     input: Object.fromEntries(
-        glob.sync('**/*.ts', { ignore: ['node_modules/**', "**/*.test.ts"] }).map(file => [
+        glob.sync("**/*.ts", {
+            ignore: ["node_modules/**", "**/*.test.ts", "**/*.d.ts"],
+        }).map(file => [
             file.slice(0, file.length - path.extname(file).length),
             fileURLToPath(new URL(file, import.meta.url))
         ])
@@ -27,6 +32,9 @@ export default {
 
             return "[name].js";
         }
+    },
+    external(id) {
+        return String(id).includes("node_modules");
     },
     plugins: [
         typescript({ moduleResolution: "bundler" }),

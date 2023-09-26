@@ -53,6 +53,9 @@ will be removed in v0.4.0.
 
 There are two ways to import these functions.
 
+**NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
+instead of `CommonJS`.
+
 ### All At Once
 
 This method will load all functions into memory, even if you don't need some of
@@ -81,7 +84,7 @@ Other than utility functions, this package also provides some utility types for
 TypeScript, they are located in the following file and exposed to the global
 namespace.
 
-- [types.ts](./src/types.ts)
+- [types.ts](./types.ts)
 
 ```ts
 import "@hyurl/utils/types";

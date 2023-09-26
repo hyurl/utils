@@ -9,7 +9,6 @@
         "noEmit": true,
         "allowImportingTsExtensions": true,
         "moduleResolution": "Bundler",
-        "esModuleInterop": true,
         "strict": true,
         "noUnusedParameters": true,
         "noUnusedLocals": true,
@@ -35,5 +34,10 @@
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "esModuleInterop": true,
+        }
+    }
 }

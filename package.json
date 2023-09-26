@@ -1,213 +1,248 @@
 {
     "name": "@hyurl/utils",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "description": "Utility functions of HyURL collection.",
     "exports": {
         ".": {
+            "types": "./types/index.d.ts",
             "bun": "./index.ts",
             "require": "./cjs/index.js",
             "import": "./esm/index.js",
             "default": "./index.ts"
         },
         "./count": {
+            "types": "./types/count.d.ts",
             "bun": "./count.ts",
             "require": "./cjs/count.js",
             "import": "./esm/count.js",
             "default": "./count.ts"
         },
         "./define": {
+            "types": "./types/define.d.ts",
             "bun": "./define.ts",
             "require": "./cjs/define.js",
             "import": "./esm/define.js",
             "default": "./define.ts"
         },
         "./diff": {
+            "types": "./types/diff.d.ts",
             "bun": "./diff.ts",
             "require": "./cjs/diff.js",
             "import": "./esm/diff.js",
             "default": "./diff.ts"
         },
         "./ensureType": {
+            "types": "./types/ensureType.d.ts",
             "bun": "./ensureType.ts",
             "require": "./cjs/ensureType.js",
             "import": "./esm/ensureType.js",
             "default": "./ensureType.ts"
         },
         "./flatObject": {
+            "types": "./types/flatObject.d.ts",
             "bun": "./flatObject.ts",
             "require": "./cjs/flatObject.js",
             "import": "./esm/flatObject.js",
             "default": "./flatObject.ts"
         },
         "./getGlobal": {
+            "types": "./types/getGlobal.d.ts",
             "bun": "./getGlobal.ts",
             "require": "./cjs/getGlobal.js",
             "import": "./esm/getGlobal.js",
             "default": "./getGlobal.ts"
         },
         "./isBetween": {
+            "types": "./types/isBetween.d.ts",
             "bun": "./isBetween.ts",
             "require": "./cjs/isBetween.js",
             "import": "./esm/isBetween.js",
             "default": "./isBetween.ts"
         },
         "./isEmpty": {
+            "types": "./types/isEmpty.d.ts",
             "bun": "./isEmpty.ts",
             "require": "./cjs/isEmpty.js",
             "import": "./esm/isEmpty.js",
             "default": "./isEmpty.ts"
         },
         "./isFloat": {
+            "types": "./types/isFloat.d.ts",
             "bun": "./isFloat.ts",
             "require": "./cjs/isFloat.js",
             "import": "./esm/isFloat.js",
             "default": "./isFloat.ts"
         },
         "./isInteger": {
+            "types": "./types/isInteger.d.ts",
             "bun": "./isInteger.ts",
             "require": "./cjs/isInteger.js",
             "import": "./esm/isInteger.js",
             "default": "./isInteger.ts"
         },
         "./isNumeric": {
+            "types": "./types/isNumeric.d.ts",
             "bun": "./isNumeric.ts",
             "require": "./cjs/isNumeric.js",
             "import": "./esm/isNumeric.js",
             "default": "./isNumeric.ts"
         },
         "./isOwnKey": {
+            "types": "./types/isOwnKey.d.ts",
             "bun": "./isOwnKey.ts",
             "require": "./cjs/isOwnKey.js",
             "import": "./esm/isOwnKey.js",
             "default": "./isOwnKey.ts"
         },
         "./isOwnMethod": {
+            "types": "./types/isOwnKey.d.ts",
             "bun": "./isOwnMethod.ts",
             "require": "./cjs/isOwnMethod.js",
             "import": "./esm/isOwnMethod.js",
             "default": "./isOwnMethod.ts"
         },
         "./isSubClassOf": {
+            "types": "./types/isSubClassOf.d.ts",
             "bun": "./isSubClassOf.ts",
             "require": "./cjs/isSubClassOf.js",
             "import": "./esm/isSubClassOf.js",
             "default": "./isSubClassOf.ts"
         },
         "./isVoid": {
+            "types": "./types/isVoid.d.ts",
             "bun": "./isVoid.ts",
             "require": "./cjs/isVoid.js",
             "import": "./esm/isVoid.js",
             "default": "./isVoid.ts"
         },
         "./keysOf": {
+            "types": "./types/keysOf.d.ts",
             "bun": "./keysOf.ts",
             "require": "./cjs/keysOf.js",
             "import": "./esm/keysOf.js",
             "default": "./keysOf.ts"
         },
         "./omit": {
+            "types": "./types/omit.d.ts",
             "bun": "./omit.ts",
             "require": "./cjs/omit.js",
             "import": "./esm/omit.js",
             "default": "./omit.ts"
         },
         "./omitInvalid": {
+            "types": "./types/omitInvalid.d.ts",
             "bun": "./omitInvalid.ts",
             "require": "./cjs/omitInvalid.js",
             "import": "./esm/omitInvalid.js",
             "default": "./omitInvalid.ts"
         },
         "./omitVoid": {
+            "types": "./types/omitVoid.d.ts",
             "bun": "./omitVoid.ts",
             "require": "./cjs/omitVoid.js",
             "import": "./esm/omitVoid.js",
             "default": "./omitVoid.ts"
         },
         "./patch": {
+            "types": "./types/patch.d.ts",
             "bun": "./patch.ts",
             "require": "./cjs/patch.js",
             "import": "./esm/patch.js",
             "default": "./patch.ts"
         },
         "./pick": {
+            "types": "./types/pick.d.ts",
             "bun": "./pick.ts",
             "require": "./cjs/pick.js",
             "import": "./esm/pick.js",
             "default": "./pick.ts"
         },
         "./rand": {
+            "types": "./types/rand.d.ts",
             "bun": "./rand.ts",
             "require": "./cjs/rand.js",
             "import": "./esm/rand.js",
             "default": "./rand.ts"
         },
         "./randStr": {
+            "types": "./types/randStr.d.ts",
             "bun": "./rand.ts",
             "require": "./cjs/randStr.js",
             "import": "./esm/randStr.js",
             "default": "./randStr.ts"
         },
         "./sleep": {
+            "types": "./types/sleep.d.ts",
             "bun": "./sleep.ts",
             "require": "./cjs/sleep.js",
             "import": "./esm/sleep.js",
             "default": "./sleep.ts"
         },
         "./sort": {
+            "types": "./types/sort.d.ts",
             "bun": "./sort.ts",
             "require": "./cjs/sort.js",
             "import": "./esm/sort.js",
             "default": "./sort.ts"
         },
         "./split": {
+            "types": "./types/split.d.ts",
             "bun": "./split.ts",
             "require": "./cjs/split.js",
             "import": "./esm/split.js",
             "default": "./split.ts"
         },
         "./timestamp": {
+            "types": "./types/timestamp.d.ts",
             "bun": "./timestamp.ts",
             "require": "./cjs/timestamp.js",
             "import": "./esm/timestamp.js",
             "default": "./timestamp.ts"
         },
         "./trim": {
+            "types": "./types/trim.d.ts",
             "bun": "./trim.ts",
             "require": "./cjs/trim.js",
             "import": "./esm/trim.js",
             "default": "./trim.ts"
         },
         "./typeAs": {
+            "types": "./types/typeAs.d.ts",
             "bun": "./typeAs.ts",
             "require": "./cjs/typeAs.js",
             "import": "./esm/typeAs.js",
             "default": "./typeAs.ts"
         },
         "./typeOf": {
+            "types": "./types/typeOf.d.ts",
             "bun": "./typeOf.ts",
             "require": "./cjs/typeOf.js",
             "import": "./esm/typeOf.js",
             "default": "./typeOf.ts"
         },
         "./types": {
+            "types": "./types/types.d.ts",
             "bun": "./types.ts",
             "require": "./cjs/types.js",
             "import": "./esm/types.js",
             "default": "./types.ts"
         },
         "./until": {
+            "types": "./types/until.d.ts",
             "bun": "./until.ts",
             "require": "./cjs/until.js",
             "import": "./esm/until.js",
             "default": "./until.ts"
         },
         "./useThrottle": {
+            "types": "./types/useThrottle.d.ts",
             "bun": "./useThrottle.ts",
             "require": "./cjs/useThrottle.js",
             "import": "./esm/useThrottle.js",
             "default": "./useThrottle.ts"
         },
         "./wrap": {
+            "types": "./types/wrap.d.ts",
             "bun": "./wrap.ts",
             "require": "./cjs/wrap.js",
             "import": "./esm/wrap.js",
@@ -220,7 +255,7 @@
         "test": "node --no-warnings=ExperimentalWarning --loader=ts-node/esm ./node_modules/mocha/bin/mocha",
         "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "build": "rollup -c rollup-esm.config.mjs && rollup -c rollup-cjs.config.mjs && rollup -c rollup-bundle.config.mjs",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build && tsc -p types.tsconfig.json"
     },
     "repository": {
         "type": "git",
@@ -253,7 +288,7 @@
     },
     "homepage": "https://github.com/hyurl/utils#readme",
     "dependencies": {
-        "@ayonli/jsext": "^0.5.3",
+        "@ayonli/jsext": "^0.5.5",
         "could-be-class": "^0.2.1",
         "is-like": "^0.1.13"
     },

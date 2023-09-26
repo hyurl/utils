@@ -1,4 +1,4 @@
-import { random } from './external/@ayonli/jsext/number/index.js';
+import { random } from './external/@ayonli/jsext/esm/number/index.js';
 
 /** @deprecated use `Number.random` from `@ayonli/jsext/number/augment` instead. */
 const rand = random;

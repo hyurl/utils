@@ -15,5 +15,5 @@ function isSubclassOf(ctor1, ctor2) {
         && ctor1.prototype instanceof ctor2;
 }
 
-export { isSubclassOf as default };
-//# sourceMappingURL=isSubclassOf.js.map
+export { isSubclassOf };
+//# sourceMappingURL=mixins.js.map

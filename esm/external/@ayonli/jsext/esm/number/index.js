@@ -37,21 +37,6 @@ function isBetween(value, [min, max]) {
 function random(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
-/** Creates a generator that produces sequential numbers from `min` to `max` (inclusive). */
-function* sequence(min, max, step = 1, loop = false) {
-    let id = min;
-    while (true) {
-        yield id;
-        if ((id += step) > max) {
-            if (loop) {
-                id = min;
-            }
-            else {
-                break;
-            }
-        }
-    }
-}
 
-export { isBetween, isFloat, isNumeric, random, sequence };
+export { isBetween, isFloat, isNumeric, random };
 //# sourceMappingURL=index.js.map

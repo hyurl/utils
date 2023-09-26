@@ -1,5 +1,5 @@
-import jsext from "@ayonli/jsext";
+import _wrap from "@ayonli/jsext/wrap";
 
 /** @deprecated use `jsext.wrap` from `@ayonli/jsext` instead. */
-const wrap = jsext.wrap;
+const wrap = _wrap;
 export default wrap;

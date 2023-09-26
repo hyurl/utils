@@ -1,5 +1,5 @@
 import { isBufferLike, isArrayLike } from './external/is-like/index.js';
-import { isValid } from './external/@ayonli/jsext/object/index.js';
+import { isValid } from './external/@ayonli/jsext/esm/object/index.js';
 import isEmpty from './isEmpty.js';
 
 /**
