@@ -53,9 +53,6 @@ will be removed in v0.4.0.
 
 There are two ways to import these functions.
 
-**NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
-instead of `CommonJS`.
-
 ### All At Once
 
 This method will load all functions into memory, even if you don't need some of
@@ -77,6 +74,9 @@ This method will only load needed functions, which is recommended.
 import count from "@hyurl/utils/count";
 import ensureType from "@hyurl/utils/ensureType";
 ```
+
+**NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
+instead of `CommonJS` for this to work.
 
 ## Utilities Types
 
