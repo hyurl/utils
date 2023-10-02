@@ -63,10 +63,10 @@ them.
 import * as utils from "@hyurl/utils";
 
 // Deno
-import * as utils from "https://deno.land/x/hyurl_utils//index.ts";
+import * as utils from "https://deno.land/x/hyurl_utils/index.ts";
 
 // Browser
-import * as utils from "https://deno.land/x/hyurl_utils//esm/index.js";
+import * as utils from "https://deno.land/x/hyurl_utils/esm/index.js";
 ```
 
 ### Only Needed
@@ -79,12 +79,12 @@ import count from "@hyurl/utils/count";
 import ensureType from "@hyurl/utils/ensureType";
 
 // Deno
-import count from "https://deno.land/x/hyurl_utils//count.ts";
-import ensureType from "https://deno.land/x/hyurl_utils//ensureType.ts";
+import count from "https://deno.land/x/hyurl_utils/count.ts";
+import ensureType from "https://deno.land/x/hyurl_utils/ensureType.ts";
 
 // Browser
-import count from "https://deno.land/x/hyurl_utils//esm/count.js";
-import ensureType from "https://deno.land/x/hyurl_utils//esm/ensureType.js";
+import count from "https://deno.land/x/hyurl_utils/esm/count.js";
+import ensureType from "https://deno.land/x/hyurl_utils/esm/ensureType.js";
 ```
 
 **NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
@@ -93,7 +93,7 @@ instead of `CommonJS` for this to work with Node.js+TypeScript.
 ### Load Bundle (browser only)
 
 ```html
-<script src="https://deno.land/x/hyurl_utils//bundle/index.js"></script>
+<script src="https://deno.land/x/hyurl_utils/bundle/index.js"></script>
 <script>
     const utils = window["@hyurl/utils"];
 <script>
