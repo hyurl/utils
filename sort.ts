@@ -1,4 +1,4 @@
-import { isArrayLike, isDictLike } from "is-like";
+import { isArrayLike, isDictLike } from "https://ayonli.github.io/is-like/index.js";
 import { ensureArray } from "./ensureType.ts";
 
 declare var Deno: any;

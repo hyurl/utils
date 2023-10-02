@@ -51,7 +51,7 @@ will be removed in v0.4.0.
 
 ## Import
 
-There are two ways to import these functions.
+There are many ways to import these functions.
 
 ### All At Once
 
@@ -59,11 +59,14 @@ This method will load all functions into memory, even if you don't need some of
 them.
 
 ```js
+// Node.js
 import * as utils from "@hyurl/utils";
 
-// or import specific functions
+// Deno
+import * as utils from "https://hyurl.github.io/utils/index.ts";
 
-import { count, ensureType } from "@hyurl/utils";
+// Browser
+import * as utils from "https://hyurl.github.io/utils/esm/index.js";
 ```
 
 ### Only Needed
@@ -71,12 +74,30 @@ import { count, ensureType } from "@hyurl/utils";
 This method will only load needed functions, which is recommended.
 
 ```js
+// Node.js
 import count from "@hyurl/utils/count";
 import ensureType from "@hyurl/utils/ensureType";
+
+// Deno
+import count from "https://hyurl.github.io/utils/count.ts";
+import ensureType from "https://hyurl.github.io/utils/ensureType.ts";
+
+// Browser
+import count from "https://hyurl.github.io/utils/esm/count.js";
+import ensureType from "https://hyurl.github.io/utils/esm/ensureType.js";
 ```
 
 **NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
-instead of `CommonJS` for this to work.
+instead of `CommonJS` for this to work with Node.js+TypeScript.
+
+### Load Bundle (browser only)
+
+```html
+<script src="https://hyurl.github.io/utils/bundle/index.js"></script>
+<script>
+    const utils = window["@hyurl/utils"];
+<script>
+```
 
 ## Utilities Types
 

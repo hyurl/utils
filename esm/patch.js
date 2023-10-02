@@ -1,5 +1,5 @@
-import { isDictLike } from './external/is-like/index.js';
-import { isValid } from './external/@ayonli/jsext/esm/object/index.js';
+import { isDictLike } from 'https://ayonli.github.io/is-like/index.js';
+import { isValid } from 'https://ayonli.github.io/jsext/esm/object/index.js';
 import isEmpty from './isEmpty.js';
 
 /**

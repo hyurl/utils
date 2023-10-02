@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { rand, isBetween } from "./index.ts";
 
 describe("rand", () => {

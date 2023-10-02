@@ -1,6 +1,6 @@
-import { isArrayLike, isBufferLike, isCollectionLike } from "is-like";
-import type { RealArrayLike } from "@ayonli/jsext/array";
-import type { TypedArray } from "@ayonli/jsext";
+import { isArrayLike, isBufferLike, isCollectionLike } from "https://ayonli.github.io/is-like/index.js";
+import type { RealArrayLike } from "https://ayonli.github.io/jsext/array/index.ts";
+import type { TypedArray } from "https://ayonli.github.io/jsext/index.ts";
 
 function checkNumberArgument(name: string, value: any) {
     if (typeof value !== "number") {

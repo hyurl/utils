@@ -1,4 +1,4 @@
-import { omit as _omit } from "@ayonli/jsext/object";
+import { omit as _omit } from "https://ayonli.github.io/jsext/object/index.ts";
 
 /** Creates an array composed without the picked items. */
 export default function omit<T extends any>(arr: T[], items: T[]): T[];

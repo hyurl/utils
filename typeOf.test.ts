@@ -1,6 +1,6 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { typeOf } from "./index.ts";
-import { _try } from "@ayonli/jsext";
+import { _try } from "https://ayonli.github.io/jsext/index.ts";
 
 describe("typeOf", () => {
     it("should return 'string' for a string", () => {
@@ -43,7 +43,10 @@ describe("typeOf", () => {
         assert.ok(typeOf([] as any[]) === Array);
         assert.ok(typeOf({}) === Object);
         assert.ok(typeOf(Object.create(null)) === Object);
-        assert.ok(typeOf(Buffer.from("Hello, World!")) === Buffer);
+
+        if (typeof Buffer === "function") {
+            assert.ok(typeOf(Buffer.from("Hello, World!")) === Buffer);
+        }
     });
 
     it("should throw TypeError is no argument is passed", () => {

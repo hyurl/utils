@@ -1,4 +1,4 @@
-import { hasOwnMethod } from './external/@ayonli/jsext/esm/object/index.js';
+import { hasOwnMethod } from 'https://ayonli.github.io/jsext/esm/object/index.js';
 
 /** @deprecated use `Object.hasOwnMethod` from `@ayonli/jsext/object/augment` instead. */
 const isOwnMethod = hasOwnMethod;

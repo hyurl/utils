@@ -1,7 +1,9 @@
 .vscode/
 .github/
+esm/
 bundle/
 node_modules/
+test-deno.ts
 *.test.ts
 *.tgz
 *.config.js

@@ -1,6 +1,5 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import moment from "moment";
-import { describe, it } from "mocha";
 import { timestamp } from "./index.ts";
 
 describe("timestamp", () => {

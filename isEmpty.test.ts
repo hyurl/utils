@@ -1,5 +1,4 @@
-import * as assert from "assert";
-import { describe, it } from "mocha";
+import * as assert from "node:assert";
 import { isEmpty } from "./index.ts";
 
 describe("isEmpty", () => {
@@ -76,12 +75,16 @@ describe("isEmpty", () => {
 
     describe("check typed-array", () => {
         it("should pass for empty typed-array objects", () => {
-            assert.ok(isEmpty(Buffer.from("")));
+            if (typeof Buffer === "function") {
+                assert.ok(isEmpty(Buffer.from("")));
+            }
             assert.ok(isEmpty(new Uint8Array()));
         });
 
         it("should fail for non-empty typed-array objects", () => {
-            assert.ok(!isEmpty(Buffer.from("Hello, World!")));
+            if (typeof Buffer === "function") {
+                assert.ok(!isEmpty(Buffer.from("Hello, World!")));
+            }
             assert.ok(!isEmpty(new Uint8Array([1, 2, 3])));
         });
     });

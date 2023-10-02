@@ -1,4 +1,4 @@
-import { hasOwn } from './external/@ayonli/jsext/esm/object/index.js';
+import { hasOwn } from 'https://ayonli.github.io/jsext/esm/object/index.js';
 
 /** @deprecated use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead. */
 const isOwnKey = hasOwn;

@@ -1,4 +1,4 @@
-import type { Ensured } from "@ayonli/jsext";
+import type { Ensured } from "https://ayonli.github.io/jsext/index.ts";
 
 export type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
 

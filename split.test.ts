@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { split } from "./index.ts";
 
 describe("split", () => {
@@ -61,14 +61,22 @@ describe("split", () => {
     });
 
     describe("Split Buffer", () => {
-        it("should split a Buffer into chunks", () => {
+        it("should split a Buffer into chunks", function () {
+            if (!(typeof Buffer === "function")) {
+                this.skip();
+            }
+
             assert.deepStrictEqual(
                 split(Buffer.from([1, 2, 3, 4]), 2),
                 [Buffer.from([1, 2]), Buffer.from([3, 4])]
             );
         });
 
-        it("should split a Buffer into chunks by a separator", () => {
+        it("should split a Buffer into chunks by a separator", function () {
+            if (!(typeof Buffer === "function")) {
+                this.skip();
+            }
+
             assert.deepStrictEqual(
                 split(Buffer.from("Hello, World, Hi, Ayon"), ", "),
                 [

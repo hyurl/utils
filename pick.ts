@@ -1,4 +1,4 @@
-import { pick as _pick } from "@ayonli/jsext/object";
+import { pick as _pick } from "https://ayonli.github.io/jsext/object/index.ts";
 
 /** Creates an array composed of the picked elements. */
 export default function pick<T extends any[]>(arr: T, indexes: number[]): T;

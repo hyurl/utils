@@ -1,4 +1,4 @@
-import { isArrayLike, isBufferLike, isCollectionLike } from "is-like";
+import { isArrayLike, isBufferLike, isCollectionLike } from "https://ayonli.github.io/is-like/index.js";
 
 const BaseEmptyPrimitives: any[] = ["", NaN, null, void 0];
 const EmptyPrimitives: any[] = [...BaseEmptyPrimitives, 0, false];

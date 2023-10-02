@@ -1,5 +1,5 @@
-import type { Constructor, TypedArray } from "@ayonli/jsext";
-import { isDictLike, isArrayLike, isBufferLike } from "is-like";
+import type { Constructor, TypedArray } from "https://ayonli.github.io/jsext/index.ts";
+import { isDictLike, isArrayLike, isBufferLike } from "https://ayonli.github.io/is-like/index.js";
 import isVoid from "./isVoid.ts";
 
 type OmitChildrenNodes<T> = Pick<T, {

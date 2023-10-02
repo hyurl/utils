@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { isSubClassOf } from "./index.ts";
 
 class A { }

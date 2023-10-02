@@ -1,4 +1,4 @@
-import { isArrayLike, isDictLike } from './external/is-like/index.js';
+import { isArrayLike, isDictLike } from 'https://ayonli.github.io/is-like/index.js';
 import { ensureArray } from './ensureType.js';
 
 /**

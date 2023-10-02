@@ -1,4 +1,4 @@
-import { as } from './external/@ayonli/jsext/esm/object/index.js';
+import { as } from 'https://ayonli.github.io/jsext/esm/object/index.js';
 
 /** @deprecated use `Object.as` from `@ayonli/jsext/object/augment` instead. */
 const typeAs = as;

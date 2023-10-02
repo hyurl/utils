@@ -3,6 +3,7 @@
         "module": "esnext",
         "target": "es2018",
         "rootDir": ".",
+        "baseUrl": "./node_modules/",
         "newLine": "LF",
         "importHelpers": true,
         "sourceMap": true,
@@ -26,18 +27,44 @@
         "paths": {
             "@hyurl/utils": [
                 "."
+            ],
+            "https://ayonli.github.io/is-like/index.js": [
+                "is-like"
+            ],
+            "https://ayonli.github.io/jsext/index.ts": [
+                "@ayonli/jsext"
+            ],
+            "https://ayonli.github.io/jsext/wrap.ts": [
+                "@ayonli/jsext/wrap"
+            ],
+            "https://ayonli.github.io/jsext/mixins.ts": [
+                "@ayonli/jsext/mixins"
+            ],
+            "https://ayonli.github.io/jsext/array/index.ts": [
+                "@ayonli/jsext/array"
+            ],
+            "https://ayonli.github.io/jsext/number/index.ts": [
+                "@ayonli/jsext/number"
+            ],
+            "https://ayonli.github.io/jsext/object/index.ts": [
+                "@ayonli/jsext/object"
+            ],
+            "https://ayonli.github.io/jsext/promise/index.ts": [
+                "@ayonli/jsext/promise"
             ]
         }
     },
     "include": [
         "*.ts"
     ],
-    "exclude": [
-        "node_modules"
-    ],
     "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ],
         "compilerOptions": {
+            "module": "NodeNext",
             "esModuleInterop": true,
-        }
+        },
+        "ignore": []
     }
 }

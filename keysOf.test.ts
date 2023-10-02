@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { keysOf } from "./index.ts";
 
 describe("keysOf", () => {

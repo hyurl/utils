@@ -1,4 +1,4 @@
-import { isDictLike } from "is-like";
+import { isDictLike } from "https://ayonli.github.io/is-like/index.js";
 import isEmpty from "./isEmpty.ts";
 import isVoid from "./isVoid.ts";
 

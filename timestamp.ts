@@ -1,5 +1,5 @@
-import { isValid } from "@ayonli/jsext/object";
-import { isNumeric } from "@ayonli/jsext/number";
+import { isValid } from "https://ayonli.github.io/jsext/object/index.ts";
+import { isNumeric } from "https://ayonli.github.io/jsext/number/index.ts";
 
 export default timestamp;
 

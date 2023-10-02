@@ -1,6 +1,6 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { useThrottle, sleep } from "./index.ts";
-import { _try } from "@ayonli/jsext";
+import { _try } from "https://ayonli.github.io/jsext/index.ts";
 
 describe("useThrottle", () => {
     it("should create a throttle function and runs the handle function only once", async () => {

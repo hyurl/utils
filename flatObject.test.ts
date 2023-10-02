@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import * as assert from "node:assert";
 import { flatObject } from "./index.ts";
 
 describe("flatObject", () => {
@@ -85,7 +85,11 @@ describe("flatObject", () => {
         });
     });
 
-    it("should flat array-like children nodes except for TypedArray", () => {
+    it("should flat array-like children nodes except for TypedArray", function () {
+        if (!(typeof Buffer === "function")) {
+            this.skip();
+        }
+
         // @ts-ignore
         let args = (function () { return arguments })(1, 2, 3);
         let buf = Buffer.from("Hello, World!");

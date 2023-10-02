@@ -1,4 +1,4 @@
-import { isBufferLike, isArrayLike, isCollectionLike } from './external/is-like/index.js';
+import { isBufferLike, isArrayLike, isCollectionLike } from 'https://ayonli.github.io/is-like/index.js';
 
 function checkNumberArgument(name, value) {
     if (typeof value !== "number") {

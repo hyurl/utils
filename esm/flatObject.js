@@ -1,4 +1,4 @@
-import { isArrayLike, isBufferLike, isDictLike } from './external/is-like/index.js';
+import { isArrayLike, isBufferLike, isDictLike } from 'https://ayonli.github.io/is-like/index.js';
 import isVoid from './isVoid.js';
 
 function flatObject(obj, depth = 1, flatArray = false) {
