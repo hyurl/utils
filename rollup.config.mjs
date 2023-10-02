@@ -15,7 +15,7 @@ const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((recor
     record[id] = (tsCfg.compilerOptions.paths ?? {})[id][0];
     return record;
 }, {});
-const importMapEsm = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
+const importMapWeb = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
     if (id.endsWith(".ts") && id.startsWith("https://deno.land/x/ayonli_jsext/")) {
         record[id] = id.replaceAll("https://deno.land/x/ayonli_jsext/", "https://deno.land/x/ayonli_jsext/esm/")
             .slice(0, -3) + ".js";
@@ -50,7 +50,10 @@ export default [
         },
         plugins: [
             replace({ ...importMap, preventAssignment: true }),
-            typescript({ moduleResolution: "bundler", baseUrl: "" }),
+            typescript({
+                moduleResolution: "bundler",
+                baseUrl: "", // must reset this
+            }),
             resolve({ preferBuiltins: true }),
             commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
         ],
@@ -74,7 +77,7 @@ export default [
             typescript({
                 moduleResolution: "bundler",
                 compilerOptions: {
-                    baseUrl: "",
+                    baseUrl: "", // must reset this
                     declaration: true,
                     declarationDir: "dist",
                 },
@@ -100,17 +103,14 @@ export default [
             return String(id).startsWith("https://");
         },
         plugins: [
-            replace({ ...importMapEsm, preventAssignment: true }),
-            typescript({ moduleResolution: "bundler", baseUrl: "" }),
+            replace({ ...importMapWeb, preventAssignment: true }),
+            typescript({ moduleResolution: "bundler" }),
             resolve({ preferBuiltins: true }),
             commonjs({
                 ignoreDynamicRequires: true,
                 ignore: builtinModules,
                 esmExternals: (id) => {
-                    return id.startsWith("@ayonli/jsext")
-                        || id.includes("ayonli.github.io/jsext")
-                        || id === "is-like"
-                        || id.includes("is-like/index.js");
+                    return id.startsWith("@ayonli/jsext") || id === "is-like";
                 },
             }),
         ],
