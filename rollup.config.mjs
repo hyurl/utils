@@ -1,14 +1,14 @@
-import path from "path";
+import path from "node:path";
+import { readFileSync } from "node:fs";
+import { builtinModules } from "node:module";
+import { fileURLToPath } from "node:url";
 import { glob } from "glob";
-import { fileURLToPath } from "url";
+import * as FRON from "fron";
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import terser from "@rollup/plugin-terser";
-import { builtinModules } from "module";
-import * as FRON from "fron";
-import { readFileSync } from "fs";
 
 const tsCfg = FRON.parse(readFileSync("./tsconfig.json", "utf8"));
 const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
@@ -26,7 +26,7 @@ const importMapEsm = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((re
 }, {});
 const entries = Object.fromEntries(
     glob.sync("**/*.ts", {
-        ignore: ["node_modules/**", "**/*.test.ts", "**/*.d.ts"],
+        ignore: ["node_modules/**", "**/*.test.ts", "**/*.d.ts", "**/*-deno.ts"],
     }).map(file => [
         file.slice(0, file.length - path.extname(file).length),
         fileURLToPath(new URL(file, import.meta.url))
@@ -44,13 +44,6 @@ export default [
             sourcemap: true,
             preserveModules: true,
             preserveModulesRoot: ".",
-            // entryFileNames: (chunkInfo) => {
-            //     if (chunkInfo.name.includes("node_modules")) {
-            //         return chunkInfo.name.replace("node_modules", "external") + ".js";
-            //     }
-
-            //     return "[name].js";
-            // }
         },
         external(id) {
             return String(id).includes("node_modules");
@@ -72,13 +65,6 @@ export default [
             sourcemap: true,
             preserveModules: true,
             preserveModulesRoot: ".",
-            // entryFileNames: (chunkInfo) => {
-            //     if (chunkInfo.name.includes("node_modules")) {
-            //         return chunkInfo.name.replace("node_modules", "external") + ".js";
-            //     }
-
-            //     return "[name].js";
-            // }
         },
         external(id) {
             return String(id).includes("node_modules");
@@ -91,21 +77,17 @@ export default [
                     baseUrl: "",
                     declaration: true,
                     declarationDir: "dist",
-                }
+                },
+                exclude: [
+                    "*.test.ts"
+                ]
             }),
             resolve({ preferBuiltins: true }),
             commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
         ],
     },
     { // ES Module for Web
-        input: Object.fromEntries(
-            glob.sync("**/*.ts", {
-                ignore: ["node_modules/**", "**/*.test.ts", "**/*.d.ts"],
-            }).map(file => [
-                file.slice(0, file.length - path.extname(file).length),
-                fileURLToPath(new URL(file, import.meta.url))
-            ])
-        ),
+        input: entries,
         output: {
             dir: "esm",
             format: "esm",
@@ -113,13 +95,6 @@ export default [
             sourcemap: true,
             preserveModules: true,
             preserveModulesRoot: ".",
-            entryFileNames: (chunkInfo) => {
-                if (chunkInfo.name.includes("node_modules")) {
-                    return chunkInfo.name.replace("node_modules", "external") + ".js";
-                }
-
-                return "[name].js";
-            }
         },
         external(id) {
             return String(id).startsWith("https://");

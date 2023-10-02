@@ -1,5 +1,5 @@
-import { isValid } from 'https://ayonli.github.io/jsext/esm/object/index.js';
-import { isNumeric } from 'https://ayonli.github.io/jsext/esm/number/index.js';
+import { isValid } from 'https://deno.land/x/ayonli_jsext/esm/object/index.js';
+import { isNumeric } from 'https://deno.land/x/ayonli_jsext/esm/number/index.js';
 
 function timestamp(input, ms = false) {
     var _a;

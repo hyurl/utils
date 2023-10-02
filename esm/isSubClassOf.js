@@ -1,4 +1,4 @@
-import { isSubclassOf } from 'https://ayonli.github.io/jsext/esm/mixins.js';
+import { isSubclassOf } from 'https://deno.land/x/ayonli_jsext/esm/mixins.js';
 
 /** @deprecated use `jsext.jsSubclassOf` from `@ayonli/jsext` instead. */
 const isSubClassOf = isSubclassOf;

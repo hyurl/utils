@@ -221,7 +221,7 @@
         "test": "node -r ts-node/register ./node_modules/mocha/bin/mocha",
         "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "test:deno": "deno run --allow-read --allow-net test-deno.ts",
-        "build": "rollup -c rollup.config.mjs",
+        "build": "rollup -c rollup.config.mjs && echo '{\"type\":\"module\"}' > ./dist/package.json",
         "prepublishOnly": "npm run build"
     },
     "repository": {

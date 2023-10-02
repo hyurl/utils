@@ -1,5 +1,5 @@
-import { isArrayLike, isDictLike } from 'https://ayonli.github.io/is-like/index.js';
-import { isBetween } from 'https://ayonli.github.io/jsext/esm/number/index.js';
+import { isArrayLike, isDictLike } from 'https://deno.land/x/is_like/index.js';
+import { isBetween } from 'https://deno.land/x/ayonli_jsext/esm/number/index.js';
 
 const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;
