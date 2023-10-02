@@ -1,4 +1,4 @@
-import _wrap from "https://ayonli.github.io/jsext/wrap.ts";
+import _wrap from "https://deno.land/x/ayonli_jsext/wrap.ts";
 
 /** @deprecated use `jsext.wrap` from `@ayonli/jsext` instead. */
 const wrap = _wrap;

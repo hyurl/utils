@@ -1,5 +1,5 @@
 import isVoid from "./isVoid.ts";
-import type { Constructor } from "https://ayonli.github.io/jsext/index.ts";
+import type { Constructor } from "https://deno.land/x/ayonli_jsext/index.ts";
 
 export type TypeNames = "string"
     | "number"

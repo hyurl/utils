@@ -28,28 +28,28 @@
             "@hyurl/utils": [
                 "."
             ],
-            "https://ayonli.github.io/is-like/index.js": [
+            "https://deno.land/x/is_like/index.js": [
                 "is-like"
             ],
-            "https://ayonli.github.io/jsext/index.ts": [
+            "https://deno.land/x/ayonli_jsext/index.ts": [
                 "@ayonli/jsext"
             ],
-            "https://ayonli.github.io/jsext/wrap.ts": [
+            "https://deno.land/x/ayonli_jsext/wrap.ts": [
                 "@ayonli/jsext/wrap"
             ],
-            "https://ayonli.github.io/jsext/mixins.ts": [
+            "https://deno.land/x/ayonli_jsext/mixins.ts": [
                 "@ayonli/jsext/mixins"
             ],
-            "https://ayonli.github.io/jsext/array/index.ts": [
+            "https://deno.land/x/ayonli_jsext/array/index.ts": [
                 "@ayonli/jsext/array"
             ],
-            "https://ayonli.github.io/jsext/number/index.ts": [
+            "https://deno.land/x/ayonli_jsext/number/index.ts": [
                 "@ayonli/jsext/number"
             ],
-            "https://ayonli.github.io/jsext/object/index.ts": [
+            "https://deno.land/x/ayonli_jsext/object/index.ts": [
                 "@ayonli/jsext/object"
             ],
-            "https://ayonli.github.io/jsext/promise/index.ts": [
+            "https://deno.land/x/ayonli_jsext/promise/index.ts": [
                 "@ayonli/jsext/promise"
             ]
         }

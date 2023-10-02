@@ -1,6 +1,6 @@
-import { isArrayLike, isBufferLike, isCollectionLike } from "https://ayonli.github.io/is-like/index.js";
-import type { RealArrayLike } from "https://ayonli.github.io/jsext/array/index.ts";
-import type { TypedArray } from "https://ayonli.github.io/jsext/index.ts";
+import { isArrayLike, isBufferLike, isCollectionLike } from "https://deno.land/x/is_like/index.js";
+import type { RealArrayLike } from "https://deno.land/x/ayonli_jsext/array/index.ts";
+import type { TypedArray } from "https://deno.land/x/ayonli_jsext/index.ts";
 
 function checkNumberArgument(name: string, value: any) {
     if (typeof value !== "number") {

@@ -1,6 +1,6 @@
 import * as assert from "node:assert";
 import { typeOf } from "./index.ts";
-import { _try } from "https://ayonli.github.io/jsext/index.ts";
+import { _try } from "https://deno.land/x/ayonli_jsext/index.ts";
 
 describe("typeOf", () => {
     it("should return 'string' for a string", () => {

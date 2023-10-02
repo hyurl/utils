@@ -1,5 +1,5 @@
-import { isValid } from "https://ayonli.github.io/jsext/object/index.ts";
-import { isNumeric } from "https://ayonli.github.io/jsext/number/index.ts";
+import { isValid } from "https://deno.land/x/ayonli_jsext/object/index.ts";
+import { isNumeric } from "https://deno.land/x/ayonli_jsext/number/index.ts";
 
 export default timestamp;
 

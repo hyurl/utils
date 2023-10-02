@@ -1,5 +1,5 @@
-import { isArrayLike, isBufferLike } from "https://ayonli.github.io/is-like/index.js";
-import { isValid } from "https://ayonli.github.io/jsext/object/index.ts";
+import { isArrayLike, isBufferLike } from "https://deno.land/x/is_like/index.js";
+import { isValid } from "https://deno.land/x/ayonli_jsext/object/index.ts";
 import isEmpty from "./isEmpty.ts";
 
 /**

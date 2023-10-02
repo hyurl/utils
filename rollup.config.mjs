@@ -16,8 +16,8 @@ const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((recor
     return record;
 }, {});
 const importMapEsm = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
-    if (id.endsWith(".ts") && id.startsWith("https://ayonli.github.io/jsext/")) {
-        record[id] = id.replaceAll("https://ayonli.github.io/jsext/", "https://ayonli.github.io/jsext/esm/")
+    if (id.endsWith(".ts") && id.startsWith("https://deno.land/x/ayonli_jsext/")) {
+        record[id] = id.replaceAll("https://deno.land/x/ayonli_jsext/", "https://deno.land/x/ayonli_jsext/esm/")
             .slice(0, -3) + ".js";
     } else {
         record[id] = id;

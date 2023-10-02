@@ -1,4 +1,4 @@
-import { isArrayLike, isBufferLike, isCollectionLike } from "https://ayonli.github.io/is-like/index.js";
+import { isArrayLike, isBufferLike, isCollectionLike } from "https://deno.land/x/is_like/index.js";
 
 const encoder = new TextEncoder();
 
