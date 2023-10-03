@@ -1,6 +1,6 @@
 {
     "name": "@hyurl/utils",
-    "version": "0.3.7",
+    "version": "0.3.10",
     "description": "Utility functions of HyURL collection.",
     "main": "./cjs/index.js",
     "module": "./dist/index.js",
