@@ -10,15 +10,23 @@ import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import terser from "@rollup/plugin-terser";
 
+/** @type {import("ts-node").TsConfigOptions} */
 const tsCfg = FRON.parse(readFileSync("./tsconfig.json", "utf8"));
-const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
+/** @type {Record<string, string>} */
+export const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
+    // Replace the URLs to their node modules according to the **compilerOptions.paths**.
     record[id] = (tsCfg.compilerOptions.paths ?? {})[id][0];
     return record;
 }, {});
+/** @type {Record<string, string>} */
 const importMapWeb = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
     if (id.endsWith(".ts") && id.startsWith("https://lib.deno.dev/x/ayonli_jsext@latest/")) {
-        record[id] = id.replaceAll("https://lib.deno.dev/x/ayonli_jsext@latest/", "https://lib.deno.dev/x/ayonli_jsext@latest/esm/")
-            .slice(0, -3) + ".js";
+        // Package **ayonli_jsext** comes with native ESM files for the browser,
+        // so replace the URLs of .ts files to the equivalent ESM .js files.
+        record[id] = id.replaceAll(
+            "https://lib.deno.dev/x/ayonli_jsext@latest/",
+            "https://lib.deno.dev/x/ayonli_jsext@latest/esm/"
+        ).slice(0, -3) + ".js";
     } else {
         record[id] = id;
     }
@@ -33,6 +41,7 @@ const entries = Object.fromEntries(
     ])
 );
 
+/** @type {import("rollup").RollupOptions[]} */
 export default [
     { // CommonJS
         input: entries,
@@ -82,7 +91,8 @@ export default [
                     declarationDir: "dist",
                 },
                 exclude: [
-                    "*.test.ts"
+                    "*.test.ts",
+                    "*-deno.ts"
                 ]
             }),
             resolve({ preferBuiltins: true }),
@@ -106,13 +116,7 @@ export default [
             replace({ ...importMapWeb, preventAssignment: true }),
             typescript({ moduleResolution: "bundler" }),
             resolve({ preferBuiltins: true }),
-            commonjs({
-                ignoreDynamicRequires: true,
-                ignore: builtinModules,
-                esmExternals: (id) => {
-                    return id.startsWith("@ayonli/jsext") || id === "is-like";
-                },
-            }),
+            commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
         ],
     },
     { // Bundle

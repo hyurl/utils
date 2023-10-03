@@ -1,6 +1,6 @@
 {
     "name": "@hyurl/utils",
-    "version": "0.3.10",
+    "version": "0.3.11",
     "description": "Utility functions of HyURL collection.",
     "main": "./cjs/index.js",
     "module": "./dist/index.js",
@@ -221,7 +221,7 @@
         "test": "node -r ts-node/register ./node_modules/mocha/bin/mocha",
         "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "test:deno": "deno run --allow-read --allow-net test-deno.ts",
-        "build": "rollup -c rollup.config.mjs && echo '{\"type\":\"module\"}' > ./dist/package.json",
+        "build": "rollup -c rollup.config.mjs && node postbuild.mjs",
         "prepublishOnly": "npm run build"
     },
     "repository": {

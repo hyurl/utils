@@ -10,3 +10,4 @@ test-deno.ts
 *.config.mjs
 tsconfig.json
 *.tsconfig.json
+postbuild.mjs
