@@ -218,7 +218,7 @@
         }
     },
     "scripts": {
-        "test": "node -r ts-node/register ./node_modules/mocha/bin/mocha",
+        "test": "mocha",
         "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "test:deno": "deno run --allow-read --allow-net test-deno.ts",
         "build": "rollup -c rollup.config.mjs && node postbuild.mjs",
@@ -280,6 +280,9 @@
         "node": ">=12"
     },
     "mocha": {
+        "loader": [
+            "ts-node/register"
+        ],
         "spec": [
             "*.test.ts"
         ]

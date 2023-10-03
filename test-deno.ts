@@ -6,13 +6,13 @@ import { globber } from "https://lib.deno.dev/x/globber@latest/mod.ts";
 mocha.setup({ ui: "bdd", reporter: "spec" });
 mocha.checkLeaks();
 
-const iterator = globber({
+const files = globber({
     cwd: dirname(fromFileUrl(import.meta.url)),
-    include: ["*.test.ts", "*/**.test.ts"],
-    exclude: ["*-node.test.ts", "*/**-node.test.ts", "getGlobal.test.ts"],
+    include: ["*.test.ts"],
+    exclude: ["getGlobal.test.ts"],
 });
 
-for await (const file of iterator) {
+for await (const file of files) {
     await import(file.absolute);
 }
 
