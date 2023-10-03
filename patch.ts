@@ -1,5 +1,5 @@
-import { isDictLike } from "https://deno.land/x/is_like/index.js";
-import { isValid } from "https://deno.land/x/ayonli_jsext/object/index.ts";
+import { isDictLike } from "https://lib.deno.dev/x/is_like@latest/index.js";
+import { isValid } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 import isEmpty from "./isEmpty.ts";
 
 

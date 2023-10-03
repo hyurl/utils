@@ -1,4 +1,4 @@
-import { until as _until } from "https://deno.land/x/ayonli_jsext/promise/index.ts";
+import { until as _until } from "https://lib.deno.dev/x/ayonli_jsext@latest/promise/index.ts";
 
 /** @deprecated use `Promise.until` from `@ayonli/jsext/promise/augment` instead. */
 const until = _until;

@@ -1,4 +1,4 @@
-import type { Ensured } from "https://deno.land/x/ayonli_jsext/index.ts";
+import type { Ensured } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
 
 export type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
 

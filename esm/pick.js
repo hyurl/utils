@@ -1,4 +1,4 @@
-import { pick as pick$1 } from 'https://deno.land/x/ayonli_jsext/esm/object/index.js';
+import { pick as pick$1 } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/index.js';
 
 function pick(obj, props) {
     if (Array.isArray(obj)) {

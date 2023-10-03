@@ -1,4 +1,4 @@
-import { isBufferLike, isArrayLike, isCollectionLike } from 'https://deno.land/x/is_like/index.js';
+import { isBufferLike, isArrayLike, isCollectionLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
 
 const BaseEmptyPrimitives = ["", NaN, null, void 0];
 const EmptyPrimitives = [...BaseEmptyPrimitives, 0, false];

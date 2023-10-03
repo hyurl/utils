@@ -1,5 +1,5 @@
-import type { Constructor, TypedArray } from "https://deno.land/x/ayonli_jsext/index.ts";
-import { isDictLike, isArrayLike, isBufferLike } from "https://deno.land/x/is_like/index.js";
+import type { Constructor, TypedArray } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
+import { isDictLike, isArrayLike, isBufferLike } from "https://lib.deno.dev/x/is_like@latest/index.js";
 import isVoid from "./isVoid.ts";
 
 type OmitChildrenNodes<T> = Pick<T, {

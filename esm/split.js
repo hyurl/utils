@@ -1,4 +1,4 @@
-import { isBufferLike, isArrayLike, isCollectionLike } from 'https://deno.land/x/is_like/index.js';
+import { isBufferLike, isArrayLike, isCollectionLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
 
 function checkNumberArgument(name, value) {
     if (typeof value !== "number") {

@@ -1,4 +1,4 @@
-import { omit as _omit } from "https://deno.land/x/ayonli_jsext/object/index.ts";
+import { omit as _omit } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 
 /** Creates an array composed without the picked items. */
 export default function omit<T extends any>(arr: T[], items: T[]): T[];

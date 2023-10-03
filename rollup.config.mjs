@@ -16,8 +16,8 @@ const importMap = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((recor
     return record;
 }, {});
 const importMapWeb = Object.keys((tsCfg.compilerOptions.paths ?? {})).reduce((record, id) => {
-    if (id.endsWith(".ts") && id.startsWith("https://deno.land/x/ayonli_jsext/")) {
-        record[id] = id.replaceAll("https://deno.land/x/ayonli_jsext/", "https://deno.land/x/ayonli_jsext/esm/")
+    if (id.endsWith(".ts") && id.startsWith("https://lib.deno.dev/x/ayonli_jsext@latest/")) {
+        record[id] = id.replaceAll("https://lib.deno.dev/x/ayonli_jsext@latest/", "https://lib.deno.dev/x/ayonli_jsext@latest/esm/")
             .slice(0, -3) + ".js";
     } else {
         record[id] = id;

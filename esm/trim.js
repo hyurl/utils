@@ -1,4 +1,4 @@
-import { isArrayLike, isDictLike } from 'https://deno.land/x/is_like/index.js';
+import { isArrayLike, isDictLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
 import { ensureArray } from './ensureType.js';
 
 /**

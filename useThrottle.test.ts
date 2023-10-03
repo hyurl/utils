@@ -1,6 +1,6 @@
 import * as assert from "node:assert";
 import { useThrottle, sleep } from "./index.ts";
-import { _try } from "https://deno.land/x/ayonli_jsext/index.ts";
+import { _try } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
 
 describe("useThrottle", () => {
     it("should create a throttle function and runs the handle function only once", async () => {

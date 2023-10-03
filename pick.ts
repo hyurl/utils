@@ -1,4 +1,4 @@
-import { pick as _pick } from "https://deno.land/x/ayonli_jsext/object/index.ts";
+import { pick as _pick } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 
 /** Creates an array composed of the picked elements. */
 export default function pick<T extends any[]>(arr: T, indexes: number[]): T;

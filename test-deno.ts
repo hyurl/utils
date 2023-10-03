@@ -1,6 +1,6 @@
-import "https://unpkg.com/mocha@10.2.0/mocha.js";
-import { dirname, fromFileUrl } from "https://deno.land/std@0.201.0/path/mod.ts";
-import { globber } from "https://deno.land/x/globber@0.1.0/mod.ts";
+import "https://unpkg.com/mocha/mocha.js";
+import { dirname, fromFileUrl } from "https://deno.land/std/path/mod.ts";
+import { globber } from "https://lib.deno.dev/x/globber@latest/mod.ts";
 
 (window as any).location = new URL("http://localhost:0");
 mocha.setup({ ui: "bdd", reporter: "spec" });

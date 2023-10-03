@@ -63,10 +63,10 @@ them.
 import * as utils from "@hyurl/utils";
 
 // Deno
-import * as utils from "https://deno.land/x/hyurl_utils/index.ts";
+import * as utils from "https://lib.deno.dev/x/hyurl_utils@latest/index.ts";
 
 // Browser
-import * as utils from "https://deno.land/x/hyurl_utils/esm/index.js";
+import * as utils from "https://lib.deno.dev/x/hyurl_utils@latest/esm/index.js";
 ```
 
 ### Only Needed
@@ -79,12 +79,12 @@ import count from "@hyurl/utils/count";
 import ensureType from "@hyurl/utils/ensureType";
 
 // Deno
-import count from "https://deno.land/x/hyurl_utils/count.ts";
-import ensureType from "https://deno.land/x/hyurl_utils/ensureType.ts";
+import count from "https://lib.deno.dev/x/hyurl_utils@latest/count.ts";
+import ensureType from "https://lib.deno.dev/x/hyurl_utils@latest/ensureType.ts";
 
 // Browser
-import count from "https://deno.land/x/hyurl_utils/esm/count.js";
-import ensureType from "https://deno.land/x/hyurl_utils/esm/ensureType.js";
+import count from "https://lib.deno.dev/x/hyurl_utils@latest/esm/count.js";
+import ensureType from "https://lib.deno.dev/x/hyurl_utils@latest/esm/ensureType.js";
 ```
 
 **NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
@@ -93,7 +93,7 @@ instead of `CommonJS` for this to work with Node.js+TypeScript.
 ### Load Bundle (browser only)
 
 ```html
-<script src="https://deno.land/x/hyurl_utils/bundle/index.js"></script>
+<script src="https://lib.deno.dev/x/hyurl_utils@latest/bundle/index.js"></script>
 <script>
     const utils = window["@hyurl/utils"];
 <script>
@@ -124,17 +124,17 @@ This is the same as above, but requires a module bundler such as webpack.
 
 ```html
 <script type="module">
-    import * as utils from "https://deno.land/x/hyurl_utils/esm/index.js";
+    import * as utils from "https://lib.deno.dev/x/hyurl_utils@latest/esm/index.js";
     // or individuals
-    import count from "https://deno.land/x/hyurl_utils/esm/count.js";
-    import split from "https://deno.land/x/hyurl_utils/esm/split.js";
+    import count from "https://lib.deno.dev/x/hyurl_utils@latest/esm/count.js";
+    import split from "https://lib.deno.dev/x/hyurl_utils@latest/esm/split.js";
 </script>
 ```
 
 3. Include Bundle
 
 ```html
-<script src="https://deno.land/x/hyurl_utils/bundle/index.js"></script>
+<script src="https://lib.deno.dev/x/hyurl_utils@latest/bundle/index.js"></script>
 <script>
     const utils = window["@hyurl/utils"];
 <script>

@@ -1,4 +1,4 @@
-import { isDictLike } from 'https://deno.land/x/is_like/index.js';
+import { isDictLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
 import isEmpty from './isEmpty.js';
 import isVoid from './isVoid.js';
 

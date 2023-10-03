@@ -1,5 +1,5 @@
-import { isValid } from "https://deno.land/x/ayonli_jsext/object/index.ts";
-import { isNumeric } from "https://deno.land/x/ayonli_jsext/number/index.ts";
+import { isValid } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
+import { isNumeric } from "https://lib.deno.dev/x/ayonli_jsext@latest/number/index.ts";
 
 export default timestamp;
 

@@ -1,4 +1,4 @@
-import { hasOwnMethod } from "https://deno.land/x/ayonli_jsext/object/index.ts";
+import { hasOwnMethod } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 
 /** @deprecated use `Object.hasOwnMethod` from `@ayonli/jsext/object/augment` instead. */
 const isOwnMethod = hasOwnMethod;

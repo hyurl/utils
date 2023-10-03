@@ -1,5 +1,5 @@
 import isVoid from "./isVoid.ts";
-import type { Constructor } from "https://deno.land/x/ayonli_jsext/index.ts";
+import type { Constructor } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
 
 export type TypeNames = "string"
     | "number"

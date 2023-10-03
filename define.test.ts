@@ -1,6 +1,6 @@
 import * as assert from "node:assert";
 import { define } from "./index.ts";
-import { _try } from "https://deno.land/x/ayonli_jsext/index.ts";
+import { _try } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
 
 describe("define", () => {
     it("should set a non-enumerable and non-writable property", () => {

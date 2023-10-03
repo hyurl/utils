@@ -1,4 +1,4 @@
-import { as } from 'https://deno.land/x/ayonli_jsext/esm/object/index.js';
+import { as } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/index.js';
 
 /** @deprecated use `Object.as` from `@ayonli/jsext/object/augment` instead. */
 const typeAs = as;

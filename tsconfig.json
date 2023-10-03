@@ -28,28 +28,28 @@
             "@hyurl/utils": [
                 "."
             ],
-            "https://deno.land/x/is_like/index.js": [
+            "https://lib.deno.dev/x/is_like@latest/index.js": [
                 "is-like"
             ],
-            "https://deno.land/x/ayonli_jsext/index.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts": [
                 "@ayonli/jsext"
             ],
-            "https://deno.land/x/ayonli_jsext/wrap.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/wrap.ts": [
                 "@ayonli/jsext/wrap"
             ],
-            "https://deno.land/x/ayonli_jsext/mixins.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/mixins.ts": [
                 "@ayonli/jsext/mixins"
             ],
-            "https://deno.land/x/ayonli_jsext/array/index.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/array/index.ts": [
                 "@ayonli/jsext/array"
             ],
-            "https://deno.land/x/ayonli_jsext/number/index.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/number/index.ts": [
                 "@ayonli/jsext/number"
             ],
-            "https://deno.land/x/ayonli_jsext/object/index.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts": [
                 "@ayonli/jsext/object"
             ],
-            "https://deno.land/x/ayonli_jsext/promise/index.ts": [
+            "https://lib.deno.dev/x/ayonli_jsext@latest/promise/index.ts": [
                 "@ayonli/jsext/promise"
             ]
         }

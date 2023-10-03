@@ -1,4 +1,4 @@
-import { isArrayLike, isBufferLike, isCollectionLike } from 'https://deno.land/x/is_like/index.js';
+import { isArrayLike, isBufferLike, isCollectionLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
 
 const encoder = new TextEncoder();
 function count(target, option = void 0) {
