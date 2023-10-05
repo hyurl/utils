@@ -280,7 +280,7 @@
         "node": ">=12"
     },
     "mocha": {
-        "loader": [
+        "require": [
             "ts-node/register"
         ],
         "spec": [
