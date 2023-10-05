@@ -110,32 +110,3 @@ namespace.
 ```ts
 import "@hyurl/utils/types";
 ```
-
-## Web Support
-
-When using this package in the browser, there are three ways to import this
-package.
-
-1. Import From `node_modules`
-
-This is the same as above, but requires a module bundler such as webpack.
-
-2. Import ES Module
-
-```html
-<script type="module">
-    import * as utils from "https://lib.deno.dev/x/hyurl_utils@latest/esm/index.js";
-    // or individuals
-    import count from "https://lib.deno.dev/x/hyurl_utils@latest/esm/count.js";
-    import split from "https://lib.deno.dev/x/hyurl_utils@latest/esm/split.js";
-</script>
-```
-
-3. Include Bundle
-
-```html
-<script src="https://lib.deno.dev/x/hyurl_utils@latest/bundle/index.js"></script>
-<script>
-    const utils = window["@hyurl/utils"];
-<script>
-```
