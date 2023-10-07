@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
 import { wrap } from "./index.ts";
 
-describe("until", () => {
+describe("wrap", () => {
     it("should wrap a function with name and properties", () => {
         let sum = function sum(a: number, b: number) {
             return a + b;
