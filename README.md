@@ -30,22 +30,22 @@ for the JavaScript language, **@hyurl/utils** provides higher level functions th
 This package still keeps a link to these functions, but they have been marked __deprecated__ and
 will be removed in v0.4.0.
 
-- `isFloat` use `Number.isFloat` from `@ayonli/jsext/number/augment` instead.
+- `isFloat` use `isFloat` from `@ayonli/jsext/number` instead.
 - `isInteger` use `Number.isInteger` instead.
-- `isNumeric` use `Number.isNumeric` from `@ayonli/jsext/number/augment` instead.
-- `isBetween` use `Number.isBetween` from `@ayonli/jsext/number/augment` instead.
-- `isOwnKey` use `Object.hasOwn` from `@ayonli/jsext/object/augment` instead.
-- `isOwnMethod` use `Object.hasOwnMethod` from `@ayonli/jsext/object/augment` instead.
-- `isSubClassOf` use `jsext.jsSubclassOf` from `@ayonli/jsext` instead.
-- `isVoid` use `!Object.isValid` from `@ayonli/jsext/object/augment` instead.
-- `omit` use `Object.omit` from `@ayonli/jsext/object/augment` instead.
-- `pick` use `Object.pick` from `@ayonli/jsext/object/augment` instead.
+- `isNumeric` use `isNumeric` from `@ayonli/jsext/number` instead.
+- `isBetween` use `isBetween` from `@ayonli/jsext/number` instead.
+- `isOwnKey` use `hasOwn` from `@ayonli/jsext/object` instead.
+- `isOwnMethod` use `hasOwnMethod` from `@ayonli/jsext/object` instead.
+- `isSubClassOf` use `jsext.isSubclassOf` from `@ayonli/jsext` instead.
+- `isVoid` use `!isValid` from `@ayonli/jsext/object` instead.
+- `omit` use `omit` from `@ayonli/jsext/object` instead.
+- `pick` use `pick` from `@ayonli/jsext/object` instead.
 - `omitVoid` use `omitInvalid` instead.
-- `rand` use `Number.random` from `@ayonli/jsext/number/augment` instead.
-- `randStr` use `String.random` from `@ayonli/jsext/string/augment` instead.
-- `sleep` use `Promise.sleep` from `@ayonli/jsext/promise/augment` instead.
-- `typeAs` use `Object.as` from `@ayonli/jsext/object/augment` instead.
-- `until` use `Promise.until` from `@ayonli/jsext/promise/augment` instead.
+- `rand` use `random` from `@ayonli/jsext/number` instead.
+- `randStr` use `random` from `@ayonli/jsext/string` instead.
+- `sleep` use `sleep` from `@ayonli/jsext/promise` instead.
+- `typeAs` use `as` from `@ayonli/jsext/object` instead.
+- `until` use `until` from `@ayonli/jsext/promise` instead.
 - `useThrottle` use `jsext.throttle` from `@ayonli/jsext` instead.
 - `wrap` use `jsext.wrap` from `@ayonli/jsext` instead.
 
