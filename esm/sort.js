@@ -23,7 +23,7 @@ function sort(target, method = void 0) {
     else if (isDictLike(target)) {
         let deep = Boolean(method);
         let keys = [
-            ...sort(Object.getOwnPropertyNames(target)),
+            ...sort(Object.getOwnPropertyNames(target)), // sort the string keys
             ...Object.getOwnPropertySymbols(target)
         ];
         return keys.reduce((result, key) => {

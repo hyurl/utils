@@ -1,1 +1,1 @@
-{"version":3,"file":"omitVoid.js","sources":["../omitVoid.ts"],"sourcesContent":["import omitInvalid from \"./omitInvalid.ts\";\n/**\n * @deprecated use `omitInvalid` instead\n */\nconst omitVoid = omitInvalid;\nexport default omitVoid;\n//# sourceMappingURL=omitVoid.js.map"],"names":[],"mappings":";;AACA;AACA;AACA;AACK,MAAC,QAAQ,GAAG;;;;"}
+{"version":3,"file":"omitVoid.js","sources":["../omitVoid.ts"],"sourcesContent":[null],"names":[],"mappings":";;AAEA;;AAEG;AACG,MAAA,QAAQ,GAAG;;;;"}

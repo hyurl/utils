@@ -1,1 +1,1 @@
-{"version":3,"file":"rand.js","sources":["../rand.ts"],"sourcesContent":["import { random } from \"https://lib.deno.dev/x/ayonli_jsext@latest/number/index.ts\";\n/** @deprecated use `Number.random` from `@ayonli/jsext/number/augment` instead. */\nconst rand = random;\nexport default rand;\n//# sourceMappingURL=rand.js.map"],"names":[],"mappings":";;AACA;AACK,MAAC,IAAI,GAAG;;;;"}
+{"version":3,"file":"rand.js","sources":["../rand.ts"],"sourcesContent":[null],"names":[],"mappings":";;AAEA;AACM,MAAA,IAAI,GAAG;;;;"}

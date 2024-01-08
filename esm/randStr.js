@@ -3,7 +3,7 @@ import rand from './rand.js';
 /**
  * Generates a random string.
  * @param chars The possible characters.
- * @deprecated use `String.random` from `@ayonli/jsext/string/augment` instead.
+ * @deprecated use `random` from `@ayonli/jsext/string` instead.
  */
 function randStr(length, chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") {
     let str = "";
