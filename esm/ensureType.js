@@ -5,7 +5,8 @@ const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;
 const nullPattern = /^\s*(null|nil|none|void|undefined)\s*$/i;
 const nanPattern = /^\s*NaN\s*$/;
-const infinityPattern = /^\s*-?Infinity\s*/;
+const infinityPattern = /^\s*-?Infinity\s*$/;
+const numberPattern = /^\s*-?\d+(\.\d+)?\s*$/;
 const regexPattern = /^\s*\/(.+)\/([gimuys]*)\s*$/;
 const numberInterval = [
     Number.MIN_SAFE_INTEGER,
@@ -35,11 +36,8 @@ function ensureType(target) {
             else if (infinityPattern.test(target)) {
                 return Number(target);
             }
-            else if (re = target.match(regexPattern)) {
-                return new RegExp(re[1], re[2]);
-            }
-            else {
-                let num = Number(target);
+            else if (numberPattern.test(target)) {
+                const num = Number(target);
                 if (!isNaN(num) &&
                     isBetween(num, numberInterval) &&
                     target[0] !== "+" // Most likely a telephone number.
@@ -49,6 +47,12 @@ function ensureType(target) {
                 else {
                     return target;
                 }
+            }
+            else if (re = target.match(regexPattern)) {
+                return new RegExp(re[1], re[2]);
+            }
+            else {
+                return target;
             }
         }
         case "object": {
