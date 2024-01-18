@@ -5,7 +5,8 @@ const truePattern = /^\s*(true|yes|on)\s*$/i;
 const falsePattern = /^\s*(false|no|off)\s*$/i;
 const nullPattern = /^\s*(null|nil|none|void|undefined)\s*$/i;
 const nanPattern = /^\s*NaN\s*$/;
-const infinityPattern = /^\s*-?Infinity\s*/;
+const infinityPattern = /^\s*-?Infinity\s*$/;
+const numberPattern = /^\s*-?\d+(\.\d+)?\s*$/;
 const regexPattern = /^\s*\/(.+)\/([gimuys]*)\s*$/;
 const numberInterval: [number, number] = [
     Number.MIN_SAFE_INTEGER,
@@ -32,10 +33,8 @@ export default function ensureType(target: any): any {
                 return NaN;
             } else if (infinityPattern.test(target)) {
                 return Number(target);
-            } else if (re = target.match(regexPattern)) {
-                return new RegExp(re[1] as string, re[2]);
-            } else {
-                let num = Number(target);
+            } else if (numberPattern.test(target)) {
+                const num = Number(target)
 
                 if (!isNaN(num) &&
                     isBetween(num, numberInterval) &&
@@ -45,6 +44,10 @@ export default function ensureType(target: any): any {
                 } else {
                     return target;
                 }
+            } else if (re = target.match(regexPattern)) {
+                return new RegExp(re[1] as string, re[2]);
+            } else {
+                return target
             }
         }
 

@@ -30,6 +30,7 @@ describe("ensureType", () => {
         it("should cast the value into a number", () => {
             assert.ok(ensureType("12345") === 12345);
             assert.ok(ensureType("12345.123") === 12345.123);
+            assert.ok(ensureType("-12345.123") === -12345.123);
             assert.ok(ensureType("9007199254740991") === Number.MAX_SAFE_INTEGER);
             assert.ok(ensureType("-9007199254740991") === Number.MIN_SAFE_INTEGER);
             assert.ok(Object.is(ensureType("NaN"), NaN));
@@ -53,6 +54,8 @@ describe("ensureType", () => {
     describe("ensure objects", () => {
         it("should recursively cast elements in an array", () => {
             let source = [
+                "",
+                "string",
                 "true",
                 "false",
                 "null",
@@ -64,6 +67,8 @@ describe("ensureType", () => {
                 ]
             ];
             let expected = [
+                "",
+                "string",
                 true,
                 false,
                 null,
@@ -80,10 +85,13 @@ describe("ensureType", () => {
 
         it("should recursively cast properties in an object", () => {
             let source = {
+                str1: "",
+                str2: "string",
                 bool1: "true",
                 bool2: "false",
                 nil: "null",
-                num: "12345",
+                num1: "12345",
+                num2: "12.345",
                 re: "/[a-z]/i",
                 child: {
                     bool3: "yes",
@@ -92,10 +100,13 @@ describe("ensureType", () => {
                 }
             };
             let expected = {
+                str1: "",
+                str2: "string",
                 bool1: true,
                 bool2: false,
                 nil: null,
-                num: 12345,
+                num1: 12345,
+                num2: 12.345,
                 re: /[a-z]/i,
                 child: {
                     bool3: true,
@@ -116,6 +127,7 @@ describe("ensureType", () => {
         });
 
         it("should not cast if the string doesn't match any special pattern", () => {
+            assert.ok(ensureType("") === "")
             assert.ok(ensureType("Hello, World!") === "Hello, World!");
         });
     });
