@@ -9,13 +9,15 @@ import isEmpty from './isEmpty.js';
  * `origin` object will remain untouched.
  *
  * NOTE: This function mutates the `origin` object and returns the patched
- * differences, when patching, any void value in the `input` object will be
+ * differences, when patching, any invalid value in the `input` object will be
  * ignored.
  *
  * This function is very useful, for example, a client issued a patch of the
  * resource and the server wants to know what properties has been modified by
  * this update so that it can perform some extra operations to provide a better
  * user experience.
+ *
+ * @deprecated This function has design flaws, shall no longer be used.
  */
 function patch(origin, input, deep = false, ignoreEmptyStrings = false) {
     return doPatch(origin, input, deep, ignoreEmptyStrings, false);
