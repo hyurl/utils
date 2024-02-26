@@ -219,7 +219,7 @@
     },
     "scripts": {
         "test": "mocha",
-        "test:tsx": "node --import tsx/esm ./node_modules/mocha/bin/mocha",
+        "test:tsx": "node ./node_modules/mocha/bin/mocha",
         "test:bun": "bun run ./node_modules/mocha/bin/mocha",
         "test:deno": "deno run --allow-read --allow-net test-deno.ts",
         "build": "rollup -c rollup.config.mjs && node postbuild.mjs",
