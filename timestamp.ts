@@ -31,7 +31,7 @@ function timestamp(input: any, ms = false) {
         let date: Date;
         let dateTime = String(input).trim();
 
-        if (dateTime.includes(",") && dateTime.split(",").every(isNumeric)) {
+        if (dateTime.includes(",") && dateTime.split(",").every(v => isNumeric(v))) {
             date = parseDateRawArgs(dateTime);
         } else {
             let match: RegExpMatchArray | null = null;

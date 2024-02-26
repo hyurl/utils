@@ -17,7 +17,7 @@ function timestamp(input, ms = false) {
     else {
         let date;
         let dateTime = String(input).trim();
-        if (dateTime.includes(",") && dateTime.split(",").every(isNumeric)) {
+        if (dateTime.includes(",") && dateTime.split(",").every(v => isNumeric(v))) {
             date = parseDateRawArgs(dateTime);
         }
         else {
