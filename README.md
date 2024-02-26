@@ -10,11 +10,11 @@ included in the future. Each function is stored in a separated file.
 - `diff` [.ts](./diff.ts)
 - `ensureType` [.ts](./ensureType.ts)
 - `flatObject` [.ts](./flatObject.ts)
-- `getGlobal` [.ts](./getGlobal.ts)
+- `getGlobal` [.ts](./getGlobal.ts) *deprecated*
 - `isEmpty` [.ts](./isEmpty.ts)
-- `keysOf` [.ts](./keysOf.ts)
+- `keysOf` [.ts](./keysOf.ts) *deprecated*
 - `omitInvalid` [.ts](./omitInvalid.ts)
-- `patch` [.ts](./patch.ts)
+- `patch` [.ts](./patch.ts) *deprecated*
 - `sort` [.ts](./sort.ts)
 - `split` [.ts](./split.ts)
 - `timestamp` [.ts](./timestamp.ts)

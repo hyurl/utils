@@ -2,11 +2,23 @@ import type { Ensured } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.t
 
 export type Global = Ensured<Partial<Window & typeof globalThis>, keyof Window & typeof globalThis>;
 
-/** Gets the global object of the host environment. */
+/**
+ * Gets the global object of the host environment.
+ * 
+ * @deprecated use `globalThis` instead.
+ */
 export default function getGlobal(): Global;
-/** Returns a property from the global object. */
+/**
+ * Returns a property from the global object.
+ * 
+ * @deprecated use `globalThis[prop]` instead.
+ */
 export default function getGlobal<P extends keyof Global>(prop: P): Global[P];
-/** Returns a property from the global object. */
+/**
+ * Returns a property from the global object.
+ * 
+ * @deprecated use `globalThis[prop]` instead.
+ */
 export default function getGlobal(prop: string): any;
 export default function getGlobal(prop: string | undefined = void 0): any {
     let _global: Global & { [prop: string]: any; } | undefined;
