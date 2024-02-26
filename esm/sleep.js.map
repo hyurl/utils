@@ -1,1 +1,1 @@
-{"version":3,"file":"sleep.js","sources":["../sleep.ts"],"sourcesContent":[null],"names":["_sleep"],"mappings":";;AAEA;AACM,MAAA,KAAK,GAAGA;;;;"}
+{"version":3,"file":"sleep.js","sources":["../sleep.ts"],"sourcesContent":["import { sleep as _sleep } from \"https://lib.deno.dev/x/ayonli_jsext@latest/promise/index.ts\";\n/** @deprecated use `sleep` from `@ayonli/jsext/promise` instead. */\nconst sleep = _sleep;\nexport default sleep;\n//# sourceMappingURL=sleep.js.map"],"names":["_sleep"],"mappings":";;AACA;AACK,MAAC,KAAK,GAAGA;;;;"}

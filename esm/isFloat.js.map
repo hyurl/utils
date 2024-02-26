@@ -1,1 +1,1 @@
-{"version":3,"file":"isFloat.js","sources":["../isFloat.ts"],"sourcesContent":[null],"names":["_isFloat"],"mappings":";;AAEA;AACM,MAAA,OAAO,GAAGA;;;;"}
+{"version":3,"file":"isFloat.js","sources":["../isFloat.ts"],"sourcesContent":["import { isFloat as _isFloat } from \"https://lib.deno.dev/x/ayonli_jsext@latest/number/index.ts\";\n/** @deprecated use `isFloat` from `@ayonli/jsext/number` instead. */\nconst isFloat = _isFloat;\nexport default isFloat;\n//# sourceMappingURL=isFloat.js.map"],"names":["_isFloat"],"mappings":";;AACA;AACK,MAAC,OAAO,GAAGA;;;;"}

@@ -15,6 +15,7 @@ export { default as isSubClassOf } from './isSubClassOf.js';
 export { default as isVoid } from './isVoid.js';
 export { default as keysOf } from './keysOf.js';
 export { default as omit } from './omit.js';
+export { default as omitInvalid } from './omitInvalid.js';
 export { default as omitVoid } from './omitVoid.js';
 export { default as patch } from './patch.js';
 export { default as pick } from './pick.js';

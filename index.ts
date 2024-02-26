@@ -16,6 +16,7 @@ export { default as isSubClassOf } from "./isSubClassOf.ts";
 export { default as isVoid } from "./isVoid.ts";
 export { default as keysOf } from "./keysOf.ts";
 export { default as omit } from "./omit.ts";
+export { default as omitInvalid } from "./omitInvalid.ts"
 export { default as omitVoid } from "./omitVoid.ts";
 export { default as patch } from "./patch.ts";
 export { default as pick } from "./pick.ts";
