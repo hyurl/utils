@@ -1,4 +1,4 @@
-import isVoid from './isVoid.js';
+import { isValid } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/index.js';
 
 /**
  * Returns a string representation or the constructor of the value's type.
@@ -7,7 +7,7 @@ import isVoid from './isVoid.js';
 function typeOf(target) {
     if (arguments.length === 0)
         throw new TypeError("1 argument is required, 0 given");
-    else if (isVoid(target))
+    else if (!isValid(target) && !(target instanceof Date))
         return "void";
     let type = typeof target;
     if (type === "function") {

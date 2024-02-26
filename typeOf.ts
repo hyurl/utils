@@ -1,4 +1,4 @@
-import isVoid from "./isVoid.ts";
+import { isValid } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 import type { Constructor } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
 
 export type TypeNames = "string"
@@ -20,7 +20,7 @@ export default function typeOf<T extends any>(
 ): TypeNames | Constructor<T> {
     if (arguments.length === 0)
         throw new TypeError("1 argument is required, 0 given");
-    else if (isVoid(target))
+    else if (!isValid(target) && !(target instanceof Date))
         return "void";
 
     let type = typeof target;

@@ -1,5 +1,5 @@
+import { isValid } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/index.js';
 import { isArrayLike, isBufferLike, isDictLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
-import isVoid from './isVoid.js';
 
 function flatObject(obj, depth = 1, flatArray = false) {
     return flatDeep({}, obj, "", 0, depth, flatArray);
@@ -7,7 +7,7 @@ function flatObject(obj, depth = 1, flatArray = false) {
 function flatDeep(carrier, source, field, depth, maxDepth, flatArray) {
     let isArr;
     let isDict;
-    let isContent = !isVoid(field) && field !== "";
+    let isContent = isValid(field) && field !== "";
     if (depth === maxDepth || (!(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&
         !(isDict = isDictLike(source)))) {
         carrier[field] = source;

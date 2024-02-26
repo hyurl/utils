@@ -1,6 +1,6 @@
 import type { Constructor, TypedArray } from "https://lib.deno.dev/x/ayonli_jsext@latest/index.ts";
+import { isValid } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 import { isDictLike, isArrayLike, isBufferLike } from "https://lib.deno.dev/x/is_like@latest/index.js";
-import isVoid from "./isVoid.ts";
 
 type OmitChildrenNodes<T> = Pick<T, {
     [K in keyof T]: T[K] extends TypedArray
@@ -53,7 +53,7 @@ function flatDeep(
 ) {
     let isArr: boolean | undefined;
     let isDict: boolean | undefined;
-    let isContent = !isVoid(field) && field !== "";
+    let isContent = isValid(field) && field !== "";
 
     if (depth === maxDepth || (
         !(isArr = isArrayLike(source, true) && !isBufferLike(source)) &&

@@ -1,6 +1,6 @@
 import { isDictLike } from 'https://lib.deno.dev/x/is_like@latest/index.js';
+import { isValid } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/index.js';
 import isEmpty from './isEmpty.js';
-import isVoid from './isVoid.js';
 
 function diff(origin, input, deep = false) {
     if (Array.isArray(origin) && Array.isArray(input)) {
@@ -15,7 +15,7 @@ function diff(origin, input, deep = false) {
         let result = {};
         keys.forEach(key => {
             if (origin[key] !== input[key] &&
-                !(isVoid(origin[key]) && isVoid(input[key])) // ignore void values
+                (isValid(origin[key]) || isValid(input[key])) // only valid values
             ) {
                 if (deep &&
                     typeof origin[key] === "object" && origin[key] !== null &&

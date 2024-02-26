@@ -21,34 +21,6 @@ included in the future. Each function is stored in a separated file.
 - `trim` [.ts](./trim.ts)
 - `typeOf` [.ts](./typeOf.ts)
 
-**Deprecated**
-
-Since v0.3.0, the following functions have been merged to [@ayonli/jsext](https://github.com/ayonli/jsext).
-The two packages serve different purposes, while **@ayonli/jsext** provides basic and semantic APIs
-for the JavaScript language, **@hyurl/utils** provides higher level functions that deal with objects.
-
-This package still keeps a link to these functions, but they have been marked __deprecated__ and
-will be removed in v0.4.0.
-
-- `isFloat` use `isFloat` from `@ayonli/jsext/number` instead.
-- `isInteger` use `Number.isInteger` instead.
-- `isNumeric` use `isNumeric` from `@ayonli/jsext/number` instead.
-- `isBetween` use `isBetween` from `@ayonli/jsext/number` instead.
-- `isOwnKey` use `hasOwn` from `@ayonli/jsext/object` instead.
-- `isOwnMethod` use `hasOwnMethod` from `@ayonli/jsext/object` instead.
-- `isSubClassOf` use `jsext.isSubclassOf` from `@ayonli/jsext` instead.
-- `isVoid` use `!isValid` from `@ayonli/jsext/object` instead.
-- `omit` use `omit` from `@ayonli/jsext/object` instead.
-- `pick` use `pick` from `@ayonli/jsext/object` instead.
-- `omitVoid` use `omitInvalid` instead.
-- `rand` use `random` from `@ayonli/jsext/number` instead.
-- `randStr` use `random` from `@ayonli/jsext/string` instead.
-- `sleep` use `sleep` from `@ayonli/jsext/promise` instead.
-- `typeAs` use `as` from `@ayonli/jsext/object` instead.
-- `until` use `until` from `@ayonli/jsext/promise` instead.
-- `useThrottle` use `jsext.throttle` from `@ayonli/jsext` instead.
-- `wrap` use `jsext.wrap` from `@ayonli/jsext` instead.
-
 ## Import
 
 There are many ways to import these functions.
