@@ -8,7 +8,6 @@ import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
-import terser from "@rollup/plugin-terser";
 
 /** @type {import("ts-node").TsConfigOptions} */
 const tsCfg = FRON.parse(readFileSync("./tsconfig.json", "utf8"));
@@ -117,22 +116,6 @@ export default [
             typescript({ moduleResolution: "bundler" }),
             resolve({ preferBuiltins: true }),
             commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
-        ],
-    },
-    { // Bundle
-        input: "index.ts",
-        output: {
-            file: "bundle/index.js",
-            format: "umd",
-            name: "@hyurl/utils",
-            sourcemap: true,
-        },
-        plugins: [
-            replace({ ...importMap, preventAssignment: true }),
-            typescript({ moduleResolution: "bundler" }),
-            resolve({ preferBuiltins: true }),
-            commonjs({ ignoreDynamicRequires: true, ignore: builtinModules }),
-            terser()
         ],
     },
 ];

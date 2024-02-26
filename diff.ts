@@ -1,6 +1,7 @@
 import { isDictLike } from "https://lib.deno.dev/x/is_like@latest/index.js";
 import { isValid } from "https://lib.deno.dev/x/ayonli_jsext@latest/object/index.ts";
 import isEmpty from "./isEmpty.ts";
+import { DeepPartial, Diff } from "./types.ts";
 
 
 /**

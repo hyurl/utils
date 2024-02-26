@@ -62,15 +62,6 @@ import ensureType from "https://lib.deno.dev/x/hyurl_utils@latest/esm/ensureType
 **NOTE:** Configure `tsconfig.json` to set `compilerOptions.module` as `NodeNext` or `ESNext`
 instead of `CommonJS` for this to work with Node.js+TypeScript.
 
-### Load Bundle (browser only)
-
-```html
-<script src="https://lib.deno.dev/x/hyurl_utils@latest/bundle/index.js"></script>
-<script>
-    const utils = window["@hyurl/utils"];
-<script>
-```
-
 ## Utilities Types
 
 Other than utility functions, this package also provides some utility types for
@@ -80,5 +71,5 @@ namespace.
 - [types.ts](./types.ts)
 
 ```ts
-import "@hyurl/utils/types";
+import { ResolveType, FunctionProperties, /* ... */ } from "@hyurl/utils/types";
 ```
