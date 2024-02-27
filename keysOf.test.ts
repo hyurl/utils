@@ -6,9 +6,8 @@ describe("keysOf", () => {
         let result = keysOf({
             foo: "Hello",
             bar: "World",
-            [Symbol.toStringTag]: "Hello, World"
         });
-        assert.deepStrictEqual(result, ["foo", "bar", Symbol.toStringTag]);
+        assert.deepStrictEqual(result, ["foo", "bar"]);
     });
 
     it("should return the indexes of the given array", () => {

@@ -48,59 +48,11 @@
             "import": "./dist/getGlobal.js",
             "default": "./getGlobal.ts"
         },
-        "./isBetween": {
-            "types": "./dist/isBetween.d.ts",
-            "require": "./cjs/isBetween.js",
-            "import": "./dist/isBetween.js",
-            "default": "./isBetween.ts"
-        },
         "./isEmpty": {
             "types": "./dist/isEmpty.d.ts",
             "require": "./cjs/isEmpty.js",
             "import": "./dist/isEmpty.js",
             "default": "./isEmpty.ts"
-        },
-        "./isFloat": {
-            "types": "./dist/isFloat.d.ts",
-            "require": "./cjs/isFloat.js",
-            "import": "./dist/isFloat.js",
-            "default": "./isFloat.ts"
-        },
-        "./isInteger": {
-            "types": "./dist/isInteger.d.ts",
-            "require": "./cjs/isInteger.js",
-            "import": "./dist/isInteger.js",
-            "default": "./isInteger.ts"
-        },
-        "./isNumeric": {
-            "types": "./dist/isNumeric.d.ts",
-            "require": "./cjs/isNumeric.js",
-            "import": "./dist/isNumeric.js",
-            "default": "./isNumeric.ts"
-        },
-        "./isOwnKey": {
-            "types": "./dist/isOwnKey.d.ts",
-            "require": "./cjs/isOwnKey.js",
-            "import": "./dist/isOwnKey.js",
-            "default": "./isOwnKey.ts"
-        },
-        "./isOwnMethod": {
-            "types": "./dist/isOwnKey.d.ts",
-            "require": "./cjs/isOwnMethod.js",
-            "import": "./dist/isOwnMethod.js",
-            "default": "./isOwnMethod.ts"
-        },
-        "./isSubClassOf": {
-            "types": "./dist/isSubClassOf.d.ts",
-            "require": "./cjs/isSubClassOf.js",
-            "import": "./dist/isSubClassOf.js",
-            "default": "./isSubClassOf.ts"
-        },
-        "./isVoid": {
-            "types": "./dist/isVoid.d.ts",
-            "require": "./cjs/isVoid.js",
-            "import": "./dist/isVoid.js",
-            "default": "./isVoid.ts"
         },
         "./keysOf": {
             "types": "./dist/keysOf.d.ts",
@@ -108,53 +60,17 @@
             "import": "./dist/keysOf.js",
             "default": "./keysOf.ts"
         },
-        "./omit": {
-            "types": "./dist/omit.d.ts",
-            "require": "./cjs/omit.js",
-            "import": "./dist/omit.js",
-            "default": "./omit.ts"
-        },
         "./omitInvalid": {
             "types": "./dist/omitInvalid.d.ts",
             "require": "./cjs/omitInvalid.js",
             "import": "./dist/omitInvalid.js",
             "default": "./omitInvalid.ts"
         },
-        "./omitVoid": {
-            "types": "./dist/omitVoid.d.ts",
-            "require": "./cjs/omitVoid.js",
-            "import": "./dist/omitVoid.js",
-            "default": "./omitVoid.ts"
-        },
         "./patch": {
             "types": "./dist/patch.d.ts",
             "require": "./cjs/patch.js",
             "import": "./dist/patch.js",
             "default": "./patch.ts"
-        },
-        "./pick": {
-            "types": "./dist/pick.d.ts",
-            "require": "./cjs/pick.js",
-            "import": "./dist/pick.js",
-            "default": "./pick.ts"
-        },
-        "./rand": {
-            "types": "./dist/rand.d.ts",
-            "require": "./cjs/rand.js",
-            "import": "./dist/rand.js",
-            "default": "./rand.ts"
-        },
-        "./randStr": {
-            "types": "./dist/randStr.d.ts",
-            "require": "./cjs/randStr.js",
-            "import": "./dist/randStr.js",
-            "default": "./randStr.ts"
-        },
-        "./sleep": {
-            "types": "./dist/sleep.d.ts",
-            "require": "./cjs/sleep.js",
-            "import": "./dist/sleep.js",
-            "default": "./sleep.ts"
         },
         "./sort": {
             "types": "./dist/sort.d.ts",
@@ -180,12 +96,6 @@
             "import": "./dist/trim.js",
             "default": "./trim.ts"
         },
-        "./typeAs": {
-            "types": "./dist/typeAs.d.ts",
-            "require": "./cjs/typeAs.js",
-            "import": "./dist/typeAs.js",
-            "default": "./typeAs.ts"
-        },
         "./typeOf": {
             "types": "./dist/typeOf.d.ts",
             "require": "./cjs/typeOf.js",
@@ -197,24 +107,6 @@
             "require": "./cjs/types.js",
             "import": "./dist/types.js",
             "default": "./types.ts"
-        },
-        "./until": {
-            "types": "./dist/until.d.ts",
-            "require": "./cjs/until.js",
-            "import": "./dist/until.js",
-            "default": "./until.ts"
-        },
-        "./useThrottle": {
-            "types": "./dist/useThrottle.d.ts",
-            "require": "./cjs/useThrottle.js",
-            "import": "./dist/useThrottle.js",
-            "default": "./useThrottle.ts"
-        },
-        "./wrap": {
-            "types": "./dist/wrap.d.ts",
-            "require": "./cjs/wrap.js",
-            "import": "./dist/wrap.js",
-            "default": "./wrap.ts"
         }
     },
     "scripts": {
