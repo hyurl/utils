@@ -43,9 +43,6 @@
             "https://lib.deno.dev/x/ayonli_jsext@latest/throttle.ts": [
                 "@ayonli/jsext/throttle"
             ],
-            "https://lib.deno.dev/x/ayonli_jsext@latest/array/index.ts": [
-                "@ayonli/jsext/array"
-            ],
             "https://lib.deno.dev/x/ayonli_jsext@latest/number/index.ts": [
                 "@ayonli/jsext/number"
             ],
