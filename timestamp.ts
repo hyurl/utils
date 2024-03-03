@@ -3,7 +3,11 @@ import { isNumeric } from "https://lib.deno.dev/x/ayonli_jsext@latest/number/ind
 
 export default timestamp;
 
-/** Returns the current UNIX timestamp. */
+/**
+ * Returns the current UNIX timestamp.
+ * 
+ * @deprecated use [Day.js](https://day.js.org/) instead.
+ */
 function timestamp(ms?: boolean): number;
 /**
  * Returns the UNIX timestamp according the input date or time.
@@ -13,6 +17,8 @@ function timestamp(ms?: boolean): number;
  * which segments is used as arguments for `Date` constructor.
  * 
  * NOTE: if the input value is a number, it must be of milliseconds.
+ * 
+ * @deprecated use [Day.js](https://day.js.org/) instead.
  */
 function timestamp(input: string | number | Date, ms?: boolean): number;
 function timestamp(input: any, ms = false) {

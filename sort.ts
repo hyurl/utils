@@ -16,6 +16,8 @@ export default function sort<T>(arr: ArrayLike<T>, compare?: (a: T, b: T) => num
  * Creates a new object with sorted keys (in ascending order) of the original
  * object, if `deep` is set, the children nodes will be sorted as well.
  * Note: symbol keys are not sorted and remain their original order.
+ * 
+ * @deprecated use `sortKeys` from `@ayonli/jsext/object` instead.
  */
 export default function sort<T extends object>(obj: T, deep?: boolean): T;
 export default function sort(

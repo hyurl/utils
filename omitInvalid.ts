@@ -4,6 +4,9 @@ import isEmpty from "./isEmpty.ts";
 
 /**
  * Creates an object composed with only the valid properties and values.
+ * 
+ * @deprecated use `sanitize` from `@ayonli/jsext/object` instead.
+ * 
  * @param omitEmptyObjects If set, empty properties of type `object` will be
  *  removed as well.
  * @param omitEmptyStrings If set, empty properties of type `string` will be
@@ -18,7 +21,7 @@ export default function omitInvalid<T>(
     return doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, 0) as T;
 }
 
-export function doOmit<T extends any>(
+function doOmit<T extends any>(
     target: T,
     deep: boolean,
     omitEmptyObjects: boolean,

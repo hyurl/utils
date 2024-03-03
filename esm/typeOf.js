@@ -3,6 +3,8 @@ import { isValid } from 'https://lib.deno.dev/x/ayonli_jsext@latest/esm/object/i
 /**
  * Returns a string representation or the constructor of the value's type.
  * NOTE: this function also returns `'void'` when testing `NaN`.
+ *
+ * @deprecated use `typeOf` from `@ayonli/jsext/object` instead.
  */
 function typeOf(target) {
     if (arguments.length === 0)

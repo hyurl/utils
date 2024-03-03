@@ -4,6 +4,9 @@ import isEmpty from './isEmpty.js';
 
 /**
  * Creates an object composed with only the valid properties and values.
+ *
+ * @deprecated use `sanitize` from `@ayonli/jsext/object` instead.
+ *
  * @param omitEmptyObjects If set, empty properties of type `object` will be
  *  removed as well.
  * @param omitEmptyStrings If set, empty properties of type `string` will be
@@ -73,5 +76,5 @@ function doOmit(target, deep, omitEmptyObjects, omitEmptyStrings, depth) {
     }
 }
 
-export { omitInvalid as default, doOmit };
+export { omitInvalid as default };
 //# sourceMappingURL=omitInvalid.js.map

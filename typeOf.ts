@@ -14,6 +14,8 @@ export type TypeNames = "string"
 /**
  * Returns a string representation or the constructor of the value's type.
  * NOTE: this function also returns `'void'` when testing `NaN`.
+ * 
+ * @deprecated use `typeOf` from `@ayonli/jsext/object` instead.
  */
 export default function typeOf<T extends any>(
     target: T

@@ -26,6 +26,9 @@ type OmitChildrenElements<T> = Pick<T, {
  * Create an object with flatted properties of the original object, the children
  * nodes' properties will be transformed to a string-represented path.
  * NOTE: this function also flat array/array-like nodes (except for TypedArray).
+ * 
+ * @deprecated use `flatKeys` from `@ayonli/jsext/object` instead.
+ * 
  * @param depth Default value: `1`.
  * @example
  *  flatObject({ foo: { bar: "Hello, World!" } }) === { "foo.bar": "Hello, World!" }

@@ -2,24 +2,26 @@
 
 **Utility functions of HyURL collection.**
 
-This package currently contains the following functions, more functions may be
-included in the future. Each function is stored in a separated file.
+This package is no longer maintained, many functions has been either removed or deprecated,
+similar functions can be found in the standard JavaScript APIs or other libraries.
+
+Check out [@ayonli/jsext](https://github.com/ayonli/jsext) instead.
 
 - `count` [.ts](./count.ts)
 - `define` [.ts](./define.ts)
 - `diff` [.ts](./diff.ts)
 - `ensureType` [.ts](./ensureType.ts)
-- `flatObject` [.ts](./flatObject.ts)
-- `getGlobal` [.ts](./getGlobal.ts) *deprecated*
+- `flatObject` [.ts](./flatObject.ts) *deprecated: use `flatKeys` from `@ayonli/jsext/object` instead.*
+- `getGlobal` [.ts](./getGlobal.ts) *deprecated: use `globalThis` instead.*
 - `isEmpty` [.ts](./isEmpty.ts)
-- `keysOf` [.ts](./keysOf.ts) *deprecated*
-- `omitInvalid` [.ts](./omitInvalid.ts)
-- `patch` [.ts](./patch.ts) *deprecated*
-- `sort` [.ts](./sort.ts)
+- `keysOf` [.ts](./keysOf.ts) *deprecated: use `Reflect.ownKeys` instead.*
+- `omitInvalid` [.ts](./omitInvalid.ts) *deprecated: use `sanitize` from `@ayonli/jsext/object` instead.*
+- `patch` [.ts](./patch.ts) *deprecated: this function has design flaws.*
+- `sort` [.ts](./sort.ts) *deprecated: use `sortKeys` from `@ayonli/jsext/object` instead.*
 - `split` [.ts](./split.ts)
-- `timestamp` [.ts](./timestamp.ts)
-- `trim` [.ts](./trim.ts)
-- `typeOf` [.ts](./typeOf.ts)
+- `timestamp` [.ts](./timestamp.ts) *deprecated: use `Day.js` instead.*
+- `trim` [.ts](./trim.ts) *deprecated: use `String.prototype.trim` and `sanitize` from `@ayonli/jsext/object` instead.*
+- `typeOf` [.ts](./typeOf.ts) *deprecated: use `typeOf` from `@ayonli/jsext/object` instead.*
 
 ## Import
 

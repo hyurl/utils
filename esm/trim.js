@@ -4,6 +4,8 @@ import { ensureArray } from './ensureType.js';
 /**
  * Trims the leading and tailing spaces of a string, the string properties of
  * an object, or the string and object elements in an array.
+ *
+ * @deprecated use `String.prototype.trim` and `sanitize` from `@ayonli/jsext/object` instead.
  */
 function trim(target, deep = false) {
     if (typeof target === "string") {

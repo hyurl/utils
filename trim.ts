@@ -4,6 +4,8 @@ import { ensureArray } from "./ensureType.ts";
 /**
  * Trims the leading and tailing spaces of a string, the string properties of
  * an object, or the string and object elements in an array.
+ * 
+ * @deprecated use `String.prototype.trim` and `sanitize` from `@ayonli/jsext/object` instead.
  */
 export default function trim<T extends any>(target: T, deep = false): T extends string ? string : T {
     if (typeof target === "string") {
